@@ -2,9 +2,9 @@ import { IsEmail } from 'class-validator';
 
 export class UserDetailsQuery {
   @IsEmail()
-  readonly email: string;
+  readonly userId: string;
 
-  constructor(email: string) {
-    this.email = email;
+  constructor(userId: string) {
+    this.userId = userId;
   }
 }

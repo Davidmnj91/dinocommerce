@@ -1,4 +1,5 @@
 import { AuthType, Roles } from '@petrocommerce/events';
+import { ObjectID } from 'mongodb';
 import { Column, Entity } from 'typeorm';
 import { AbstractEntity } from '../../shared/base.entity';
 
@@ -20,10 +21,10 @@ export class User extends AbstractEntity {
   password: string;
 
   @Column()
-  role: Roles = 'USER';
+  role: Roles;
 
   @Column()
-  authType: AuthType = 'EMAIL';
+  authType: AuthType;
 
   constructor(
     userId: string,
@@ -35,7 +36,7 @@ export class User extends AbstractEntity {
     authType: AuthType
   ) {
     super();
-    this.userId = userId;
+    this.userId = userId || new ObjectID().toString();
     this.email = email;
     this.phone = phone;
     this.username = username;

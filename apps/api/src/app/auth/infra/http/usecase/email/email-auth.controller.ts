@@ -2,9 +2,8 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, Res, UseGuards 
 import { CommandBus } from '@nestjs/cqrs';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { EMAIL_PASSWORD_STRATEGY, JWT_STRATEGY } from '../../../../../shared/auth/auth.strategies';
 import { RegisterEmailCommand } from '../../../../app/commands/register-email/register-email.command';
-import { EMAIL_PASSWORD_STRATEGY } from '../../../../app/strategies/email-password.strategy';
-import { JWT_STRATEGY } from '../../../../app/strategies/jwt.strategy';
 import { LoginUserDto } from './login-email.dto';
 import { RegisterEmailDto } from './register-email.dto';
 

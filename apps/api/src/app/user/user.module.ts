@@ -5,11 +5,12 @@ import { CreateUserCommandHandler } from './app/commands/create/create-user.hand
 import { UserDetailsQueryHandler } from './app/queries/details/user-details.handler';
 import { User } from './domain/user.entity';
 import { UserService } from './domain/user.service';
+import { UserProfileController } from './infra/http/usecase/profile/profile.controller';
 
 const commandHandlers = [CreateUserCommandHandler];
 const queryHandlers = [UserDetailsQueryHandler];
 const eventHandlers = [];
-const controllers = [];
+const controllers = [UserProfileController];
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), CqrsModule],

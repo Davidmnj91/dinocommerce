@@ -3,11 +3,10 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-google-oauth20';
 import { GoogleConfig, GOOGLE_CONFIG } from '../../../config/google.config';
+import { GOOGLE_STRATEGY } from '../../../shared/auth/auth.strategies';
 import { AuthToken } from '../../domain/auth-token';
 import { AuthUser } from '../../domain/auth-user';
 import { AuthService } from '../../domain/auth.service';
-
-export const GOOGLE_STRATEGY = 'google';
 
 type GoogleProfile = {
   id: string;

@@ -1,10 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
+import { EMAIL_PASSWORD_STRATEGY } from '../../../shared/auth/auth.strategies';
 import { AuthUser } from '../../domain/auth-user';
 import { AuthService } from '../../domain/auth.service';
-
-export const EMAIL_PASSWORD_STRATEGY = 'email_password';
 
 @Injectable()
 export class EmailPasswordStrategy extends PassportStrategy(Strategy, EMAIL_PASSWORD_STRATEGY) {

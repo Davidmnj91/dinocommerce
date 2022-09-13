@@ -8,6 +8,7 @@ import { UserDetailsQuery } from '../../user/app/queries/details/user-details.qu
 import { User } from '../../user/domain/user.entity';
 import { AuthToken } from './auth-token';
 import { AuthUser } from './auth-user';
+import { InvalidAuthProviderException } from './exception/invalid-auth-provider.exception';
 import { UserNotFoundException } from './exception/user-not-found.exception';
 
 @Injectable()
@@ -25,13 +26,17 @@ export class AuthService {
       user = await this.createUser(authUser);
     }
 
+    if (user.authType !== authUser.authType) {
+      throw new InvalidAuthProviderException();
+    }
+
     const jwt = await this.buildJwt(authUser);
     return { ...authUser, ...jwt };
   }
 
   async validateUser(email: string, password: string): Promise<AuthUser & AuthToken> {
     const user = await this.queryBus.execute<UserDetailsQuery, UserDetailsDto>(new UserDetailsQuery(email));
-    if (user && (await this.passwordMatch(password, user))) {
+    if (user && user.authType === 'EMAIL' && (await this.passwordMatch(password, user))) {
       const authUser = new AuthUser(user.userId, user.username, user.email, user.password, user.authType, user.role);
       const jwt = await this.buildJwt(authUser);
       return { ...authUser, ...jwt };

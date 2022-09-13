@@ -8,9 +8,9 @@ export class UserDetailsQueryHandler implements IQueryHandler<UserDetailsQuery> 
   constructor(private domainService: UserService) {}
 
   async execute(query: UserDetailsQuery): Promise<UserDetailsDto> {
-    const { email } = query;
+    const { userId } = query;
 
-    const user = await this.domainService.findUserByEmail(email);
+    const user = await this.domainService.findUserById(userId);
 
     return new UserDetailsDto(
       user?.userId,
