@@ -2,6 +2,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { LoggerModule } from 'nestjs-pino';
 import { DataSource } from 'typeorm';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
@@ -17,6 +18,20 @@ import { UserModule } from './user/user.module';
       isGlobal: true,
       load: configurations,
       envFilePath: ['.env'],
+    }),
+    LoggerModule.forRoot({
+      pinoHttp: {
+        customProps: (req, res) => ({
+          context: 'HTTP',
+        }),
+        transport: {
+          target: 'pino-pretty',
+          options: {
+            colorize: true,
+            singleLine: true,
+          },
+        },
+      },
     }),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,

@@ -3,13 +3,13 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { useContainer } from 'class-validator';
-
+import { Logger as PinoLogger, LoggerErrorInterceptor } from 'nestjs-pino';
 import { AppModule } from './app/app.module';
 import { AppConfig, APP_CONFIG } from './app/config/app.config';
 import validationOptions from './app/shared/validation/validation-options';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule, { cors: true, bufferLogs: true });
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   const configService = app.get(ConfigService);
 
@@ -17,6 +17,10 @@ async function bootstrap() {
 
   const globalPrefix = appConfig.apiPrefix;
   app.enableShutdownHooks();
+  app.useLogger(app.get(PinoLogger));
+  app.flushLogs();
+
+  app.useGlobalInterceptors(new LoggerErrorInterceptor());
   app.setGlobalPrefix(globalPrefix);
 
   app.useGlobalPipes(new ValidationPipe(validationOptions));
