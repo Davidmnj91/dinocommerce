@@ -12,7 +12,7 @@ type GoogleProfile = {
   id: string;
   displayName: string;
   emails: Array<{ value: string }>;
-  picture: string;
+  photos: Array<{ value: string }>;
 };
 
 @Injectable()
@@ -27,8 +27,8 @@ export class GoogleStrategy extends PassportStrategy(Strategy, GOOGLE_STRATEGY) 
   }
 
   async validate(_accessToken: string, _refreshToken: string, profile: GoogleProfile): Promise<AuthUser & AuthToken> {
-    const { id, displayName, emails } = profile;
-    const authUser = new AuthUser(id, displayName, emails[0].value, '', 'GOOGLE', 'USER');
+    const { id, displayName, emails, photos } = profile;
+    const authUser = new AuthUser(id, displayName, emails[0].value, '', 'GOOGLE', 'USER', photos && photos[0].value);
     return await this.domainService.validateOAuthRequest(authUser);
   }
 }

@@ -15,6 +15,8 @@ export class UserDetailsDto {
 
   readonly role: Roles;
 
+  readonly profilePictureUrl?: string;
+
   constructor(
     userId: string,
     username: string,
@@ -22,7 +24,8 @@ export class UserDetailsDto {
     phone: string,
     password: string,
     authType: AuthType,
-    role: Roles
+    role: Roles,
+    profilePictureUrl?: string
   ) {
     this.userId = userId;
     this.username = username;
@@ -31,5 +34,6 @@ export class UserDetailsDto {
     this.password = password;
     this.authType = authType;
     this.role = role;
+    this.profilePictureUrl = profilePictureUrl;
   }
 }

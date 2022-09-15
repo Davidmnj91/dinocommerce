@@ -18,12 +18,23 @@ export class CreateUserCommand {
   @IsNotEmpty()
   readonly role: Roles;
 
-  constructor(userId: string, username: string, email: string, password: string, authType: AuthType, role: Roles) {
+  readonly profilePictureUrl?: string;
+
+  constructor(
+    userId: string,
+    username: string,
+    email: string,
+    password: string,
+    authType: AuthType,
+    role: Roles,
+    profilePictureUrl?: string
+  ) {
     this.userId = userId;
     this.username = username;
     this.email = email;
     this.password = password;
     this.authType = authType;
     this.role = role;
+    this.profilePictureUrl = profilePictureUrl;
   }
 }

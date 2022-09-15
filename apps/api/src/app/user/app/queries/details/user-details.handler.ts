@@ -19,7 +19,8 @@ export class UserDetailsQueryHandler implements IQueryHandler<UserDetailsQuery> 
       user?.phone,
       user?.password,
       user?.authType,
-      user?.role
+      user?.role,
+      user?.profilePictureUrl
     );
   }
 }

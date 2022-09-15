@@ -26,6 +26,9 @@ export class User extends AbstractEntity {
   @Property()
   authType: AuthType;
 
+  @Property({ nullable: true })
+  profilePictureUrl?: string;
+
   constructor(
     userId: string,
     email: string,
@@ -33,7 +36,8 @@ export class User extends AbstractEntity {
     username: string,
     password: string,
     role: Roles,
-    authType: AuthType
+    authType: AuthType,
+    profilePictureUrl?: string
   ) {
     super();
     this.userId = userId || new ObjectId().toString();
@@ -43,5 +47,6 @@ export class User extends AbstractEntity {
     this.password = password;
     this.role = role;
     this.authType = authType;
+    this.profilePictureUrl = profilePictureUrl;
   }
 }

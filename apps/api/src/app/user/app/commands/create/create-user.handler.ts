@@ -9,11 +9,11 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
   constructor(private domainService: UserService, private eventBus: EventBus) {}
 
   async execute(command: CreateUserCommand): Promise<User> {
-    const { userId, email, password, username, authType, role } = command;
+    const { userId, email, password, username, authType, role, profilePictureUrl } = command;
 
     await this.domainService.checkUserNotExists(email);
 
-    const user = new User(userId, email, '', username, password, role, authType);
+    const user = new User(userId, email, '', username, password, role, authType, profilePictureUrl);
 
     await this.domainService.saveUser(user);
 

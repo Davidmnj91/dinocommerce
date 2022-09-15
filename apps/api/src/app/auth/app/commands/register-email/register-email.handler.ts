@@ -12,8 +12,8 @@ export class RegisterEmailCommandHandler implements ICommandHandler<RegisterEmai
     const { email, password, username } = command;
 
     const hashedPassword = await hash(password, 10);
-
-    const authUser = new AuthUser('', username, email, hashedPassword, 'EMAIL', 'USER');
+    const profilePictureUrl = this.domainService.createRandomAvatarUrl(email);
+    const authUser = new AuthUser('', username, email, hashedPassword, 'EMAIL', 'USER', profilePictureUrl);
     this.domainService.createUser(authUser);
   }
 }

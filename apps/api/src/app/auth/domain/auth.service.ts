@@ -64,9 +64,14 @@ export class AuthService {
         authUser.email,
         authUser.password,
         authUser.authType,
-        authUser.role
+        authUser.role,
+        authUser.profilePictureUrl
       )
     );
+  }
+
+  createRandomAvatarUrl(seed: string): string {
+    return `https://avatars.dicebear.com/api/avataaars/${seed}.svg?mouth=smile&style=circle&eyes=happy&eyes=wink`;
   }
 
   private async buildJwt(authUser: AuthUser): Promise<AuthToken> {
