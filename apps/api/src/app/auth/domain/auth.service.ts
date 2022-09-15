@@ -9,6 +9,7 @@ import { User } from '../../user/domain/user.entity';
 import { AuthToken } from './auth-token';
 import { AuthUser } from './auth-user';
 import { InvalidAuthProviderException } from './exception/invalid-auth-provider.exception';
+import { InvalidPasswordException } from './exception/invalid-password.exception';
 import { UserNotFoundException } from './exception/user-not-found.exception';
 
 @Injectable()
@@ -27,21 +28,32 @@ export class AuthService {
     }
 
     if (user.authType !== authUser.authType) {
-      throw new InvalidAuthProviderException();
+      throw new InvalidAuthProviderException(authUser.authType);
     }
 
     const jwt = await this.buildJwt(authUser);
     return { ...authUser, ...jwt };
   }
 
-  async validateUser(email: string, password: string): Promise<AuthUser & AuthToken> {
-    const user = await this.queryBus.execute<UserDetailsQuery, UserDetailsDto>(new UserDetailsQuery(email));
-    if (user && user.authType === 'EMAIL' && (await this.passwordMatch(password, user))) {
-      const authUser = new AuthUser(user.userId, user.username, user.email, user.password, user.authType, user.role);
-      const jwt = await this.buildJwt(authUser);
-      return { ...authUser, ...jwt };
+  async validateEmailAuthLogin(email: string, password: string): Promise<AuthUser & AuthToken> {
+    let user: UserDetailsDto;
+    try {
+      user = await this.queryBus.execute<UserDetailsQuery, UserDetailsDto>(new UserDetailsQuery(email));
+    } catch (_) {
+      throw new UserNotFoundException(email);
     }
-    throw new UserNotFoundException();
+
+    if (user.authType !== 'EMAIL') {
+      throw new InvalidAuthProviderException(user.email, user.authType);
+    }
+
+    if (!(await this.passwordMatch(password, user))) {
+      throw new InvalidPasswordException();
+    }
+
+    const authUser = new AuthUser(user.userId, user.username, user.email, user.password, user.authType, user.role);
+    const jwt = await this.buildJwt(authUser);
+    return { ...authUser, ...jwt };
   }
 
   async createUser(authUser: AuthUser) {

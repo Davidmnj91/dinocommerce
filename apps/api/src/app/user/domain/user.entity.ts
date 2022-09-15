@@ -1,29 +1,29 @@
+import { Entity, Property } from '@mikro-orm/core';
+import { ObjectId } from '@mikro-orm/mongodb';
 import { AuthType, Roles } from '@petrocommerce/events';
-import { ObjectID } from 'mongodb';
-import { Column, Entity } from 'typeorm';
 import { AbstractEntity } from '../../shared/base.entity';
 
 @Entity()
 export class User extends AbstractEntity {
-  @Column()
+  @Property()
   userId: string;
 
-  @Column()
+  @Property()
   email: string;
 
-  @Column()
+  @Property()
   phone: string;
 
-  @Column()
+  @Property()
   username: string;
 
-  @Column()
+  @Property()
   password: string;
 
-  @Column()
+  @Property()
   role: Roles;
 
-  @Column()
+  @Property()
   authType: AuthType;
 
   constructor(
@@ -36,7 +36,7 @@ export class User extends AbstractEntity {
     authType: AuthType
   ) {
     super();
-    this.userId = userId || new ObjectID().toString();
+    this.userId = userId || new ObjectId().toString();
     this.email = email;
     this.phone = phone;
     this.username = username;

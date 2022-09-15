@@ -1,22 +1,21 @@
-import { AfterLoad, BaseEntity, CreateDateColumn, DeleteDateColumn, ObjectIdColumn, UpdateDateColumn } from 'typeorm';
+import { PrimaryKey, Property, SerializedPrimaryKey } from '@mikro-orm/core';
+import { ObjectId } from '@mikro-orm/mongodb';
 
-export abstract class AbstractEntity extends BaseEntity {
+export abstract class AbstractEntity {
   __entity?: string;
 
-  @ObjectIdColumn()
-  _id: string;
+  @PrimaryKey()
+  _id: ObjectId;
 
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
+  @SerializedPrimaryKey()
+  id: string;
 
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
+  @Property({ name: 'created_at' })
+  createdAt: Date = new Date();
 
-  @DeleteDateColumn({ name: 'deleted_at' })
-  deletedAt: Date;
+  @Property({ name: 'updated_at', onUpdate: () => new Date() })
+  updatedAt: Date = new Date();
 
-  @AfterLoad()
-  setEntityName() {
-    this.__entity = this.constructor.name;
-  }
+  @Property({ name: 'deleted_at', nullable: true })
+  deletedAt?: Date;
 }

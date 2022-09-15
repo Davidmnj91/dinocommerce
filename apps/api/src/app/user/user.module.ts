@@ -1,6 +1,6 @@
+import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { CreateUserCommandHandler } from './app/commands/create/create-user.handler';
 import { UserDetailsQueryHandler } from './app/queries/details/user-details.handler';
 import { User } from './domain/user.entity';
@@ -13,7 +13,7 @@ const eventHandlers = [];
 const controllers = [UserProfileController];
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), CqrsModule],
+  imports: [MikroOrmModule.forFeature([User]), CqrsModule],
   controllers: [...controllers],
   providers: [UserService, ...commandHandlers, ...queryHandlers, ...eventHandlers],
   exports: [UserService],

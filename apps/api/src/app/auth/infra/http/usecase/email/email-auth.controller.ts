@@ -2,6 +2,7 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, Res, UseGuards 
 import { CommandBus } from '@nestjs/cqrs';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Request, Response } from 'express';
 import { EMAIL_PASSWORD_STRATEGY, JWT_STRATEGY } from '../../../../../shared/auth/auth.strategies';
 import { RegisterEmailCommand } from '../../../../app/commands/register-email/register-email.command';
 import { LoginUserDto } from './login-email.dto';
@@ -32,8 +33,9 @@ export class EmailAuthUserController {
   @ApiOperation({ summary: 'Logout Current User' })
   @UseGuards(AuthGuard(JWT_STRATEGY))
   @Get('/logout')
-  logout(@Req() req, @Res() res) {
-    req.logout();
+  logout(@Req() req: Request, @Res() res: Response) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (req as any).logout();
     res.redirect('/');
   }
 }

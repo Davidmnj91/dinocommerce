@@ -6,6 +6,7 @@ import { useContainer } from 'class-validator';
 import { Logger as PinoLogger, LoggerErrorInterceptor } from 'nestjs-pino';
 import { AppModule } from './app/app.module';
 import { AppConfig, APP_CONFIG } from './app/config/app.config';
+import { DomainExceptionFilter } from './app/shared/exception/domain.exception';
 import validationOptions from './app/shared/validation/validation-options';
 
 async function bootstrap() {
@@ -22,7 +23,7 @@ async function bootstrap() {
 
   app.useGlobalInterceptors(new LoggerErrorInterceptor());
   app.setGlobalPrefix(globalPrefix);
-
+  app.useGlobalFilters(new DomainExceptionFilter());
   app.useGlobalPipes(new ValidationPipe(validationOptions));
 
   const options = new DocumentBuilder()

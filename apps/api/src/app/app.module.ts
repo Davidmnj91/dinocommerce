@@ -1,13 +1,12 @@
+import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerModule } from 'nestjs-pino';
-import { DataSource } from 'typeorm';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { configurations } from './config';
-import { TypeOrmConfigService } from './database/typeorm-config.service';
+import { MickroOrmConfigService } from './database/typeorm-config.service';
 import { MailConfigService } from './mail/mail-config.service';
 import { MailModule } from './mail/mail.module';
 import { UserModule } from './user/user.module';
@@ -33,12 +32,8 @@ import { UserModule } from './user/user.module';
         },
       },
     }),
-    TypeOrmModule.forRootAsync({
-      useClass: TypeOrmConfigService,
-      dataSourceFactory: async (options) => {
-        const dataSource = await new DataSource(options).initialize();
-        return dataSource;
-      },
+    MikroOrmModule.forRootAsync({
+      useClass: MickroOrmConfigService,
     }),
     MailerModule.forRootAsync({
       useClass: MailConfigService,
