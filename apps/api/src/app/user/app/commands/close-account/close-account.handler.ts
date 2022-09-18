@@ -1,10 +1,10 @@
-import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventBus, IInferredCommandHandler } from '@nestjs/cqrs';
 import { UserAccountClosedEvent } from '@petrocommerce/events';
 import { UserService } from '../../../domain/user.service';
 import { CloseUserAccountCommand } from './close-account.command';
 
 @CommandHandler(CloseUserAccountCommand)
-export class CloseUserAccountCommandHandler implements ICommandHandler<CloseUserAccountCommand> {
+export class CloseUserAccountCommandHandler implements IInferredCommandHandler<CloseUserAccountCommand> {
   constructor(private domainService: UserService, private eventBus: EventBus) {}
 
   async execute(command: CloseUserAccountCommand): Promise<void> {

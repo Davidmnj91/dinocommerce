@@ -3,7 +3,6 @@ import { QueryBus } from '@nestjs/cqrs';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JWT_STRATEGY } from '../../../../../shared/auth/auth.strategies';
-import { UserDetailsDto } from '../../../../app/queries/details/user-details.dto';
 import { UserDetailsQuery } from '../../../../app/queries/details/user-details.query';
 import { UserProfileDto } from './profile.dto';
 
@@ -23,7 +22,7 @@ export class UserProfileController {
   @Get()
   @HttpCode(HttpStatus.OK)
   async getProfile(@Request() req) {
-    const { username, email, phone, profilePictureUrl } = await this.queryBus.execute<UserDetailsQuery, UserDetailsDto>(
+    const { username, email, phone, profilePictureUrl } = await this.queryBus.execute(
       new UserDetailsQuery(req.user.id)
     );
 

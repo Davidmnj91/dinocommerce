@@ -8,8 +8,6 @@ export class UserRegisteredEventHandler implements IEventHandler<UserRegisteredE
 
   async handle(event: UserRegisteredEvent) {
     const { userId, username } = event;
-    this.commandBus.execute<SendRegistryConfirmationEmailCommand>(
-      new SendRegistryConfirmationEmailCommand(userId, username)
-    );
+    this.commandBus.execute(new SendRegistryConfirmationEmailCommand(userId, username));
   }
 }

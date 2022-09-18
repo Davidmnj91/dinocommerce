@@ -1,7 +1,9 @@
 import { AuthType, Roles } from '@petrocommerce/events';
 import { IsEmail, IsNotEmpty } from 'class-validator';
+import { Command } from '../../../../shared/cqrs';
+import { User } from '../../../domain/user.entity';
 
-export class CreateUserCommand {
+export class CreateUserCommand extends Command<User> {
   readonly userId: string;
 
   @IsNotEmpty()
@@ -29,6 +31,7 @@ export class CreateUserCommand {
     role: Roles,
     profilePictureUrl?: string
   ) {
+    super();
     this.userId = userId;
     this.username = username;
     this.email = email;

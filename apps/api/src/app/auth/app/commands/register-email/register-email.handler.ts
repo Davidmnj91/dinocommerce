@@ -1,11 +1,11 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, IInferredCommandHandler } from '@nestjs/cqrs';
 import { hash } from 'bcrypt';
 import { AuthUser } from '../../../domain/auth-user';
 import { AuthService } from '../../../domain/auth.service';
 import { RegisterEmailCommand } from './register-email.command';
 
 @CommandHandler(RegisterEmailCommand)
-export class RegisterEmailCommandHandler implements ICommandHandler<RegisterEmailCommand> {
+export class RegisterEmailCommandHandler implements IInferredCommandHandler<RegisterEmailCommand> {
   constructor(private domainService: AuthService) {}
 
   async execute(command: RegisterEmailCommand): Promise<void> {

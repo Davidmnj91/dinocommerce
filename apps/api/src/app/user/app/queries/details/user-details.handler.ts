@@ -1,10 +1,10 @@
-import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { IInferredQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { UserService } from '../../../domain/user.service';
 import { UserDetailsDto } from './user-details.dto';
 import { UserDetailsQuery } from './user-details.query';
 
 @QueryHandler(UserDetailsQuery)
-export class UserDetailsQueryHandler implements IQueryHandler<UserDetailsQuery> {
+export class UserDetailsQueryHandler implements IInferredQueryHandler<UserDetailsQuery> {
   constructor(private domainService: UserService) {}
 
   async execute(query: UserDetailsQuery): Promise<UserDetailsDto> {

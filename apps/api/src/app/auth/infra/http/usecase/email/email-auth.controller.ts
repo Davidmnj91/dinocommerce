@@ -33,7 +33,7 @@ export class EmailAuthUserController {
   @HttpCode(HttpStatus.OK)
   async register(@Body() registerEmail: RegisterEmailDto) {
     const { email, password, username } = registerEmail;
-    return await this.commandBus.execute<RegisterEmailCommand>(new RegisterEmailCommand(email, password, username));
+    return await this.commandBus.execute(new RegisterEmailCommand(email, password, username));
   }
 
   @ApiOperation({ summary: 'Logout Current User' })

@@ -5,7 +5,6 @@ import { compare } from 'bcrypt';
 import { CreateUserCommand } from '../../user/app/commands/create/create-user.command';
 import { UserDetailsDto } from '../../user/app/queries/details/user-details.dto';
 import { UserDetailsQuery } from '../../user/app/queries/details/user-details.query';
-import { User } from '../../user/domain/user.entity';
 import { AuthToken } from './auth-token';
 import { AuthUser } from './auth-user';
 import { InvalidAuthProviderException } from './exception/invalid-auth-provider.exception';
@@ -17,10 +16,10 @@ export class AuthService {
   constructor(private jwtService: JwtService, private queryBus: QueryBus, private commandBus: CommandBus) {}
 
   async validateOAuthRequest(authUser: AuthUser): Promise<AuthUser & AuthToken> {
-    let user;
+    let user: UserDetailsDto;
 
     try {
-      user = await this.queryBus.execute<UserDetailsQuery, UserDetailsDto>(new UserDetailsQuery(authUser.email));
+      user = await this.queryBus.execute(new UserDetailsQuery(authUser.email));
     } catch (err) {}
 
     if (!user) {
@@ -38,7 +37,7 @@ export class AuthService {
   async validateEmailAuthLogin(email: string, password: string): Promise<AuthUser & AuthToken> {
     let user: UserDetailsDto;
     try {
-      user = await this.queryBus.execute<UserDetailsQuery, UserDetailsDto>(new UserDetailsQuery(email));
+      user = await this.queryBus.execute(new UserDetailsQuery(email));
     } catch (_) {
       throw new UserNotFoundException(email);
     }
@@ -57,7 +56,7 @@ export class AuthService {
   }
 
   async createUser(authUser: AuthUser) {
-    return this.commandBus.execute<CreateUserCommand, User>(
+    return this.commandBus.execute(
       new CreateUserCommand(
         authUser.userId,
         authUser.username,

@@ -9,8 +9,6 @@ export class UserAccountClosedEventHandler implements IEventHandler<UserAccountC
   async handle(event: UserAccountClosedEvent) {
     const { email, username } = event;
 
-    this.commandBus.execute<SendUserAccountClosedConfirmationEmailCommand>(
-      new SendUserAccountClosedConfirmationEmailCommand(email, username)
-    );
+    this.commandBus.execute(new SendUserAccountClosedConfirmationEmailCommand(email, username));
   }
 }
