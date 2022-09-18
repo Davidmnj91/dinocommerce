@@ -3,9 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { useContainer } from 'class-validator';
+import * as cookieParser from 'cookie-parser';
 import { Logger as PinoLogger, LoggerErrorInterceptor } from 'nestjs-pino';
 import { AppModule } from './app/app.module';
 import { AppConfig, APP_CONFIG } from './app/config/app.config';
+import { AuthConfig, AUTH_CONFIG } from './app/config/auth.config';
 import { DomainExceptionFilter } from './app/shared/exception/domain.exception';
 import validationOptions from './app/shared/validation/validation-options';
 
@@ -15,6 +17,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
 
   const appConfig = configService.get<AppConfig>(APP_CONFIG);
+  const authConfig = configService.get<AuthConfig>(AUTH_CONFIG);
 
   const globalPrefix = appConfig.apiPrefix;
   app.enableShutdownHooks();
@@ -26,11 +29,14 @@ async function bootstrap() {
   app.useGlobalFilters(new DomainExceptionFilter());
   app.useGlobalPipes(new ValidationPipe(validationOptions));
 
+  app.use(cookieParser());
+
   const options = new DocumentBuilder()
     .setTitle('API')
     .setDescription('API docs')
     .setVersion('1.0')
     .addBearerAuth()
+    .addCookieAuth(authConfig.cookieName, { type: 'http' })
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
