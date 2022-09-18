@@ -1,9 +1,8 @@
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
-export class SendRegistryConfirmationEmailCommand {
+export class UserAccountClosedEvent {
   @IsEmail()
   readonly email: string;
-
   @IsNotEmpty()
   readonly username: string;
 

@@ -10,9 +10,9 @@ export class SendRegistryConfirmationEmailCommandHandler
   constructor(private domainService: MailService) {}
 
   async execute(command: SendRegistryConfirmationEmailCommand): Promise<void> {
-    const { userId, username } = command;
+    const { email, username } = command;
 
-    const mail = buildRegistryMailData({ to: userId, username });
+    const mail = buildRegistryMailData({ to: email, username });
     this.domainService.sendMail(mail);
   }
 }
