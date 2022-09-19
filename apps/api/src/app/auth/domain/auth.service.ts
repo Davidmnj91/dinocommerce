@@ -20,7 +20,8 @@ export class AuthService {
 
     try {
       user = await this.queryBus.execute(new UserDetailsQuery(authUser.email));
-    } catch (err) {}
+      // eslint-disable-next-line no-empty
+    } catch (ignore) {}
 
     if (!user) {
       user = await this.createUser(authUser);

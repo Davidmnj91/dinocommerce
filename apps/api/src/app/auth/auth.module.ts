@@ -10,8 +10,8 @@ import { EmailPasswordStrategy } from './app/strategies/email-password.strategy'
 import { GoogleStrategy } from './app/strategies/google.strategy';
 import { JwtStrategy } from './app/strategies/jwt.strategy';
 import { AuthService } from './domain/auth.service';
-import { EmailAuthUserController } from './infra/http/usecase/email/email-auth.controller';
-import { GoogleAuthUserController } from './infra/http/usecase/google/google-auth.controller';
+import { EmailAuthUserController } from './infra/http/usecase/email-auth/email-auth.controller';
+import { GoogleAuthUserController } from './infra/http/usecase/google-auth/google-auth.controller';
 
 const commandHandlers = [RegisterEmailCommandHandler];
 const queryHandlers = [];
