@@ -1,1 +1,1 @@
-export type AuthType = 'EMAIL' | 'GOOGLE';
+export type AuthType = 'EMAIL' | 'GOOGLE' | 'FACEBOOK' | 'MICROSOFT' | 'TWITTER';
