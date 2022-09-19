@@ -1,6 +1,11 @@
-import { PrimaryKey, Property, SerializedPrimaryKey } from '@mikro-orm/core';
+import { Filter, PrimaryKey, Property, SerializedPrimaryKey } from '@mikro-orm/core';
 import { ObjectId } from '@mikro-orm/mongodb';
 
+@Filter({
+  name: 'notDeleted',
+  cond: { deletedAt: { $eq: null } },
+  default: true,
+})
 export abstract class AbstractEntity {
   __entity?: string;
 

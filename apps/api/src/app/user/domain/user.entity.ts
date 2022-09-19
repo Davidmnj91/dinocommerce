@@ -30,6 +30,9 @@ export class User extends AbstractEntity {
   @Property({ nullable: true })
   profilePictureUrl?: string;
 
+  @Property()
+  emailSubscription: boolean;
+
   constructor(
     userId: string,
     email: string,
@@ -38,7 +41,8 @@ export class User extends AbstractEntity {
     password: string,
     role: Roles,
     authType: AuthType,
-    profilePictureUrl?: string
+    profilePictureUrl: string,
+    emailSubscription = true
   ) {
     super();
     this.userId = userId || new ObjectId().toString();
@@ -49,6 +53,11 @@ export class User extends AbstractEntity {
     this.role = role;
     this.authType = authType;
     this.profilePictureUrl = profilePictureUrl;
+    this.emailSubscription = emailSubscription;
+  }
+
+  changeMailSubscription(emailSubscription: boolean) {
+    this.emailSubscription = emailSubscription;
   }
 
   closeAccount() {
