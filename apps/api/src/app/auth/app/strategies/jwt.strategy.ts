@@ -5,6 +5,7 @@ import { Request } from 'express';
 import { ExtractJwt, JwtFromRequestFunction, Strategy } from 'passport-jwt';
 import { AuthConfig, AUTH_CONFIG } from '../../../config/auth.config';
 import { JWT_STRATEGY } from '../../../shared/auth/auth.strategies';
+import { AuthenticatedUser } from '../../../shared/auth/current-user.injector';
 
 type JwtPayload = { sub: string; role: string; iat: number; exp: number };
 
@@ -26,7 +27,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, JWT_STRATEGY) {
     });
   }
 
-  async validate(payload: JwtPayload) {
+  async validate(payload: JwtPayload): Promise<AuthenticatedUser> {
     return { id: payload.sub };
   }
 }

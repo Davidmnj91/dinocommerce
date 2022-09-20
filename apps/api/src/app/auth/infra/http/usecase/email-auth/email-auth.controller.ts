@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CommandBus } from '@nestjs/cqrs';
 import { AuthGuard } from '@nestjs/passport';
@@ -38,13 +38,14 @@ export class EmailAuthUserController {
 
   @ApiOperation({ summary: 'Logout Current User' })
   @UseGuards(AuthGuard(JWT_STRATEGY))
-  @Get('/logout')
-  logout(@Req() req: Request, @Res() res: Response) {
+  @Post('logout')
+  async logout(@Req() req: Request, @Res() res: Response) {
     const { cookieName } = this.configService.get<AuthConfig>(AUTH_CONFIG);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (req as any).logout();
-    res.clearCookie(cookieName);
-    res.redirect('/');
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    req.logout(() => {
+      res.clearCookie(cookieName);
+      res.redirect('/');
+    });
   }
 }

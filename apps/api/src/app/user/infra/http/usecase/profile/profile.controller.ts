@@ -1,8 +1,9 @@
-import { Controller, Get, HttpCode, HttpStatus, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JWT_STRATEGY } from '../../../../../shared/auth/auth.strategies';
+import { AuthenticatedUser, CurrentUser } from '../../../../../shared/auth/current-user.injector';
 import { UserDetailsQuery } from '../../../../app/queries/details/user-details.query';
 import { UserProfileDto } from './profile.dto';
 
@@ -21,10 +22,8 @@ export class UserProfileController {
   })
   @Get()
   @HttpCode(HttpStatus.OK)
-  async getProfile(@Request() req) {
-    const { username, email, phone, profilePictureUrl } = await this.queryBus.execute(
-      new UserDetailsQuery(req.user.id)
-    );
+  async getProfile(@CurrentUser() user: AuthenticatedUser) {
+    const { username, email, phone, profilePictureUrl } = await this.queryBus.execute(new UserDetailsQuery(user.id));
 
     return new UserProfileDto(username, email, phone, profilePictureUrl);
   }

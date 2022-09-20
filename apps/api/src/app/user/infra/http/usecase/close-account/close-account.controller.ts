@@ -1,8 +1,9 @@
-import { Controller, Delete, HttpCode, HttpStatus, Request, UseGuards } from '@nestjs/common';
+import { Controller, Delete, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JWT_STRATEGY } from '../../../../../shared/auth/auth.strategies';
+import { AuthenticatedUser, CurrentUser } from '../../../../../shared/auth/current-user.injector';
 import { CloseUserAccountCommand } from '../../../../app/commands/close-account/close-account.command';
 
 @ApiBearerAuth()
@@ -19,7 +20,7 @@ export class CloseUserAccountController {
   })
   @Delete()
   @HttpCode(HttpStatus.OK)
-  async closeUserAccount(@Request() req) {
-    return await this.commandBus.execute(new CloseUserAccountCommand(req.user.id));
+  async closeUserAccount(@CurrentUser() user: AuthenticatedUser) {
+    return await this.commandBus.execute(new CloseUserAccountCommand(user.id));
   }
 }
