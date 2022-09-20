@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { configurations } from './config';
 import { MickroOrmConfigService } from './database/typeorm-config.service';
+import { InventoryModule } from './inventory/inventory.module';
 import { MailConfigService } from './mail/mail-config.service';
 import { MailModule } from './mail/mail.module';
 import { UserModule } from './user/user.module';
@@ -41,6 +42,7 @@ import { UserModule } from './user/user.module';
     MailModule,
     AuthModule,
     UserModule,
+    InventoryModule,
   ],
   controllers: [AppController],
   providers: [],
