@@ -1,5 +1,5 @@
 import { CommandBus, EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { UserRegisteredEvent } from '@petrocommerce/events';
+import { UserRegisteredEvent } from '@dinocommerce/events';
 import { SendRegistryConfirmationEmailCommand } from '../../../../app/commands/send-registry-confirmation/send-registry-confirmation.command';
 
 @EventsHandler(UserRegisteredEvent)

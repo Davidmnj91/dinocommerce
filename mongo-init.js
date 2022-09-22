@@ -1,6 +1,6 @@
 const user = process.env.MONGO_USER || 'admin';
 const password = process.env.MONGO_PASSWORD || 'admin';
-const database = process.env.DATABASE_NAME || 'petrocommerce';
+const database = process.env.DATABASE_NAME || 'dinocommerce';
 
 db.createUser({
   user: user,

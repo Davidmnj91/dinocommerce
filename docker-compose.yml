@@ -6,16 +6,16 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DATABASE_USER:-admin}
       MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_PASS:-admin}
-      MONGO_INITDB_DATABASE: ${DATABASE_NAME:-petrocommerce}
+      MONGO_INITDB_DATABASE: ${DATABASE_NAME:-dinocommerce}
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo ${DATABASE_HOST:-localhost}:${DATABASE_PORT:-27017}/${DATABASE_NAME:-petrocommerce} --quiet
+      test: echo 'db.runCommand("ping").ok' | mongo ${DATABASE_HOST:-localhost}:${DATABASE_PORT:-27017}/${DATABASE_NAME:-dinocommerce} --quiet
       retries: 5
       interval: 15s
       start_period: 30s
     ports:
       - ${DATABASE_PORT:-27017}:27017
     volumes:
-      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+      - ./init-mongo/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
       - mongo-db:/data/db
 
   mongo-express:

@@ -1,5 +1,5 @@
 import { CommandBus, EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { UserAccountClosedEvent } from '@petrocommerce/events';
+import { UserAccountClosedEvent } from '@dinocommerce/events';
 import { SendUserAccountClosedConfirmationEmailCommand } from '../../../../app/commands/send-close-account-confirmation/send-close-account-confirmation.command';
 
 @EventsHandler(UserAccountClosedEvent)

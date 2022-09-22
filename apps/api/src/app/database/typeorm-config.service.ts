@@ -9,9 +9,10 @@ export class MickroOrmConfigService implements MikroOrmOptionsFactory {
 
   createMikroOrmOptions(): MikroOrmModuleOptions {
     const { host, port, username, password, database } = this.configService.get(DATABASE_CONFIG);
+    const url = `mongodb://${username}:${password}@${host}:${port}/${database}?authSource=admin`;
     return {
       type: 'mongo',
-      clientUrl: `mongodb://${username}:${password}@${host}:${port}/${database}`,
+      clientUrl: url,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       entitiesTs: [__dirname + '../../../**/*.entity{.ts,.js}'],
       migrations: {

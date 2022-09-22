@@ -1,4 +1,4 @@
-import { AuthType, Roles } from '@petrocommerce/events';
+import { AuthType, Roles } from '@dinocommerce/events';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import { Command } from '../../../../shared/cqrs';
 import { User } from '../../../domain/user.entity';

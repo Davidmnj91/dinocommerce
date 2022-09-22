@@ -15,7 +15,7 @@ export type RegistryMailProps = {
 
 export const buildRegistryMailData = (props: RegistryMailProps): RegistryEmailData => ({
   type: 'CONFIRM_REGISTRY',
-  subject: 'Welcome to PetroCommerce',
+  subject: 'Welcome to Dinocommerce',
   to: props.to,
   context: {
     username: props.username,

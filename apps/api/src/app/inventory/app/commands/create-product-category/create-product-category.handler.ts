@@ -1,5 +1,5 @@
 import { CommandHandler, EventBus, IInferredCommandHandler } from '@nestjs/cqrs';
-import { ProductCategoryCreatedEvent } from '@petrocommerce/events';
+import { ProductCategoryCreatedEvent } from '@dinocommerce/events';
 import { ProductCategory } from '../../../domain/product-category';
 import { ProductCategoryDomainService } from '../../../domain/product-category.service';
 import { CreateProductCategoryCommand } from './create-product-category.command';

@@ -15,7 +15,7 @@ export type AccountClosedMailProps = {
 
 export const buildAccountClosedMailData = (props: AccountClosedMailProps): AccountClosedEmailData => ({
   type: 'ACCOUNT_CLOSED',
-  subject: 'Sad you leave PetroCommerce',
+  subject: 'Sad you leave Dinocommerce',
   to: props.to,
   context: {
     username: props.username,

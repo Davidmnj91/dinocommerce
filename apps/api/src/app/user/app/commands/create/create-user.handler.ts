@@ -1,5 +1,5 @@
 import { CommandHandler, EventBus, IInferredCommandHandler } from '@nestjs/cqrs';
-import { UserRegisteredEvent } from '@petrocommerce/events';
+import { UserRegisteredEvent } from '@dinocommerce/events';
 import { User } from '../../../domain/user.entity';
 import { UserService } from '../../../domain/user.service';
 import { CreateUserCommand } from './create-user.command';

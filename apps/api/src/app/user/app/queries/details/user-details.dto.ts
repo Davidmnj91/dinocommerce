@@ -1,4 +1,4 @@
-import { AuthType, Roles } from '@petrocommerce/events';
+import { AuthType, Roles } from '@dinocommerce/events';
 
 export class UserDetailsDto {
   readonly userId: string;

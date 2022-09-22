@@ -1,5 +1,5 @@
 import { CommandHandler, EventBus, IInferredCommandHandler } from '@nestjs/cqrs';
-import { UserAccountClosedEvent } from '@petrocommerce/events';
+import { UserAccountClosedEvent } from '@dinocommerce/events';
 import { UserService } from '../../../domain/user.service';
 import { CloseUserAccountCommand } from './close-account.command';
 

@@ -1,6 +1,6 @@
 import { Entity, Property } from '@mikro-orm/core';
 import { ObjectId } from '@mikro-orm/mongodb';
-import { AuthType, Roles } from '@petrocommerce/events';
+import { AuthType, Roles } from '@dinocommerce/events';
 import { AbstractEntity } from '../../shared/base.entity';
 import { UserAlreadyDeletedException } from './exception/user-already-deleted.exception';
 
