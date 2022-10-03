@@ -12,8 +12,8 @@ export class CreateProductCategoryCommandHandler implements IInferredCommandHand
     const { name, description, parentId } = command;
 
     if (parentId) {
-      await this.domainService.assertProductCategoryByParentId(parentId);
-    }
+      await this.domainService.findProductCategoryById(parentId);
+    } 
 
     const productCategory = new ProductCategory(name, description, parentId);
 

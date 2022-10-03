@@ -14,7 +14,7 @@ import { UpdateProductCategoryDto } from './update-product-category.dto';
 export class UpdateProductCategoryController {
   constructor(private commandBus: CommandBus) {}
 
-  @ApiOperation({ summary: 'Update and existing Product category' })
+  @ApiOperation({ summary: 'Update an existing Product category' })
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
   async updateProductCategory(

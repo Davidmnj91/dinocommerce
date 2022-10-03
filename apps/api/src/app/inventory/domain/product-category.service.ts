@@ -11,6 +11,10 @@ export class ProductCategoryDomainService {
     @InjectRepository(ProductCategory) private productCategoryRepository: MongoEntityRepository<ProductCategory>
   ) {}
 
+  async findProdcutCategories(): Promise<ProductCategory[]> {
+    return await this.productCategoryRepository.findAll();
+  }
+
   async findProductCategoryById(id: string): Promise<ProductCategory> {
     return await this.productCategoryRepository.findOneOrFail(
       { id },

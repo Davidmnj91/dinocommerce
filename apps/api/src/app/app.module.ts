@@ -6,7 +6,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { configurations } from './config';
-import { MickroOrmConfigService } from './database/typeorm-config.service';
+import { MickroOrmConfigService } from './database/database-config.service';
 import { InventoryModule } from './inventory/inventory.module';
 import { MailConfigService } from './mail/mail-config.service';
 import { MailModule } from './mail/mail.module';
