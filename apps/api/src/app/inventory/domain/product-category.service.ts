@@ -1,5 +1,4 @@
-import { wrap } from '@mikro-orm/core';
-import { MongoEntityRepository, ObjectId } from '@mikro-orm/mongodb';
+import { EntityRepository, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { ProductCategoryNotFoundException } from './exception/product-category-not-found.exception';
@@ -8,7 +7,7 @@ import { ProductCategory } from './product-category';
 @Injectable()
 export class ProductCategoryDomainService {
   constructor(
-    @InjectRepository(ProductCategory) private productCategoryRepository: MongoEntityRepository<ProductCategory>
+    @InjectRepository(ProductCategory) private productCategoryRepository: EntityRepository<ProductCategory>
   ) {}
 
   async findProdcutCategories(): Promise<ProductCategory[]> {
@@ -24,7 +23,7 @@ export class ProductCategoryDomainService {
 
   async assertProductCategoryByParentId(parentId: string): Promise<void> {
     await this.productCategoryRepository.findOneOrFail(
-      { parentId: new ObjectId(parentId) },
+      { parentId: parentId },
       { failHandler: () => new ProductCategoryNotFoundException(parentId) }
     );
   }

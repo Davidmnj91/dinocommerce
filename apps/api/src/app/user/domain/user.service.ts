@@ -1,17 +1,24 @@
-import { MongoEntityRepository } from '@mikro-orm/mongodb';
+import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { UserAlreadyRegisteredException } from '../../auth/domain/exception/user-already-registered.exception';
 import { UserNotFoundException } from './exception/user-not-found.exception';
 import { User } from './user.entity';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(User) private userRepository: MongoEntityRepository<User>) {}
+  private logger = new Logger(UserService.name);
+
+  constructor(@InjectRepository(User) private userRepository: EntityRepository<User>) {}
 
   async findUserById(userId: string): Promise<User> {
-    const user = await this.userRepository.findOne({ $or: [{ email: userId }, { userId }] });
+    let user;
 
+    try {
+      user = await this.userRepository.findOne({ $or: [{ email: userId }, { userId }] });
+    } catch (error) {
+      this.logger.error(error);
+    }
     if (!user) {
       throw new UserNotFoundException(userId);
     }
@@ -26,6 +33,6 @@ export class UserService {
   }
 
   async saveUser(user: User): Promise<void> {
-    return await this.userRepository.persistAndFlush(user);
+    await this.userRepository.persistAndFlush(user);
   }
 }

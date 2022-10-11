@@ -1,5 +1,4 @@
 import { Entity, Index, Property } from '@mikro-orm/core';
-import { ObjectId } from '@mikro-orm/mongodb';
 import { AbstractEntity } from '../../shared/base.entity';
 import { Media } from './media';
 
@@ -20,11 +19,11 @@ export class Product extends AbstractEntity {
   @Property({ nullable: true })
   media: Media[];
 
-  @Property({ nullable: true })
+  @Property({ type: 'uuid', nullable: true })
   @Index()
-  parentId: ObjectId;
+  parentId: string;
 
-  constructor(name: string, description: string, price: number, stock: number, media: Media[], parentId: ObjectId) {
+  constructor(name: string, description: string, price: number, stock: number, media: Media[], parentId: string) {
     super();
     this.name = name;
     this.description = description;

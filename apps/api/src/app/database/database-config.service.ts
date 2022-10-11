@@ -1,5 +1,5 @@
 import { MikroOrmModuleOptions, MikroOrmOptionsFactory } from '@mikro-orm/nestjs';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DATABASE_CONFIG } from '../config/database.config';
 
@@ -8,16 +8,20 @@ export class MickroOrmConfigService implements MikroOrmOptionsFactory {
   constructor(private configService: ConfigService) {}
 
   createMikroOrmOptions(): MikroOrmModuleOptions {
+    const logger = new Logger('DATABASE');
+
     const { host, port, username, password, database } = this.configService.get(DATABASE_CONFIG);
-    const url = `mongodb://${username}:${password}@${host}:${port}/${database}?authSource=admin`;
+    const url = `postgresql://${username}:${password}@${host}:${port}/${database}`;
     return {
-      type: 'mongo',
+      type: 'postgresql',
       clientUrl: url,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      entitiesTs: [__dirname + '../../../**/*.entity{.ts,.js}'],
+      entitiesTs: [__dirname + '/**/*.entity{.ts,.js}'],
       migrations: {
         pathTs: __dirname + '/migrations/**/*{.ts,.js}',
       },
+      debug: true,
+      logger: (msg) => logger.log(msg),
       autoLoadEntities: true,
     };
   }

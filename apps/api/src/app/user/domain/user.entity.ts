@@ -1,6 +1,7 @@
-import { Entity, Property } from '@mikro-orm/core';
-import { ObjectId } from '@mikro-orm/mongodb';
 import { AuthType, Roles } from '@dinocommerce/events';
+import { Entity, Property } from '@mikro-orm/core';
+import { v4 } from 'uuid';
+import { StringType } from '../../database/types/auth-type.type';
 import { AbstractEntity } from '../../shared/base.entity';
 import { UserAlreadyDeletedException } from './exception/user-already-deleted.exception';
 
@@ -21,10 +22,10 @@ export class User extends AbstractEntity {
   @Property()
   password: string;
 
-  @Property()
+  @Property({ type: StringType<Roles> })
   role: Roles;
 
-  @Property()
+  @Property({ type: StringType<AuthType> })
   authType: AuthType;
 
   @Property({ nullable: true })
@@ -45,7 +46,7 @@ export class User extends AbstractEntity {
     emailSubscription = true
   ) {
     super();
-    this.userId = userId || new ObjectId().toString();
+    this.userId = userId || v4();
     this.email = email;
     this.phone = phone;
     this.username = username;
