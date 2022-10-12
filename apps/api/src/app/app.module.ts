@@ -1,7 +1,9 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
 import { LoggerModule } from 'nestjs-pino';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
@@ -11,7 +13,6 @@ import { InventoryModule } from './inventory/inventory.module';
 import { MailConfigService } from './mail/mail-config.service';
 import { MailModule } from './mail/mail.module';
 import { UserModule } from './user/user.module';
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -35,6 +36,13 @@ import { UserModule } from './user/user.module';
     }),
     MikroOrmModule.forRootAsync({
       useClass: MickroOrmConfigService,
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: 'schema.gql',
+      sortSchema: true,
+      debug: true,
+      context: ({ req }) => ({ req }),
     }),
     MailerModule.forRootAsync({
       useClass: MailConfigService,

@@ -7,7 +7,7 @@ import { AuthService } from '../../domain/auth.service';
 
 @Injectable()
 export class EmailPasswordStrategy extends PassportStrategy(Strategy, EMAIL_PASSWORD_STRATEGY) {
-  constructor(private readonly authService: AuthService) {
+  constructor(private authService: AuthService) {
     super({
       usernameField: 'email',
       passwordField: 'password',

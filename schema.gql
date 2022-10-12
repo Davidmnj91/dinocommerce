@@ -1,0 +1,46 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateProductCategoryInput {
+  description: String!
+  name: String!
+  parentId: String
+}
+
+type Mutation {
+  closeUserAccount: ID!
+  createProductCategory(productCategory: CreateProductCategoryInput!): ID!
+  unsubscribe: ID!
+  updateProductCategory(id: String!, productCategory: UpdateProductCategoryInput!): ID!
+}
+
+type ProductCategoriesListViewModel {
+  categories: [ProductCategoryViewModel!]!
+}
+
+type ProductCategoryViewModel {
+  children: [ProductCategoryViewModel!]
+  description: String!
+  id: String!
+  name: String!
+  parentId: String!
+}
+
+type Query {
+  getProductCategories: ProductCategoriesListViewModel!
+  getProfile: UserProfile!
+}
+
+input UpdateProductCategoryInput {
+  description: String!
+  name: String!
+  parentId: String
+}
+
+type UserProfile {
+  email: String!
+  phone: String!
+  profilePictureUrl: String
+  userName: String!
+}

@@ -1,15 +1,13 @@
 import { Controller, Get, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { JWT_STRATEGY } from '../../../../../shared/auth/auth.strategies';
-import { AuthenticatedUser, CurrentUser } from '../../../../../shared/auth/current-user.injector';
+import { AuthenticatedUser, CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
 import { UserDetailsQuery } from '../../../../app/queries/details/user-details.query';
 import { UserProfileDto } from './profile.dto';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(AuthGuard(JWT_STRATEGY))
+@UseGuards(PassportAuthGuard)
 @ApiTags('Users')
 @Controller({ path: 'users/profile' })
 export class UserProfileController {

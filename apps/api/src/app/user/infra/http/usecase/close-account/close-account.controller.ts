@@ -1,14 +1,12 @@
 import { Controller, Delete, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { JWT_STRATEGY } from '../../../../../shared/auth/auth.strategies';
-import { AuthenticatedUser, CurrentUser } from '../../../../../shared/auth/current-user.injector';
+import { AuthenticatedUser, CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
 import { CloseUserAccountCommand } from '../../../../app/commands/close-account/close-account.command';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(AuthGuard(JWT_STRATEGY))
+@UseGuards(PassportAuthGuard)
 @ApiTags('Users')
 @Controller({ path: 'users/close' })
 export class CloseUserAccountController {

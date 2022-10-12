@@ -2,9 +2,9 @@ import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { MicrosoftConfig, MICROSOFT_CONFIG } from 'apps/api/src/app/config/microsoft.config';
 import { Response } from 'express';
 import { AuthConfig, AUTH_CONFIG } from '../../../../../config/auth.config';
+import { MicrosoftConfig, MICROSOFT_CONFIG } from '../../../../../config/microsoft.config';
 import { MICROSOFT_STRATEGY } from '../../../../../shared/auth/auth.strategies';
 import { AuthToken } from '../../../../domain/auth-token';
 

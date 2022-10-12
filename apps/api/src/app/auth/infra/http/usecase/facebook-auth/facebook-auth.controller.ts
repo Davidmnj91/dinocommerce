@@ -2,9 +2,9 @@ import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { FacebookConfig, FACEBOOK_CONFIG } from 'apps/api/src/app/config/facebook.config';
 import { Response } from 'express';
 import { AuthConfig, AUTH_CONFIG } from '../../../../../config/auth.config';
+import { FacebookConfig, FACEBOOK_CONFIG } from '../../../../../config/facebook.config';
 import { FACEBOOK_STRATEGY } from '../../../../../shared/auth/auth.strategies';
 import { AuthToken } from '../../../../domain/auth-token';
 

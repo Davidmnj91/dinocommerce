@@ -1,7 +1,8 @@
+import { ProductCategoryUpdatedEvent } from '@dinocommerce/events';
 import { IsNotEmpty } from 'class-validator';
 import { Command } from '../../../../shared/cqrs';
 
-export class UpdateProductCategoryCommand extends Command<void> {
+export class UpdateProductCategoryCommand extends Command<ProductCategoryUpdatedEvent> {
   @IsNotEmpty()
   readonly id: string;
 
@@ -11,9 +12,9 @@ export class UpdateProductCategoryCommand extends Command<void> {
   @IsNotEmpty()
   readonly description: string;
 
-  readonly parentId: string;
+  readonly parentId?: string;
 
-  constructor(id: string, name: string, description: string, parentId: string) {
+  constructor(id: string, name: string, description: string, parentId?: string) {
     super();
     this.id = id;
     this.name = name;

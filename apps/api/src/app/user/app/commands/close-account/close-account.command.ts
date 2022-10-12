@@ -1,7 +1,8 @@
+import { UserAccountClosedEvent } from '@dinocommerce/events';
 import { IsNotEmpty } from 'class-validator';
 import { Command } from '../../../../shared/cqrs';
 
-export class CloseUserAccountCommand extends Command<void> {
+export class CloseUserAccountCommand extends Command<UserAccountClosedEvent> {
   @IsNotEmpty()
   readonly userId: string;
 

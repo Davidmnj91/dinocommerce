@@ -1,7 +1,8 @@
-import { Command } from 'apps/api/src/app/shared/cqrs';
+import { UserAccountUnsubscribedEvent } from '@dinocommerce/events';
 import { IsBoolean, IsNotEmpty } from 'class-validator';
+import { Command } from '../../../../shared/cqrs';
 
-export class ChangeEmailSubscriptionCommand extends Command<void> {
+export class ChangeEmailSubscriptionCommand extends Command<UserAccountUnsubscribedEvent> {
   @IsNotEmpty()
   readonly userId: string;
 

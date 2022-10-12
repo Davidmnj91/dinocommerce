@@ -1,14 +1,12 @@
 import { Controller, Get, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { JWT_STRATEGY } from 'apps/api/src/app/shared/auth/auth.strategies';
-import { AuthenticatedUser, CurrentUser } from '../../../../../shared/auth/current-user.injector';
+import { AuthenticatedUser, CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
 import { ChangeEmailSubscriptionCommand } from '../../../../app/commands/change-email-subscription/change-email.subscription.command';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(AuthGuard(JWT_STRATEGY))
+@UseGuards(PassportAuthGuard)
 @ApiTags('Users')
 @Controller({ path: 'users/unsubscribe' })
 export class UnsubscribeUserController {

@@ -1,14 +1,13 @@
 import { Body, Controller, HttpCode, HttpStatus, Param, Patch, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { JWT_STRATEGY } from '../../../../../shared/auth/auth.strategies';
+import { PassportAuthGuard } from '../../../../../shared/auth';
 import { UpdateProductCategoryCommand } from '../../../../app/commands/update-product-category/update-product-category.command';
 import { UpdateProductCategoryDto } from './update-product-category.dto';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(AuthGuard(JWT_STRATEGY))
+@UseGuards(PassportAuthGuard)
 @ApiTags('Inventory')
 @Controller('inventory/categories')
 export class UpdateProductCategoryController {
