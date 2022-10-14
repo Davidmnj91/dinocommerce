@@ -1,6 +1,17 @@
 import { Entity, Filter, PrimaryKey, Property } from '@mikro-orm/core';
 import { v4 } from 'uuid';
 
+type ExcludeFunctionPropertyNames<T> = Omit<
+  T,
+  {
+    [K in keyof T]: T[K] extends Function ? never : K;
+  }[keyof T]
+>;
+export type OwnEntityProps<T extends AbstractEntity> = Omit<
+  T,
+  keyof AbstractEntity | keyof ExcludeFunctionPropertyNames<T>
+>;
+
 @Entity({
   abstract: true,
 })

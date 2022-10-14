@@ -17,7 +17,7 @@ export class UpdateProductCategoryCommandHandler implements IInferredCommandHand
       await this.domainService.assertProductCategoryByParentId(parentId);
     }
 
-    const productCategory = new ProductCategory(name, description, parentId);
+    const productCategory = new ProductCategory({ name, description, parentId });
     const updated = await this.domainService.updateProductCategory(existingProductCategory, productCategory);
 
     const event = new ProductCategoryCreatedEvent(updated.id, updated.name);

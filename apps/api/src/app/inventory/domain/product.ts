@@ -1,5 +1,5 @@
-import { Entity, Index, Property } from '@mikro-orm/core';
-import { AbstractEntity } from '../../shared/base.entity';
+import { Cascade, Collection, Entity, Index, LoadStrategy, OneToMany, Property } from '@mikro-orm/core';
+import { AbstractEntity, OwnEntityProps } from '../../shared/database/base.entity';
 import { Media } from './media';
 
 @Entity()
@@ -11,25 +11,29 @@ export class Product extends AbstractEntity {
   description: string;
 
   @Property({ nullable: true })
-  price: number;
+  price?: number;
 
   @Property({ nullable: true })
-  stock: number;
+  stock?: number;
 
-  @Property({ nullable: true })
-  media: Media[];
+  @OneToMany(() => Media, (media) => media.product, {
+    nullable: true,
+    strategy: LoadStrategy.JOINED,
+    cascade: [Cascade.REMOVE],
+  })
+  media? = new Collection<Media>(this);
 
   @Property({ type: 'uuid', nullable: true })
   @Index()
-  parentId: string;
+  parentId?: string;
 
-  constructor(name: string, description: string, price: number, stock: number, media: Media[], parentId: string) {
+  constructor({ name, description, price, stock, media, parentId }: OwnEntityProps<Product>) {
     super();
     this.name = name;
     this.description = description;
     this.price = price;
     this.stock = stock;
-    this.media = media;
+    this.media.add(...media);
     this.parentId = parentId;
   }
 }

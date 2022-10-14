@@ -15,7 +15,7 @@ export class CreateProductCategoryCommandHandler implements IInferredCommandHand
       await this.domainService.findProductCategoryById(parentId);
     }
 
-    const productCategory = new ProductCategory(name, description, parentId);
+    const productCategory = new ProductCategory({ name, description, parentId });
     const saved = await this.domainService.saveProductCategory(productCategory);
 
     const event = new ProductCategoryCreatedEvent(saved.id, saved.name);

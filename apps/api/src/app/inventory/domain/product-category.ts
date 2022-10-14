@@ -1,5 +1,5 @@
 import { Entity, Index, Property } from '@mikro-orm/core';
-import { AbstractEntity } from '../../shared/base.entity';
+import { AbstractEntity, OwnEntityProps } from '../../shared/database/base.entity';
 
 @Entity()
 export class ProductCategory extends AbstractEntity {
@@ -13,7 +13,7 @@ export class ProductCategory extends AbstractEntity {
   @Index()
   parentId: string;
 
-  constructor(name: string, description: string, parentId?: string) {
+  constructor({ name, description, parentId }: OwnEntityProps<ProductCategory>) {
     super();
     this.name = name;
     this.description = description;

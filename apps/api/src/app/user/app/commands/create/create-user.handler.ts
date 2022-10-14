@@ -1,5 +1,5 @@
-import { CommandHandler, EventBus, IInferredCommandHandler } from '@nestjs/cqrs';
 import { UserRegisteredEvent } from '@dinocommerce/events';
+import { CommandHandler, EventBus, IInferredCommandHandler } from '@nestjs/cqrs';
 import { User } from '../../../domain/user.entity';
 import { UserService } from '../../../domain/user.service';
 import { CreateUserCommand } from './create-user.command';
@@ -13,7 +13,7 @@ export class CreateUserCommandHandler implements IInferredCommandHandler<CreateU
 
     await this.domainService.checkUserNotExists(email);
 
-    const user = new User(userId, email, '', username, password, role, authType, profilePictureUrl);
+    const user = new User({ userId, email, phone: '', username, password, role, authType, profilePictureUrl });
 
     await this.domainService.saveUser(user);
 

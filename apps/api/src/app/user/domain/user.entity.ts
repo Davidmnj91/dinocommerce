@@ -2,7 +2,7 @@ import { AuthType, Roles } from '@dinocommerce/events';
 import { Entity, Property } from '@mikro-orm/core';
 import { v4 } from 'uuid';
 import { StringType } from '../../database/types/auth-type.type';
-import { AbstractEntity } from '../../shared/base.entity';
+import { AbstractEntity, OwnEntityProps } from '../../shared/database/base.entity';
 import { UserAlreadyDeletedException } from './exception/user-already-deleted.exception';
 
 @Entity()
@@ -32,19 +32,19 @@ export class User extends AbstractEntity {
   profilePictureUrl?: string;
 
   @Property()
-  emailSubscription: boolean;
+  emailSubscription?: boolean;
 
-  constructor(
-    userId: string,
-    email: string,
-    phone: string,
-    username: string,
-    password: string,
-    role: Roles,
-    authType: AuthType,
-    profilePictureUrl: string,
-    emailSubscription = true
-  ) {
+  constructor({
+    userId,
+    email,
+    phone,
+    username,
+    password,
+    role,
+    authType,
+    profilePictureUrl,
+    emailSubscription = true,
+  }: OwnEntityProps<User>) {
     super();
     this.userId = userId || v4();
     this.email = email;
