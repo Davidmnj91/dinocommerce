@@ -8,7 +8,8 @@ import { ProductCategoriesListDto } from './product-categories-list.query-model'
 export class GetProductCategoriesQueryHanlder implements IInferredQueryHandler<GetProductCategoriesQuery> {
   constructor(private domainService: ProductCategoryDomainService) {}
 
-  async execute(): Promise<ProductCategoriesListDto> {
+  async execute(query: GetProductCategoriesQuery): Promise<ProductCategoriesListDto> {
+    const { productCategoryQuery } = query;
     const categories = await this.domainService.findProductCategories();
 
     const categoriesWithChildren = traverse(categories);

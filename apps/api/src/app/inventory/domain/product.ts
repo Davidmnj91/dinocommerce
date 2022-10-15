@@ -24,10 +24,11 @@ export class Product extends AbstractEntity {
   })
   media? = new Collection<Media>(this);
 
-  @Property({ type: 'uuid', nullable: true })
   @Index()
+  @Property({ type: 'uuid', nullable: true })
   parentId?: string;
 
+  @Index()
   @ManyToOne(() => ProductCategory, { nullable: true, mapToPk: true })
   categoryId?: string;
 

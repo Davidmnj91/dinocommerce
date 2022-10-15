@@ -9,8 +9,8 @@ export class ProductCategory extends AbstractEntity {
   @Property()
   description: string;
 
-  @Property({ type: 'uuid', nullable: true })
   @Index()
+  @Property({ type: 'uuid', nullable: true })
   parentId: string;
 
   constructor({ name, description, parentId }: OwnEntityProps<ProductCategory>) {

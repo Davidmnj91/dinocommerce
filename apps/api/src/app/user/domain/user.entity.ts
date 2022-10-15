@@ -5,9 +5,9 @@ import { StringType } from '../../database/types/auth-type.type';
 import { AbstractEntity, OwnEntityProps } from '../../shared/database/base.entity';
 import { UserAlreadyDeletedException } from './exception/user-already-deleted.exception';
 
-@Index({ name: 'userId_idx', properties: ['userId'] }) // simple index, with custom name
 @Entity()
 export class User extends AbstractEntity {
+  @Index()
   @Property()
   userId: string;
 

@@ -15,7 +15,7 @@ import { UpdateProductCategoryResolver } from './infra/graphql/update-category/u
 import { UpdateProductResolver } from './infra/graphql/update-product/update-product.resolver';
 import { CreateProductCategoryController } from './infra/http/usecase/create-category/create-product-category.controller';
 import { CreateProductController } from './infra/http/usecase/create-product/create-product.controller';
-import { GetProductCategoriesController } from './infra/http/usecase/get-categories/get-product-categories.controller';
+import { GetProductCategoriesController } from './infra/http/usecase/query-categories/get-product-categories.controller';
 import { UpdateProductCategoryController } from './infra/http/usecase/update-category/update-product-category.controller';
 import { UpdateProductController } from './infra/http/usecase/update-product/update-product.controller';
 
