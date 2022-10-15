@@ -1,5 +1,6 @@
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import { Command } from '../../../../shared/cqrs';
+import { OwnCommandProps } from '../../../../shared/cqrs/command';
 
 export class RegisterEmailCommand extends Command<void> {
   @IsEmail()
@@ -11,7 +12,7 @@ export class RegisterEmailCommand extends Command<void> {
   @IsNotEmpty()
   readonly username: string;
 
-  constructor(email: string, password: string, username: string) {
+  constructor({ email, password, username }: OwnCommandProps<RegisterEmailCommand>) {
     super();
     this.email = email;
     this.password = password;

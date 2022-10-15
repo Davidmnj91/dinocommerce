@@ -19,6 +19,6 @@ export class UnsubscribeUserController {
   @Get()
   @HttpCode(HttpStatus.OK)
   async unsubscribe(@CurrentUser() user: AuthenticatedUser) {
-    return await this.commandBus.execute(new ChangeEmailSubscriptionCommand(user.id, false));
+    return await this.commandBus.execute(new ChangeEmailSubscriptionCommand({ userId: user.id, subscribe: false }));
   }
 }

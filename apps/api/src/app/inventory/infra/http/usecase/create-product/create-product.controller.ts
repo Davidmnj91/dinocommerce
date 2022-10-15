@@ -17,8 +17,8 @@ export class CreateProductController {
   @Post()
   @HttpCode(HttpStatus.OK)
   async createProduct(@Body() product: CreateProductDto) {
-    const { name, description, price, stock, parentId } = product;
+    const { name, description, price, stock, parentId, categoryId } = product;
 
-    await this.commandBus.execute(new CreateProductCommand(name, description, price, stock, parentId));
+    await this.commandBus.execute(new CreateProductCommand({ name, description, price, stock, parentId, categoryId }));
   }
 }

@@ -8,10 +8,21 @@ input CreateProductCategoryInput {
   parentId: String
 }
 
+input CreateProductInput {
+  categoryId: String!
+  description: String!
+  name: String!
+  parentId: String!
+  price: Float!
+  stock: Float!
+}
+
 type Mutation {
   closeUserAccount: ID!
+  createProduct(product: CreateProductInput!): ID!
   createProductCategory(productCategory: CreateProductCategoryInput!): ID!
   unsubscribe: ID!
+  updateProduct(id: String!, product: UpdateProductInput!): ID!
   updateProductCategory(id: String!, productCategory: UpdateProductCategoryInput!): ID!
 }
 
@@ -36,6 +47,15 @@ input UpdateProductCategoryInput {
   description: String!
   name: String!
   parentId: String
+}
+
+input UpdateProductInput {
+  categoryId: String!
+  description: String!
+  name: String!
+  parentId: String!
+  price: Float!
+  stock: Float!
 }
 
 type UserProfile {

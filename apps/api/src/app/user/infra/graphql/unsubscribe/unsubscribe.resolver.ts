@@ -11,7 +11,9 @@ export class UnsubscribeUserResolver {
 
   @Mutation(() => ID)
   async unsubscribe(@CurrentUser() user: AuthenticatedUser) {
-    const { id } = await this.commandBus.execute(new ChangeEmailSubscriptionCommand(user.id, false));
+    const { id } = await this.commandBus.execute(
+      new ChangeEmailSubscriptionCommand({ userId: user.id, subscribe: false })
+    );
     return id;
   }
 }

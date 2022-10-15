@@ -1,13 +1,13 @@
 import { IsEmail } from 'class-validator';
-import { Query } from '../../../../shared/cqrs';
+import { OwnQueryProps, Query } from '../../../../shared/cqrs';
 import { UserDetailsDto } from './user-details.dto';
 
 export class UserDetailsQuery extends Query<UserDetailsDto> {
   @IsEmail()
-  readonly userId: string;
+  readonly userIdOrEmail: string;
 
-  constructor(userId: string) {
+  constructor({ userIdOrEmail }: OwnQueryProps<UserDetailsQuery>) {
     super();
-    this.userId = userId;
+    this.userIdOrEmail = userIdOrEmail;
   }
 }

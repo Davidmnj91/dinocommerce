@@ -18,7 +18,7 @@ export class UpdateProductCategoryResolver {
     const { name, description, parentId } = productCategory;
 
     const { id } = await this.commandBus.execute(
-      new UpdateProductCategoryCommand(productCategoryId, name, description, parentId)
+      new UpdateProductCategoryCommand({ productCategoryId, name, description, parentId })
     );
     return id;
   }

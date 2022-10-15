@@ -14,7 +14,7 @@ export class CreateProductCategoryResolver {
   async createProductCategory(@Args('productCategory') productCategory: CreateProductCategoryInput) {
     const { name, description, parentId } = productCategory;
 
-    const { id } = await this.commandBus.execute(new CreateProductCategoryCommand(name, description, parentId));
+    const { id } = await this.commandBus.execute(new CreateProductCategoryCommand({ name, description, parentId }));
     return id;
   }
 }

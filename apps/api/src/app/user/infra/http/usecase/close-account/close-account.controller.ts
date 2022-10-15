@@ -19,6 +19,6 @@ export class CloseUserAccountController {
   @Delete()
   @HttpCode(HttpStatus.OK)
   async closeUserAccount(@CurrentUser() user: AuthenticatedUser) {
-    return await this.commandBus.execute(new CloseUserAccountCommand(user.id));
+    return await this.commandBus.execute(new CloseUserAccountCommand({ userId: user.id }));
   }
 }

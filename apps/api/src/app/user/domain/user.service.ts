@@ -9,11 +9,11 @@ import { User } from './user.entity';
 export class UserService {
   constructor(@InjectRepository(User) private userRepository: EntityRepository<User>) {}
 
-  async findUserById(userId: string): Promise<User> {
-    const user = await this.userRepository.findOne({ $or: [{ email: userId }, { userId }] });
+  async findUserById(userIdOrEmail: string): Promise<User> {
+    const user = await this.userRepository.findOne({ $or: [{ email: userIdOrEmail }, { userId: userIdOrEmail }] });
 
     if (!user) {
-      throw new UserNotFoundException(userId);
+      throw new UserNotFoundException(userIdOrEmail);
     }
     return user;
   }

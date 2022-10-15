@@ -1,6 +1,6 @@
 import { AuthType, Roles } from '@dinocommerce/events';
 import { IsEmail, IsNotEmpty } from 'class-validator';
-import { Command } from '../../../../shared/cqrs';
+import { Command, OwnCommandProps } from '../../../../shared/cqrs';
 import { User } from '../../../domain/user.entity';
 
 export class CreateUserCommand extends Command<User> {
@@ -22,15 +22,15 @@ export class CreateUserCommand extends Command<User> {
 
   readonly profilePictureUrl?: string;
 
-  constructor(
-    userId: string,
-    username: string,
-    email: string,
-    password: string,
-    authType: AuthType,
-    role: Roles,
-    profilePictureUrl?: string
-  ) {
+  constructor({
+    userId,
+    username,
+    email,
+    password,
+    authType,
+    role,
+    profilePictureUrl,
+  }: OwnCommandProps<CreateUserCommand>) {
     super();
     this.userId = userId;
     this.username = username;

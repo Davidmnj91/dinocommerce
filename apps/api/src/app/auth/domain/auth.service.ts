@@ -19,7 +19,7 @@ export class AuthService {
     let user: UserDetailsDto;
 
     try {
-      user = await this.queryBus.execute(new UserDetailsQuery(authUser.email));
+      user = await this.queryBus.execute(new UserDetailsQuery({ userIdOrEmail: authUser.email }));
       // eslint-disable-next-line no-empty
     } catch (ignore) {}
 
@@ -38,7 +38,7 @@ export class AuthService {
   async validateEmailAuthLogin(email: string, password: string): Promise<AuthUser & AuthToken> {
     let user: UserDetailsDto;
     try {
-      user = await this.queryBus.execute(new UserDetailsQuery(email));
+      user = await this.queryBus.execute(new UserDetailsQuery({ userIdOrEmail: email }));
     } catch (_) {
       throw new UserNotFoundException(email);
     }
@@ -58,15 +58,15 @@ export class AuthService {
 
   async createUser(authUser: AuthUser) {
     return this.commandBus.execute(
-      new CreateUserCommand(
-        authUser.userId,
-        authUser.username,
-        authUser.email,
-        authUser.password,
-        authUser.authType,
-        authUser.role,
-        authUser.profilePictureUrl
-      )
+      new CreateUserCommand({
+        userId: authUser.userId,
+        username: authUser.username,
+        email: authUser.email,
+        password: authUser.password,
+        authType: authUser.authType,
+        role: authUser.role,
+        profilePictureUrl: authUser.profilePictureUrl,
+      })
     );
   }
 

@@ -22,6 +22,6 @@ export class UpdateProductCategoryController {
   ) {
     const { name, description, parentId } = productCategory;
 
-    await this.commandBus.execute(new UpdateProductCategoryCommand(productCategoryId, name, description, parentId));
+    await this.commandBus.execute(new UpdateProductCategoryCommand({ productCategoryId, name, description, parentId }));
   }
 }

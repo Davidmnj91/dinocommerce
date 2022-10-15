@@ -11,7 +11,7 @@ export class CloseUserAccountResolver {
 
   @Mutation(() => ID)
   async closeUserAccount(@CurrentUser() user: AuthenticatedUser) {
-    const { username } = await this.commandBus.execute(new CloseUserAccountCommand(user.id));
+    const { username } = await this.commandBus.execute(new CloseUserAccountCommand({ userId: user.id }));
     return username;
   }
 }

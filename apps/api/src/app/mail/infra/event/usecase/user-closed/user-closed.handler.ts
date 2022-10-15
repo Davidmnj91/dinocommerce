@@ -1,5 +1,5 @@
-import { CommandBus, EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { UserAccountClosedEvent } from '@dinocommerce/events';
+import { CommandBus, EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { SendUserAccountClosedConfirmationEmailCommand } from '../../../../app/commands/send-close-account-confirmation/send-close-account-confirmation.command';
 
 @EventsHandler(UserAccountClosedEvent)
@@ -9,6 +9,6 @@ export class UserAccountClosedEventHandler implements IEventHandler<UserAccountC
   async handle(event: UserAccountClosedEvent) {
     const { email, username } = event;
 
-    this.commandBus.execute(new SendUserAccountClosedConfirmationEmailCommand(email, username));
+    this.commandBus.execute(new SendUserAccountClosedConfirmationEmailCommand({ email, username }));
   }
 }

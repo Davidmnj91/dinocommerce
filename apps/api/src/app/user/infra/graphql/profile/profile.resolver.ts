@@ -12,7 +12,9 @@ export class UsersResolver {
 
   @Query(() => UserProfile)
   async getProfile(@CurrentUser() user: AuthenticatedUser): Promise<UserProfile> {
-    const { username, email, phone, profilePictureUrl } = await this.queryBus.execute(new UserDetailsQuery(user.id));
+    const { username, email, phone, profilePictureUrl } = await this.queryBus.execute(
+      new UserDetailsQuery({ userIdOrEmail: user.id })
+    );
 
     return new UserProfile(username, email, phone, profilePictureUrl);
   }

@@ -21,7 +21,9 @@ export class UserProfileController {
   @Get()
   @HttpCode(HttpStatus.OK)
   async getProfile(@CurrentUser() user: AuthenticatedUser) {
-    const { username, email, phone, profilePictureUrl } = await this.queryBus.execute(new UserDetailsQuery(user.id));
+    const { username, email, phone, profilePictureUrl } = await this.queryBus.execute(
+      new UserDetailsQuery({ userIdOrEmail: user.id })
+    );
 
     return new UserProfileDto(username, email, phone, profilePictureUrl);
   }

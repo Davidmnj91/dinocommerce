@@ -3,7 +3,7 @@ import { AuthType } from './common/auth-types';
 
 export class UserRegisteredEvent {
   @IsNotEmpty()
-  readonly userId: string;
+  readonly email: string;
 
   @IsNotEmpty()
   readonly username: string;
@@ -11,8 +11,8 @@ export class UserRegisteredEvent {
   @IsNotEmpty()
   readonly authType: AuthType;
 
-  constructor(userId: string, username: string, authType: AuthType) {
-    this.userId = userId;
+  constructor(email: string, username: string, authType: AuthType) {
+    this.email = email;
     this.username = username;
     this.authType = authType;
   }

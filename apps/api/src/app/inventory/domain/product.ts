@@ -1,6 +1,7 @@
-import { Cascade, Collection, Entity, Index, LoadStrategy, OneToMany, Property } from '@mikro-orm/core';
+import { Cascade, Collection, Entity, Index, LoadStrategy, ManyToOne, OneToMany, Property } from '@mikro-orm/core';
 import { AbstractEntity, OwnEntityProps } from '../../shared/database/base.entity';
 import { Media } from './media';
+import { ProductCategory } from './product-category';
 
 @Entity()
 export class Product extends AbstractEntity {
@@ -27,7 +28,10 @@ export class Product extends AbstractEntity {
   @Index()
   parentId?: string;
 
-  constructor({ name, description, price, stock, media, parentId }: OwnEntityProps<Product>) {
+  @ManyToOne(() => ProductCategory, { nullable: true, mapToPk: true })
+  categoryId?: string;
+
+  constructor({ name, description, price, stock, media, parentId, categoryId }: OwnEntityProps<Product>) {
     super();
     this.name = name;
     this.description = description;
@@ -35,5 +39,6 @@ export class Product extends AbstractEntity {
     this.stock = stock;
     this.media.add(...media);
     this.parentId = parentId;
+    this.categoryId = categoryId;
   }
 }

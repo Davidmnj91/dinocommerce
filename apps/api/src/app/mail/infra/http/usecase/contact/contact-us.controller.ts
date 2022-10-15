@@ -14,6 +14,6 @@ export class ContactUsController {
   @HttpCode(HttpStatus.OK)
   async contactUs(@Body() contactUs: ContactUsDto) {
     const { clientEmail, clientName, messageTitle, messageBody } = contactUs;
-    return this.commandBus.execute(new ContactUsCommand(clientEmail, clientName, messageTitle, messageBody));
+    return this.commandBus.execute(new ContactUsCommand({ clientEmail, clientName, messageTitle, messageBody }));
   }
 }

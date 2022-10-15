@@ -1,4 +1,4 @@
-import { ProductCategoryCreatedEvent, ProductCategoryUpdatedEvent } from '@dinocommerce/events';
+import { ProductCategoryUpdatedEvent } from '@dinocommerce/events';
 import { CommandHandler, EventBus, IInferredCommandHandler } from '@nestjs/cqrs';
 import { ProductCategory } from '../../../domain/product-category';
 import { ProductCategoryDomainService } from '../../../domain/product-category.service';
@@ -9,9 +9,9 @@ export class UpdateProductCategoryCommandHandler implements IInferredCommandHand
   constructor(private domainService: ProductCategoryDomainService, private eventBus: EventBus) {}
 
   async execute(command: UpdateProductCategoryCommand): Promise<ProductCategoryUpdatedEvent> {
-    const { id, name, description, parentId } = command;
+    const { productCategoryId, name, description, parentId } = command;
 
-    const existingProductCategory = await this.domainService.findProductCategoryById(id);
+    const existingProductCategory = await this.domainService.findProductCategoryById(productCategoryId);
 
     if (parentId) {
       await this.domainService.assertProductCategoryByParentId(parentId);
@@ -20,7 +20,7 @@ export class UpdateProductCategoryCommandHandler implements IInferredCommandHand
     const productCategory = new ProductCategory({ name, description, parentId });
     const updated = await this.domainService.updateProductCategory(existingProductCategory, productCategory);
 
-    const event = new ProductCategoryCreatedEvent(updated.id, updated.name);
+    const event = new ProductCategoryUpdatedEvent(updated.id, updated.name);
     this.eventBus.publish(event);
 
     return event;

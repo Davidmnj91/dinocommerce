@@ -8,9 +8,9 @@ export class UserDetailsQueryHandler implements IInferredQueryHandler<UserDetail
   constructor(private domainService: UserService) {}
 
   async execute(query: UserDetailsQuery): Promise<UserDetailsDto> {
-    const { userId } = query;
+    const { userIdOrEmail } = query;
 
-    const user = await this.domainService.findUserById(userId);
+    const user = await this.domainService.findUserById(userIdOrEmail);
 
     return new UserDetailsDto(
       user?.userId,

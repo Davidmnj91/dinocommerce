@@ -1,5 +1,6 @@
 import { Command } from 'apps/api/src/app/shared/cqrs';
 import { IsEmail, IsNotEmpty } from 'class-validator';
+import { OwnCommandProps } from '../../../../shared/cqrs/command';
 
 export class ContactUsCommand extends Command<void> {
   @IsEmail()
@@ -14,7 +15,7 @@ export class ContactUsCommand extends Command<void> {
   @IsNotEmpty()
   readonly messageBody: string;
 
-  constructor(clientEmail: string, clientName: string, messageTitle: string, messageBody: string) {
+  constructor({ clientEmail, clientName, messageTitle, messageBody }: OwnCommandProps<ContactUsCommand>) {
     super();
     this.clientEmail = clientEmail;
     this.clientName = clientName;

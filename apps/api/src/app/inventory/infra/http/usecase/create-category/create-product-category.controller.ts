@@ -19,6 +19,6 @@ export class CreateProductCategoryController {
   async createProductCategory(@Body() productCategory: CreateProductCategoryDto) {
     const { name, description, parentId } = productCategory;
 
-    await this.commandBus.execute(new CreateProductCategoryCommand(name, description, parentId));
+    await this.commandBus.execute(new CreateProductCategoryCommand({ name, description, parentId }));
   }
 }

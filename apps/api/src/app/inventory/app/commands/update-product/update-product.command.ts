@@ -1,9 +1,12 @@
-import { ProductCreatedEvent } from '@dinocommerce/events';
+import { ProductUpdatedEvent } from '@dinocommerce/events';
 import { IsNotEmpty } from 'class-validator';
 import { Command } from '../../../../shared/cqrs';
 import { OwnCommandProps } from '../../../../shared/cqrs/command';
 
-export class CreateProductCommand extends Command<ProductCreatedEvent> {
+export class UpdateProductCommand extends Command<ProductUpdatedEvent> {
+  @IsNotEmpty()
+  readonly productId: string;
+
   @IsNotEmpty()
   readonly name: string;
 
@@ -14,19 +17,25 @@ export class CreateProductCommand extends Command<ProductCreatedEvent> {
 
   readonly stock?: number;
 
-  readonly media?: any;
-
   readonly parentId?: string;
 
   readonly categoryId?: string;
 
-  constructor({ name, description, price, stock, media, parentId, categoryId }: OwnCommandProps<CreateProductCommand>) {
+  constructor({
+    productId,
+    name,
+    description,
+    price,
+    stock,
+    parentId,
+    categoryId,
+  }: OwnCommandProps<UpdateProductCommand>) {
     super();
+    this.productId = productId;
     this.name = name;
     this.description = description;
     this.price = price;
     this.stock = stock;
-    this.media = media;
     this.parentId = parentId;
     this.categoryId = categoryId;
   }

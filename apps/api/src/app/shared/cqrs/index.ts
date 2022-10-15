@@ -2,8 +2,8 @@ import { ICommandHandler, IQueryHandler } from '@nestjs/cqrs';
 import { Query } from './query';
 
 export * from '@nestjs/cqrs';
-export { Command } from './command';
-export { Query } from './query';
+export { Command, OwnCommandProps } from './command';
+export { OwnQueryProps, Query } from './query';
 
 import { Command } from './command';
 
