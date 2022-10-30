@@ -11,23 +11,29 @@ input CreateProductCategoryInput {
 input CreateProductInput {
   categoryId: String!
   description: String!
+
+  """test Category"""
   name: String!
   parentId: String!
   price: Float!
   stock: Float!
 }
 
+type MediaViewModel {
+  name: String!
+  position: Float!
+  type: String!
+  url: String!
+}
+
 type Mutation {
   closeUserAccount: ID!
   createProduct(product: CreateProductInput!): ID!
   createProductCategory(productCategory: CreateProductCategoryInput!): ID!
+  restockProduct(id: String!, restock: RestockProductInput!): ID!
   unsubscribe: ID!
   updateProduct(id: String!, product: UpdateProductInput!): ID!
   updateProductCategory(id: String!, productCategory: UpdateProductCategoryInput!): ID!
-}
-
-type ProductCategoriesListViewModel {
-  categories: [ProductCategoryViewModel!]!
 }
 
 type ProductCategoryViewModel {
@@ -38,9 +44,28 @@ type ProductCategoryViewModel {
   parentId: String!
 }
 
+type ProductViewModel {
+  children: [ProductViewModel!]
+  description: String!
+  id: String!
+  media: [MediaViewModel!]
+  name: String!
+  parentId: String!
+  price: Float!
+  stock: Float!
+}
+
 type Query {
-  getProductCategories: ProductCategoriesListViewModel!
+  getProduct(id: String!): ProductViewModel!
+  getProductCategories: ProductCategoryViewModel!
+  getProductCategory(id: String!): ProductCategoryViewModel!
+  getProducts: ProductViewModel!
+  getProductsByCategory(categoryId: String!): ProductViewModel!
   getProfile: UserProfile!
+}
+
+input RestockProductInput {
+  stock: Float!
 }
 
 input UpdateProductCategoryInput {

@@ -1,4 +1,4 @@
-import { ProductCategoryQueryModel } from "../common/prodcut-category.query-model";
+import { ProductCategoryQueryModel } from './prodcut-category.query-model';
 
 export class ProductCategoriesListDto {
   readonly categories: ProductCategoryQueryModel[];

@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { ProductCategoryViewModel } from './product-category.view-model';
+import { ProductCategoryViewModel } from '../common/models/product-category.view-model';
 
 @ObjectType()
 export class ProductCategoriesListViewModel {

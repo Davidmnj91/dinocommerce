@@ -3,7 +3,7 @@ import { IsNotEmpty } from 'class-validator';
 
 @InputType()
 export class CreateProductInput {
-  @Field()
+  @Field({ description: 'test Category' })
   @IsNotEmpty()
   name: string;
 

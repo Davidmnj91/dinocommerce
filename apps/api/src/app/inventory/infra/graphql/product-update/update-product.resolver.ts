@@ -2,7 +2,7 @@ import { UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { Args, ID, Mutation, Resolver } from '@nestjs/graphql';
 import { PassportAuthGuard } from '../../../../shared/auth';
-import { UpdateProductCommand } from '../../../app/commands/update-product/update-product.command';
+import { UpdateProductCommand } from '../../../app/commands/product-update/update-product.command';
 import { UpdateProductInput } from './update-product.input';
 
 @UseGuards(PassportAuthGuard)
