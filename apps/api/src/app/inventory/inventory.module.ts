@@ -26,6 +26,9 @@ import { GetProductResolver } from './infra/graphql/product-get/product-get.reso
 import { RestockProductResolver } from './infra/graphql/product-restock/restock-product.resolver';
 import { UpdateProductResolver } from './infra/graphql/product-update/update-product.resolver';
 import { GetProductsResolver } from './infra/graphql/products-list/products-get.resolver';
+import { UpdateProductCategoryController } from './infra/http/usecase/update-category/update-product-category.controller';
+import { UpdateProductController } from './infra/http/usecase/update-product/update-product.controller';
+
 const commandHandlers = [
   CreateProductCategoryCommandHandler,
   UpdateProductCategoryCommandHandler,
@@ -41,6 +44,7 @@ const queryHandlers = [
   GetProductByCategoryQueryQueryHandler,
 ];
 const eventHandlers = [];
+const controllers = [UpdateProductCategoryController, UpdateProductController];
 const resolvers = [
   CreateProductCategoryResolver,
   UpdateProductCategoryResolver,
@@ -56,6 +60,7 @@ const resolvers = [
 
 @Module({
   imports: [MikroOrmModule.forFeature([Product, ProductCategory]), CqrsModule],
+  controllers: [...controllers],
   providers: [
     ProductCategoryDomainService,
     ProductDomainService,
