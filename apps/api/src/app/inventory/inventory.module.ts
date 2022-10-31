@@ -16,18 +16,16 @@ import { Product } from './domain/product';
 import { ProductCategory } from './domain/product-category';
 import { ProductCategoryDomainService } from './domain/product-category.service';
 import { ProductDomainService } from './domain/product.service';
-import { GetProductCategoriesResolver } from './infra/graphql/product-categories-list/get-product-categories.resolver';
-import { CreateProductCategoryResolver } from './infra/graphql/product-category-create/create-product-category.resolver';
-import { GetProductCategoryResolver } from './infra/graphql/product-category-get/get-product-category.resolver';
-import { UpdateProductCategoryResolver } from './infra/graphql/product-category-update/update-product-category.resolver';
-import { CreateProductResolver } from './infra/graphql/product-create/create-product.resolver';
-import { GetProductsByCategoryIdResolver } from './infra/graphql/product-get-by-category/product-get.resolver';
-import { GetProductResolver } from './infra/graphql/product-get/product-get.resolver';
-import { RestockProductResolver } from './infra/graphql/product-restock/restock-product.resolver';
-import { UpdateProductResolver } from './infra/graphql/product-update/update-product.resolver';
-import { GetProductsResolver } from './infra/graphql/products-list/products-get.resolver';
-import { UpdateProductCategoryController } from './infra/http/usecase/update-category/update-product-category.controller';
-import { UpdateProductController } from './infra/http/usecase/update-product/update-product.controller';
+import { GetProductCategoriesController } from './infra/http/use-case/product-categories-list/get-product-categories.controller';
+import { CreateProductCategoryController } from './infra/http/use-case/product-category-create/create-product-category.controller';
+import { GetProductCategoryController } from './infra/http/use-case/product-category-get/get-product-category.controller';
+import { UpdateProductCategoryController } from './infra/http/use-case/product-category-update/update-product-category.controller';
+import { CreateProductController } from './infra/http/use-case/product-create/create-product.controller';
+import { GetProductsByCategoryIdController } from './infra/http/use-case/product-get-by-category/product-get.controller';
+import { GetProductController } from './infra/http/use-case/product-get/product-get.controller';
+import { RestockProductController } from './infra/http/use-case/product-restock/restock-product.controller';
+import { UpdateProductController } from './infra/http/use-case/product-update/update-product.controller';
+import { GetProductsController } from './infra/http/use-case/products-list/products-get.controller';
 
 const commandHandlers = [
   CreateProductCategoryCommandHandler,
@@ -44,18 +42,17 @@ const queryHandlers = [
   GetProductByCategoryQueryQueryHandler,
 ];
 const eventHandlers = [];
-const controllers = [UpdateProductCategoryController, UpdateProductController];
-const resolvers = [
-  CreateProductCategoryResolver,
-  UpdateProductCategoryResolver,
-  GetProductCategoriesResolver,
-  GetProductCategoryResolver,
-  CreateProductResolver,
-  UpdateProductResolver,
-  GetProductResolver,
-  GetProductsResolver,
-  GetProductsByCategoryIdResolver,
-  RestockProductResolver,
+const controllers = [
+  CreateProductCategoryController,
+  UpdateProductCategoryController,
+  GetProductCategoriesController,
+  GetProductCategoryController,
+  CreateProductController,
+  UpdateProductController,
+  GetProductController,
+  GetProductsController,
+  GetProductsByCategoryIdController,
+  RestockProductController,
 ];
 
 @Module({
@@ -65,7 +62,6 @@ const resolvers = [
     ProductCategoryDomainService,
     ProductDomainService,
     PassportAuthGuard,
-    ...resolvers,
     ...commandHandlers,
     ...queryHandlers,
     ...eventHandlers,

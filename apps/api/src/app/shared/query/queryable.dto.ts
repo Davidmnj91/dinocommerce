@@ -2,6 +2,7 @@ import { EntityRepository } from '@mikro-orm/postgresql';
 import { FilterExpression, withWhereClause } from './filter-builder/filter';
 import { OrderExpression, withOrderBy } from './order-builder/order';
 import { PaginationExpression, withPagination } from './pagination-builder/paginate';
+
 export type QueryExpression<T> = {
   where: FilterExpression<T>;
   sort: OrderExpression<T>;

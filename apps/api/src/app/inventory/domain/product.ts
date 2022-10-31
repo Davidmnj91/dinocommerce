@@ -21,6 +21,7 @@ export class Product extends AbstractEntity {
     nullable: true,
     strategy: LoadStrategy.JOINED,
     cascade: [Cascade.REMOVE],
+    eager: true,
   })
   media? = new Collection<Media>(this);
 
@@ -38,7 +39,9 @@ export class Product extends AbstractEntity {
     this.description = description;
     this.price = price;
     this.stock = stock;
-    this.media.add(...media);
+    if (media) {
+      this.media.add(...media);
+    }
     this.parentId = parentId;
     this.categoryId = categoryId;
   }

@@ -1,6 +1,8 @@
-import { EntityRepository, wrap } from '@mikro-orm/core';
+import { wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
+import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
+import { buildQuery, QueryExpression } from '../../shared/query/queryable.dto';
 import { ProductNotFoundException } from './exception/product-not-found.exception';
 import { Product } from './product';
 
@@ -8,8 +10,8 @@ import { Product } from './product';
 export class ProductDomainService {
   constructor(@InjectRepository(Product) private productRepository: EntityRepository<Product>) {}
 
-  async findProducts(): Promise<Product[]> {
-    return await this.productRepository.findAll();
+  async findProducts(query: QueryExpression<Product>): Promise<Product[]> {
+    return await buildQuery(this.productRepository, query);
   }
 
   async findProductById(id: string): Promise<Product> {

@@ -72,7 +72,7 @@ const buildWhere = <Entity extends object>(qb: QueryBuilder<Entity>, filtersExpr
         params[paramName] = filter.value;
         return `${field} <= :${paramName}`;
       default:
-        throw new Error(`Unknown filter operation: ${filter.type}`);
+        throw new Error(`Unknown filter operation: ${filter}`);
     }
   };
 

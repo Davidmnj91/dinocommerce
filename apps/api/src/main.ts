@@ -47,7 +47,6 @@ async function bootstrap() {
   await app.listen(port);
 
   Logger.log(`🚀 API Docs are running on: http://localhost:${port}/${apiDocPath}`);
-  Logger.log(`🚀 GraphQL Playground is running on: http://localhost:${port}/graphql`);
   Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
 }
 

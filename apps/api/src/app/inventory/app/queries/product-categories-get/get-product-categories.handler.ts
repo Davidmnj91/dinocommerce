@@ -1,18 +1,18 @@
 import { IInferredQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { traverse } from '../../../../shared/utils/traverse';
+import { plainToInstance } from 'class-transformer';
 import { ProductCategoryDomainService } from '../../../domain/product-category.service';
-import { ProductCategoriesListDto } from '../common/product-categories-list.query-model';
+import { ProductCategoryQueryModel } from '../common/prodcut-category.query-model';
 import { GetProductCategoriesQuery } from './get-product-categories.query';
 
 @QueryHandler(GetProductCategoriesQuery)
 export class GetProductCategoriesQueryHandler implements IInferredQueryHandler<GetProductCategoriesQuery> {
   constructor(private domainService: ProductCategoryDomainService) {}
 
-  async execute(query: GetProductCategoriesQuery): Promise<ProductCategoriesListDto> {
-    const categories = await this.domainService.findProductCategories();
+  async execute(query: GetProductCategoriesQuery): Promise<ProductCategoryQueryModel[]> {
+    const categories = await this.domainService.findProductCategories(query.query);
 
-    const categoriesWithChildren = traverse(categories);
+    const queryModel = plainToInstance(ProductCategoryQueryModel, categories);
 
-    return new ProductCategoriesListDto(categoriesWithChildren);
+    return queryModel;
   }
 }

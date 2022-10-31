@@ -17,7 +17,7 @@ export class GetProductQueryHandler implements IInferredQueryHandler<GetProductQ
       product.description,
       product.price,
       product.stock,
-      product.media.getItems().map((m) => new MediaQueryModel(m.type, m.name, m.url, m.position)),
+      product.media ? product.media.getItems()?.map((m) => new MediaQueryModel(m.type, m.name, m.url, m.position)) : [],
       product.parentId,
       product.categoryId
     );

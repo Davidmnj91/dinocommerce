@@ -9,7 +9,7 @@ export class GetProductsQueryHandler implements IInferredQueryHandler<GetProduct
   constructor(private domainService: ProductDomainService) {}
 
   async execute(query: GetProductsQuery): Promise<ProductQueryModel[]> {
-    const products = await this.domainService.findProducts();
+    const products = await this.domainService.findProducts(query.query);
 
     return products.map(
       (product) =>
