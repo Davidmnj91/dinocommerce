@@ -25,6 +25,7 @@ async function bootstrap() {
   app.flushLogs();
 
   app.useGlobalInterceptors(new LoggerErrorInterceptor());
+
   app.setGlobalPrefix(globalPrefix);
   app.useGlobalFilters(new DomainExceptionFilter());
   app.useGlobalPipes(new ValidationPipe(validationOptions));

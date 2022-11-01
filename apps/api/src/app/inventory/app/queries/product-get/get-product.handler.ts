@@ -1,6 +1,6 @@
 import { IInferredQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { plainToInstance } from 'class-transformer';
 import { ProductDomainService } from '../../../domain/product.service';
-import { MediaQueryModel } from '../common/media.query.model';
 import { ProductQueryModel } from '../common/product.query.model';
 import { GetProductQuery } from './get-product.query';
 
@@ -12,14 +12,6 @@ export class GetProductQueryHandler implements IInferredQueryHandler<GetProductQ
     const { id } = query;
     const product = await this.domainService.findProductById(id);
 
-    return new ProductQueryModel(
-      product.name,
-      product.description,
-      product.price,
-      product.stock,
-      product.media ? product.media.getItems()?.map((m) => new MediaQueryModel(m.type, m.name, m.url, m.position)) : [],
-      product.parentId,
-      product.categoryId
-    );
+    return plainToInstance(ProductQueryModel, product, { excludeExtraneousValues: true });
   }
 }

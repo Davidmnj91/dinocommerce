@@ -7,7 +7,7 @@ import { CreateProductDto } from './create-product.request-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
+@UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
 @ApiTags('Inventory')
 @Controller('inventory/products')
 export class CreateProductController {

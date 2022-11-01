@@ -7,7 +7,7 @@ import { RestockProductRequestModel } from './restock-product.request-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
+@UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
 @ApiTags('Inventory')
 @Controller('inventory/categories')
 export class RestockProductController {

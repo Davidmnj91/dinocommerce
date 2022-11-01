@@ -3,11 +3,12 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { ExtractJwt, JwtFromRequestFunction, Strategy } from 'passport-jwt';
+import { Roles } from '../../../../../../../libs/events/src';
 import { AuthConfig, AUTH_CONFIG } from '../../../config/auth.config';
 import { JWT_STRATEGY } from '../../../shared/auth/auth.strategies';
 import { AuthenticatedUser } from '../../../shared/auth/current-user.injector';
 
-type JwtPayload = { sub: string; role: string; iat: number; exp: number };
+type JwtPayload = { sub: string; role: Roles; iat: number; exp: number };
 
 const extractJwtFromCookie =
   (cookieName: string): JwtFromRequestFunction =>
@@ -28,6 +29,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, JWT_STRATEGY) {
   }
 
   async validate(payload: JwtPayload): Promise<AuthenticatedUser> {
-    return { id: payload.sub };
+    return { id: payload.sub, role: payload.role };
   }
 }

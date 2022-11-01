@@ -7,7 +7,7 @@ import { CreateProductCategoryRequestModel } from './create-product-category.req
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
+@UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
 @ApiTags('Inventory')
 @Controller('inventory/categories')
 export class CreateProductCategoryController {

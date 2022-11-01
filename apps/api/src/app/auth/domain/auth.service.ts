@@ -75,7 +75,7 @@ export class AuthService {
   }
 
   private async buildJwt(authUser: AuthUser): Promise<AuthToken> {
-    const token = this.jwtService.sign({ sub: authUser.userId });
+    const token = this.jwtService.sign({ sub: authUser.userId, role: authUser.role });
     return new AuthToken(token);
   }
 

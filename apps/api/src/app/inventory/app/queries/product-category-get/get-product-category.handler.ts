@@ -1,4 +1,5 @@
 import { IInferredQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { plainToInstance } from 'class-transformer';
 import { ProductCategoryDomainService } from '../../../domain/product-category.service';
 import { ProductCategoryQueryModel } from '../common/prodcut-category.query-model';
 import { GetProductCategoryQuery } from './get-product-category.query';
@@ -11,6 +12,6 @@ export class GetProductCategoryQueryHandler implements IInferredQueryHandler<Get
     const { id } = query;
     const category = await this.domainService.findProductCategoryById(id);
 
-    return new ProductCategoryQueryModel(category.id, category.name, category.description, category.parentId);
+    return plainToInstance(ProductCategoryQueryModel, category, { excludeExtraneousValues: true });
   }
 }

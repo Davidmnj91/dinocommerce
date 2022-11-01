@@ -8,7 +8,7 @@ import { ProductViewModel } from '../../common/models/product.view-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
+@UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
 @ApiTags('Inventory')
 @Controller('inventory/products')
 export class GetProductsByCategoryIdController {

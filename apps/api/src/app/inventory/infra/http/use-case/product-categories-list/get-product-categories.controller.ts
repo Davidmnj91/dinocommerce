@@ -3,15 +3,13 @@ import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { plainToInstance } from 'class-transformer';
 import { PassportAuthGuard } from '../../../../../shared/auth';
-import { OwnEntityProps } from '../../../../../shared/database/base.entity';
-import { QueryExpression } from '../../../../../shared/query/queryable.dto';
 import { GetProductCategoriesQuery } from '../../../../app/queries/product-categories-get/get-product-categories.query';
-import { ProductCategory } from '../../../../domain/product-category';
 import { ProductCategoryViewModel } from '../../common/models/product-category.view-model';
+import { QueryProductCategoriesRequestModel } from './product-category.request-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
+@UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
 @ApiTags('Inventory')
 @Controller('inventory/categories')
 export class GetProductCategoriesController {
@@ -25,10 +23,8 @@ export class GetProductCategoriesController {
   })
   @Post('query') // Until HTTP Query method is supported
   @HttpCode(HttpStatus.OK)
-  async getProductCategories(
-    @Body() query: QueryExpression<OwnEntityProps<ProductCategory>>
-  ): Promise<ProductCategoryViewModel[]> {
+  async getProductCategories(@Body() query: QueryProductCategoriesRequestModel): Promise<ProductCategoryViewModel[]> {
     const queryModel = await this.queryBus.execute(new GetProductCategoriesQuery(query));
-    return plainToInstance(ProductCategoryViewModel, queryModel);
+    return plainToInstance(ProductCategoryViewModel, queryModel, { excludeExtraneousValues: true });
   }
 }

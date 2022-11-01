@@ -1,12 +1,20 @@
+import { Expose } from 'class-transformer';
 import { MediaQueryModel } from './media.query.model';
 
 export class ProductQueryModel {
+  @Expose()
   readonly name: string;
+  @Expose()
   readonly description: string;
+  @Expose()
   readonly price?: number;
+  @Expose()
   readonly stock?: number;
+  @Expose()
   readonly media?: MediaQueryModel[];
+  @Expose()
   readonly parentId?: string;
+  @Expose()
   readonly categoryId?: string;
 
   constructor(

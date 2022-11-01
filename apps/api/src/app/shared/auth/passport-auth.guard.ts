@@ -7,7 +7,7 @@ import { resolveRequest } from './request.resolver';
 
 @Injectable()
 export class PassportAuthGuard extends AuthGuard(JWT_STRATEGY) {
-  _roles: Roles[] = ['USER'];
+  _roles: Roles[] = [];
 
   constructor(roles?: Roles | Roles[]) {
     super();
@@ -18,7 +18,9 @@ export class PassportAuthGuard extends AuthGuard(JWT_STRATEGY) {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     await super.canActivate(context);
-    return true;
+
+    const { user } = this.getRequest(context);
+    return !this._roles.length || this._roles.some((role) => role === user.role);
   }
 
   getRequest(context: ExecutionContext) {

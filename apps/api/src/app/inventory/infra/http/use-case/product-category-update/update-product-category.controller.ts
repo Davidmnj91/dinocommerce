@@ -7,7 +7,7 @@ import { UpdateProductCategoryRequestModel } from './update-product-category.req
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
+@UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
 @ApiTags('Inventory')
 @Controller('inventory/categories')
 export class UpdateProductCategoryController {

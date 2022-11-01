@@ -11,8 +11,6 @@ export class GetProductCategoriesQueryHandler implements IInferredQueryHandler<G
   async execute(query: GetProductCategoriesQuery): Promise<ProductCategoryQueryModel[]> {
     const categories = await this.domainService.findProductCategories(query.query);
 
-    const queryModel = plainToInstance(ProductCategoryQueryModel, categories);
-
-    return queryModel;
+    return plainToInstance(ProductCategoryQueryModel, categories);
   }
 }
