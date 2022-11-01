@@ -1,6 +1,7 @@
+import { QueryExpression } from '@dinocommerce/server-api';
+
 import { Query } from '../../../../shared/cqrs';
 import { OwnEntityProps } from '../../../../shared/database/base.entity';
-import { QueryExpression } from '../../../../shared/query/queryable.dto';
 import { ProductCategory } from '../../../domain/product-category';
 import { ProductQueryModel } from '../common/product.query.model';
 

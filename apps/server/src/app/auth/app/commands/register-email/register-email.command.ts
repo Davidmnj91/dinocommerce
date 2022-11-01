@@ -1,4 +1,8 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+} from 'class-validator';
+
 import { Command } from '../../../../shared/cqrs';
 import { OwnCommandProps } from '../../../../shared/cqrs/command';
 

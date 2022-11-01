@@ -1,8 +1,26 @@
-import { Body, Controller, HttpCode, HttpStatus, Param, Patch, UseGuards } from '@nestjs/common';
+import { ProductCategoriesUpdateApi } from '@dinocommerce/server-api';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+
 import { PassportAuthGuard } from '../../../../../shared/auth';
-import { UpdateProductCategoryCommand } from '../../../../app/commands/product-category-update/update-product-category.command';
+import {
+  UpdateProductCategoryCommand,
+} from '../../../../app/commands/product-category-update/update-product-category.command';
 import { UpdateProductCategoryRequestModel } from './update-product-category.request-model';
 
 @ApiBearerAuth()
@@ -10,7 +28,7 @@ import { UpdateProductCategoryRequestModel } from './update-product-category.req
 @UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
 @ApiTags('Inventory')
 @Controller('inventory/categories')
-export class UpdateProductCategoryController {
+export class UpdateProductCategoryController implements ProductCategoriesUpdateApi {
   constructor(private commandBus: CommandBus) {}
 
   @ApiOperation({ summary: 'Update an existing Product category' })

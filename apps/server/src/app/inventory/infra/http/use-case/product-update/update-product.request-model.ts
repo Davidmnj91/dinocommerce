@@ -1,7 +1,9 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
-export class UpdateProductRequestModel {
+import { UpdateProductRequest } from '@dinocommerce/server-api';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class UpdateProductRequestModel implements UpdateProductRequest {
   @ApiProperty({ example: 'Product 1' })
   @IsNotEmpty()
   name: string;

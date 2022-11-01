@@ -1,6 +1,22 @@
-import { Body, Controller, HttpCode, HttpStatus, Param, Patch, UseGuards } from '@nestjs/common';
+import { ProductRestockApi } from '@dinocommerce/server-api';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+
 import { PassportAuthGuard } from '../../../../../shared/auth';
 import { RestockProductCommand } from '../../../../app/commands/product-restock/restock-product.command';
 import { RestockProductRequestModel } from './restock-product.request-model';
@@ -10,7 +26,7 @@ import { RestockProductRequestModel } from './restock-product.request-model';
 @UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
 @ApiTags('Inventory')
 @Controller('inventory/categories')
-export class RestockProductController {
+export class RestockProductController implements ProductRestockApi {
   constructor(private commandBus: CommandBus) {}
 
   @ApiOperation({ summary: 'Update stock on a given product id' })

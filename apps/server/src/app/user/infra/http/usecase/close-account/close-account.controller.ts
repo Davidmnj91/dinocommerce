@@ -1,7 +1,24 @@
-import { Controller, Delete, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
+import { CloseAccountApi } from '@dinocommerce/server-api';
+import {
+  Controller,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  UseGuards,
+} from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AuthenticatedUser, CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
+import {
+  ApiBearerAuth,
+  ApiCookieAuth,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+
+import {
+  AuthenticatedUser,
+  CurrentUser,
+  PassportAuthGuard,
+} from '../../../../../shared/auth';
 import { CloseUserAccountCommand } from '../../../../app/commands/close-account/close-account.command';
 
 @ApiBearerAuth()
@@ -9,7 +26,7 @@ import { CloseUserAccountCommand } from '../../../../app/commands/close-account/
 @UseGuards(PassportAuthGuard)
 @ApiTags('Users')
 @Controller({ path: 'users/close' })
-export class CloseUserAccountController {
+export class CloseUserAccountController implements CloseAccountApi {
   constructor(private commandBus: CommandBus) {}
 
   @ApiResponse({

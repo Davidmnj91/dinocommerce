@@ -1,18 +1,42 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Request,
+  Response,
+} from 'express';
+
+import { EmailAuthApi } from '@dinocommerce/server-api';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CommandBus } from '@nestjs/cqrs';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Request, Response } from 'express';
-import { AuthConfig, AUTH_CONFIG } from '../../../../../config/auth.config';
-import { EMAIL_PASSWORD_STRATEGY, JWT_STRATEGY } from '../../../../../shared/auth/auth.strategies';
+import {
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
+
+import {
+  AUTH_CONFIG,
+  AuthConfig,
+} from '../../../../../config/auth.config';
+import {
+  EMAIL_PASSWORD_STRATEGY,
+  JWT_STRATEGY,
+} from '../../../../../shared/auth/auth.strategies';
 import { RegisterEmailCommand } from '../../../../app/commands/register-email/register-email.command';
-import { LoginUserDto } from './login-email.dto';
-import { RegisterEmailDto } from './register-email.dto';
+import { LoginUserRequestModel } from './login-email.request-model';
+import { RegisterEmailRequestModel } from './register-email.request-model';
 
 @ApiTags('Auth')
 @Controller('auth/email')
-export class EmailAuthUserController {
+export class EmailAuthUserController implements EmailAuthApi {
   constructor(private commandBus: CommandBus, private configService: ConfigService) {}
 
   @ApiOperation({ summary: 'Login Current User' })
@@ -20,7 +44,11 @@ export class EmailAuthUserController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async login(@Req() req, @Res({ passthrough: true }) res: Response, @Body() loginUser: LoginUserDto) {
+  async login(
+    @Req() req,
+    @Res({ passthrough: true }) res: Response,
+    @Body() _loginUser: LoginUserRequestModel
+  ): Promise<string> {
     const { token } = req.user;
     const { cookieName } = this.configService.get<AuthConfig>(AUTH_CONFIG);
 
@@ -31,7 +59,7 @@ export class EmailAuthUserController {
   @ApiOperation({ summary: 'Register a new User' })
   @Post('register')
   @HttpCode(HttpStatus.OK)
-  async register(@Body() registerEmail: RegisterEmailDto) {
+  async register(@Body() registerEmail: RegisterEmailRequestModel) {
     const { email, password, username } = registerEmail;
     return await this.commandBus.execute(new RegisterEmailCommand({ email, password, username }));
   }

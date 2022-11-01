@@ -1,8 +1,14 @@
+import {
+  Expose,
+  Type,
+} from 'class-transformer';
+
+import { ProductModel } from '@dinocommerce/server-api';
 import { ApiProperty } from '@nestjs/swagger';
-import { Expose, Type } from 'class-transformer';
+
 import { MediaViewModel } from './media.view-model';
 
-export class ProductViewModel {
+export class ProductViewModel implements ProductModel {
   @Expose()
   @ApiProperty({ example: '1cfa35f4-0ed5-4c2a-8e4f-20c8c1b69363' })
   readonly id: string;

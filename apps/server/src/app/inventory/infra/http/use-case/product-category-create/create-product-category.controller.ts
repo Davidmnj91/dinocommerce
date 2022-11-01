@@ -1,8 +1,25 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { ProductCategoryCreateApi } from '@dinocommerce/server-api';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+
 import { PassportAuthGuard } from '../../../../../shared/auth';
-import { CreateProductCategoryCommand } from '../../../../app/commands/product-category-create/create-product-category.command';
+import {
+  CreateProductCategoryCommand,
+} from '../../../../app/commands/product-category-create/create-product-category.command';
 import { CreateProductCategoryRequestModel } from './create-product-category.request-model';
 
 @ApiBearerAuth()
@@ -10,7 +27,7 @@ import { CreateProductCategoryRequestModel } from './create-product-category.req
 @UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
 @ApiTags('Inventory')
 @Controller('inventory/categories')
-export class CreateProductCategoryController {
+export class CreateProductCategoryController implements ProductCategoryCreateApi {
   constructor(private commandBus: CommandBus) {}
 
   @ApiOperation({ summary: 'Create new Product category' })

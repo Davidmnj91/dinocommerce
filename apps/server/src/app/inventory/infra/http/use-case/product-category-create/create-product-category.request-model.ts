@@ -1,7 +1,9 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateProductCategoryRequestModel {
+import { CreateProductCategoryRequest } from '@dinocommerce/server-api';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class CreateProductCategoryRequestModel implements CreateProductCategoryRequest {
   @ApiProperty({ example: 'Product 1' })
   @IsNotEmpty()
   name: string;

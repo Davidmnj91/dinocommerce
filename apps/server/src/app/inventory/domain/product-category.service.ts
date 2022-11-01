@@ -1,8 +1,10 @@
+import { QueryExpression } from '@dinocommerce/server-api';
 import { wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
-import { buildQuery, QueryExpression } from '../../shared/query/queryable.dto';
+
+import { buildQuery } from '../../shared/database/query/query.builder';
 import { ProductCategoryNotFoundException } from './exception/product-category-not-found.exception';
 import { ProductCategory } from './product-category';
 

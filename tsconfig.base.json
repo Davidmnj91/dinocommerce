@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@dinocommerce/events": ["libs/events/src/index.ts"]
+      "@dinocommerce/events": ["libs/events/src/index.ts"],
+      "@dinocommerce/server-api": ["libs/server-api/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

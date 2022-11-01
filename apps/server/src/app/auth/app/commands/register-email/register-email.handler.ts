@@ -1,5 +1,10 @@
-import { CommandHandler, IInferredCommandHandler } from '@nestjs/cqrs';
 import { hash } from 'bcrypt';
+
+import {
+  CommandHandler,
+  IInferredCommandHandler,
+} from '@nestjs/cqrs';
+
 import { AuthUser } from '../../../domain/auth-user';
 import { AuthService } from '../../../domain/auth.service';
 import { RegisterEmailCommand } from './register-email.command';
@@ -14,6 +19,6 @@ export class RegisterEmailCommandHandler implements IInferredCommandHandler<Regi
     const hashedPassword = await hash(password, 10);
     const profilePictureUrl = this.domainService.createRandomAvatarUrl(email);
     const authUser = new AuthUser('', username, email, hashedPassword, 'EMAIL', 'USER', profilePictureUrl);
-    this.domainService.createUser(authUser);
+    await this.domainService.createUser(authUser);
   }
 }

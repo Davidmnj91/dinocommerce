@@ -1,7 +1,9 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateProductDto {
+import { CreateProductRequest } from '@dinocommerce/server-api';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class CreateProductRequestModel implements CreateProductRequest {
   @ApiProperty({ example: 'Product 1' })
   @IsNotEmpty()
   name: string;
@@ -11,14 +13,14 @@ export class CreateProductDto {
   description: string;
 
   @ApiProperty({ example: 19.99 })
-  price: number;
+  price?: number;
 
   @ApiProperty({ example: 300 })
-  stock: number;
+  stock?: number;
 
   @ApiProperty({ example: '6329fabb7ed56e6bdfc524fd' })
-  parentId: string;
+  parentId?: string;
 
   @ApiProperty({ example: '6329fabb7ed56e6bdfc524fd' })
-  categoryId: string;
+  categoryId?: string;
 }

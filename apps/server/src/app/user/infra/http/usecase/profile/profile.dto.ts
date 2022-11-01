@@ -1,10 +1,12 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 
-export class UserProfileViewModel {
+import { UserProfileResponse } from '@dinocommerce/server-api';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class UserProfileViewModel implements UserProfileResponse {
   @Expose()
   @ApiProperty({ example: 'John Doe' })
-  readonly userName: string;
+  readonly username: string;
   @Expose()
   @ApiProperty({ example: 'john@doe.com' })
   readonly email: string;
@@ -15,8 +17,8 @@ export class UserProfileViewModel {
   @ApiProperty({ example: 'http://profilepic.com/my-profile-picture.svg' })
   readonly profilePictureUrl?: string;
 
-  constructor(userName: string, email: string, phone: string, profilePictureUrl?: string) {
-    this.userName = userName;
+  constructor(username: string, email: string, phone: string, profilePictureUrl?: string) {
+    this.username = username;
     this.email = email;
     this.phone = phone;
     this.profilePictureUrl = profilePictureUrl;

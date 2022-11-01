@@ -1,9 +1,27 @@
-import { Controller, Get, HttpCode, HttpStatus, Param, UseGuards } from '@nestjs/common';
-import { QueryBus } from '@nestjs/cqrs';
-import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { plainToInstance } from 'class-transformer';
+
+import { ProductsFindByCategoryApi } from '@dinocommerce/server-api';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
+import { QueryBus } from '@nestjs/cqrs';
+import {
+  ApiBearerAuth,
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+
 import { PassportAuthGuard } from '../../../../../shared/auth';
-import { GetProductByCategoryQuery } from '../../../../app/queries/product-get -by-category/get-product-by-category.query';
+import {
+  GetProductByCategoryQuery,
+} from '../../../../app/queries/product-get -by-category/get-product-by-category.query';
 import { ProductViewModel } from '../../common/models/product.view-model';
 
 @ApiBearerAuth()
@@ -11,7 +29,7 @@ import { ProductViewModel } from '../../common/models/product.view-model';
 @UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
 @ApiTags('Inventory')
 @Controller('inventory/products')
-export class GetProductsByCategoryIdController {
+export class GetProductsByCategoryIdController implements ProductsFindByCategoryApi {
   constructor(private queryBus: QueryBus) {}
 
   @ApiOperation({ summary: 'Get a product under a given category' })
@@ -22,7 +40,7 @@ export class GetProductsByCategoryIdController {
   })
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  async getProductsByCategory(@Param('id') productCategoryId: string): Promise<ProductViewModel[]> {
+  async findProductsByCategory(@Param('id') productCategoryId: string): Promise<ProductViewModel[]> {
     const queryModel = await this.queryBus.execute(new GetProductByCategoryQuery(productCategoryId));
     return plainToInstance(ProductViewModel, queryModel);
   }

@@ -1,16 +1,31 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { ProductCreateApi } from '@dinocommerce/server-api';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+
 import { PassportAuthGuard } from '../../../../../shared/auth';
 import { CreateProductCommand } from '../../../../app/commands/product-create/create-product.command';
-import { CreateProductDto } from './create-product.request-model';
+import { CreateProductRequestModel } from './create-product.request-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
 @UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
 @ApiTags('Inventory')
 @Controller('inventory/products')
-export class CreateProductController {
+export class CreateProductController implements ProductCreateApi {
   constructor(private commandBus: CommandBus) {}
 
   @ApiOperation({ summary: 'Create new Product' })
@@ -21,7 +36,7 @@ export class CreateProductController {
   })
   @Post()
   @HttpCode(HttpStatus.OK)
-  async createProduct(@Body() product: CreateProductDto) {
+  async createProduct(@Body() product: CreateProductRequestModel) {
     const { name, description, price, stock, parentId, categoryId } = product;
 
     const { id } = await this.commandBus.execute(
