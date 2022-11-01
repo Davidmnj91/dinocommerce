@@ -1,6 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { CommandHandler, IInferredCommandHandler } from '@nestjs/cqrs';
-import { MailConfig, MAIL_CONFIG } from 'apps/api/src/app/config/mail.config';
+import { MailConfig, MAIL_CONFIG } from '../../../../config/mail.config';
 import { buildContactUsMailData } from '../../../domain/factory/contact-us-email.factory';
 import { MailService } from '../../../domain/mail.service';
 import { ContactUsCommand } from './contact-us.command';

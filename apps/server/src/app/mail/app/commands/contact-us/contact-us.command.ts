@@ -1,6 +1,5 @@
-import { Command } from 'apps/api/src/app/shared/cqrs';
 import { IsEmail, IsNotEmpty } from 'class-validator';
-import { OwnCommandProps } from '../../../../shared/cqrs/command';
+import { Command, OwnCommandProps } from '../../../../shared/cqrs/command';
 
 export class ContactUsCommand extends Command<void> {
   @IsEmail()

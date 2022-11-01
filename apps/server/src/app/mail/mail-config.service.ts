@@ -28,7 +28,7 @@ export class MailConfigService implements MailerOptionsFactory {
         from: `"${mailConfig.defaultName}" <${mailConfig.defaultEmail}>`,
       },
       template: {
-        dir: path.join(appConfig.workingDirectory, 'apps', 'api', 'src', 'app', 'mail', 'app', 'templates'),
+        dir: path.join(appConfig.workingDirectory, 'apps', 'server', 'src', 'app', 'mail', 'app', 'templates'),
         adapter: new EjsAdapter(),
         options: {},
       },

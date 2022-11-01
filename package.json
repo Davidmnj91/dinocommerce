@@ -11,9 +11,9 @@
   "private": true,
   "mikro-orm": {
     "useTsNode": true,
-    "tsConfigPath": "./apps/api/tsconfig.orm.json",
+    "tsConfigPath": "./apps/server/tsconfig.orm.json",
     "configPaths": [
-      "./apps/api/src/app/database/mikro-orm.config.ts"
+      "./apps/server/src/app/database/mikro-orm.config.ts"
     ]
   },
   "devDependencies": {

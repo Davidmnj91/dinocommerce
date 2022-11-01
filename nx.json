@@ -25,5 +25,5 @@
       "dependsOn": ["^build"]
     }
   },
-  "defaultProject": "api"
+  "defaultProject": "server"
 }
