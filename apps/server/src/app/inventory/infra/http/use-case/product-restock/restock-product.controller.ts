@@ -5,7 +5,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
-  Patch,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
@@ -25,7 +25,7 @@ import { RestockProductRequestModel } from './restock-product.request-model';
 @ApiCookieAuth()
 @UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
 @ApiTags('Inventory')
-@Controller('inventory/categories')
+@Controller('inventory/products')
 export class RestockProductController implements ProductRestockApi {
   constructor(private commandBus: CommandBus) {}
 
@@ -35,7 +35,7 @@ export class RestockProductController implements ProductRestockApi {
     description: 'The updated product stock id',
     type: String,
   })
-  @Patch(':id')
+  @Put(':id/restock')
   @HttpCode(HttpStatus.OK)
   async restockProduct(@Param('id') productId: string, @Body() restock: RestockProductRequestModel) {
     const { stock } = restock;

@@ -12,15 +12,12 @@ export class UpdateProductRequestModel implements UpdateProductRequest {
   @IsNotEmpty()
   description: string;
 
-  @ApiProperty({ example: 19.99 })
-  price: number;
+  @ApiProperty({ example: 19.99, required: false })
+  price?: number;
 
-  @ApiProperty({ example: 300 })
-  stock: number;
+  @ApiProperty({ example: 'cdb1c985-30f4-435a-8bb8-47f682cc0e6f', required: false })
+  parentId?: string;
 
-  @ApiProperty({ example: '6329fabb7ed56e6bdfc524fd' })
-  parentId: string;
-
-  @ApiProperty({ example: '6329fabb7ed56e6bdfc524fd' })
-  categoryId: string;
+  @ApiProperty({ example: '0d2446b4-64c8-4038-a778-6eba7842833a', required: false })
+  categoryId?: string;
 }

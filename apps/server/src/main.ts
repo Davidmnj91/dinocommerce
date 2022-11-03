@@ -1,13 +1,30 @@
-import { Logger, ValidationPipe } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { useContainer } from 'class-validator';
 import * as cookieParser from 'cookie-parser';
-import { Logger as PinoLogger, LoggerErrorInterceptor } from 'nestjs-pino';
+import {
+  Logger as PinoLogger,
+  LoggerErrorInterceptor,
+} from 'nestjs-pino';
+
+import {
+  Logger,
+  ValidationPipe,
+} from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
+import {
+  DocumentBuilder,
+  SwaggerModule,
+} from '@nestjs/swagger';
+
 import { AppModule } from './app/app.module';
-import { AppConfig, APP_CONFIG } from './app/config/app.config';
-import { AuthConfig, AUTH_CONFIG } from './app/config/auth.config';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from './app/config/app.config';
+import {
+  AUTH_CONFIG,
+  AuthConfig,
+} from './app/config/auth.config';
 import { DomainExceptionFilter } from './app/shared/exception/domain.exception';
 import validationOptions from './app/shared/validation/validation-options';
 
@@ -42,7 +59,9 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, options);
   const apiDocPath = `${globalPrefix}/docs`;
-  SwaggerModule.setup(apiDocPath, app, document);
+  SwaggerModule.setup(apiDocPath, app, document, {
+    swaggerOptions: { tagsSorter: 'alpha', operationsSorter: 'alpha', tryItOutEnabled: true },
+  });
 
   const port = appConfig.port;
   await app.listen(port);

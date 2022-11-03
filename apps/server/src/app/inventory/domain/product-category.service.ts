@@ -39,7 +39,10 @@ export class ProductCategoryDomainService {
     return createdCategory;
   }
 
-  async updateProductCategory(existingProductCategory: ProductCategory, updatedProductCategory: ProductCategory) {
+  async updateProductCategory(
+    existingProductCategory: ProductCategory,
+    updatedProductCategory: Partial<ProductCategory>
+  ) {
     const result = wrap(existingProductCategory).assign(updatedProductCategory);
     await this.productCategoryRepository.persistAndFlush(result);
 

@@ -28,7 +28,7 @@ import { ProductViewModel } from '../../common/models/product.view-model';
 @ApiCookieAuth()
 @UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
 @ApiTags('Inventory')
-@Controller('inventory/products')
+@Controller('inventory/categories')
 export class GetProductsByCategoryIdController implements ProductsFindByCategoryApi {
   constructor(private queryBus: QueryBus) {}
 
@@ -38,7 +38,7 @@ export class GetProductsByCategoryIdController implements ProductsFindByCategory
     description: 'The products belonging to the requested product category',
     type: Array<ProductViewModel>,
   })
-  @Get(':id')
+  @Get(':id/products')
   @HttpCode(HttpStatus.OK)
   async findProductsByCategory(@Param('id') productCategoryId: string): Promise<ProductViewModel[]> {
     const queryModel = await this.queryBus.execute(new GetProductByCategoryQuery(productCategoryId));

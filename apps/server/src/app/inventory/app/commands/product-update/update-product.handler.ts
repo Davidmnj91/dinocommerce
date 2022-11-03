@@ -1,6 +1,10 @@
 import { ProductUpdatedEvent } from '@dinocommerce/events';
-import { CommandHandler, EventBus, IInferredCommandHandler } from '@nestjs/cqrs';
-import { Product } from '../../../domain/product';
+import {
+  CommandHandler,
+  EventBus,
+  IInferredCommandHandler,
+} from '@nestjs/cqrs';
+
 import { ProductCategoryDomainService } from '../../../domain/product-category.service';
 import { ProductDomainService } from '../../../domain/product.service';
 import { UpdateProductCommand } from './update-product.command';
@@ -26,8 +30,7 @@ export class UpdateProductCommandHandler implements IInferredCommandHandler<Upda
       await this.productCategoryDomainService.findProductCategoryById(categoryId);
     }
 
-    const product = new Product({ name, description, parentId });
-    const updated = await this.domainService.updateProduct(existingProduct, product);
+    const updated = await this.domainService.updateProduct(existingProduct, { name, description, parentId });
 
     const event = new ProductUpdatedEvent(updated.id, updated.name);
     this.eventBus.publish(event);

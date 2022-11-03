@@ -37,10 +37,10 @@ export class CreateProductController implements ProductCreateApi {
   @Post()
   @HttpCode(HttpStatus.OK)
   async createProduct(@Body() product: CreateProductRequestModel) {
-    const { name, description, price, stock, parentId, categoryId } = product;
+    const { name, description, price, parentId, categoryId } = product;
 
     const { id } = await this.commandBus.execute(
-      new CreateProductCommand({ name, description, price, stock, parentId, categoryId })
+      new CreateProductCommand({ name, description, price, parentId, categoryId })
     );
     return id;
   }

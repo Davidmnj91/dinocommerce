@@ -12,6 +12,6 @@ export class CreateProductCategoryRequestModel implements CreateProductCategoryR
   @IsNotEmpty()
   description: string;
 
-  @ApiProperty({ example: '6329fabb7ed56e6bdfc524fd', required: false })
+  @ApiProperty({ example: '6661c23d-bc79-445a-b4bd-a6796e15b593', required: false })
   parentId?: string;
 }

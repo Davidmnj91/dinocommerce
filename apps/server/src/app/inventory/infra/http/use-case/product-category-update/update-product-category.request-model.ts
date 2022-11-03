@@ -12,6 +12,6 @@ export class UpdateProductCategoryRequestModel implements UpdateProductCategoryR
   @IsNotEmpty()
   description: string;
 
-  @ApiProperty({ example: '6329fabb7ed56e6bdfc524fd' })
+  @ApiProperty({ example: '3ca70292-2433-47b4-88dc-16e76a9424de', required: false })
   parentId?: string;
 }

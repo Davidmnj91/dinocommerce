@@ -22,6 +22,8 @@ import { GetProductsQueryHandler } from './app/queries/products-get/get-products
 import { Product } from './domain/product';
 import { ProductCategory } from './domain/product-category';
 import { ProductCategoryDomainService } from './domain/product-category.service';
+import { ProductStock } from './domain/product-stock';
+import { ProductStockDomainService } from './domain/product-stock.service';
 import { ProductDomainService } from './domain/product.service';
 import {
   QueryProductCategoriesController,
@@ -73,11 +75,12 @@ const controllers = [
 ];
 
 @Module({
-  imports: [MikroOrmModule.forFeature([Product, ProductCategory]), CqrsModule],
+  imports: [MikroOrmModule.forFeature([Product, ProductStock, ProductCategory]), CqrsModule],
   controllers: [...controllers],
   providers: [
     ProductCategoryDomainService,
     ProductDomainService,
+    ProductStockDomainService,
     PassportAuthGuard,
     ...commandHandlers,
     ...queryHandlers,

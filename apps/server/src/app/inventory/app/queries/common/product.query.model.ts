@@ -1,7 +1,10 @@
 import { Expose } from 'class-transformer';
+
 import { MediaQueryModel } from './media.query.model';
 
 export class ProductQueryModel {
+  @Expose()
+  readonly id: string;
   @Expose()
   readonly name: string;
   @Expose()
@@ -18,6 +21,7 @@ export class ProductQueryModel {
   readonly categoryId?: string;
 
   constructor(
+    id: string,
     name: string,
     description: string,
     price?: number,
@@ -26,6 +30,7 @@ export class ProductQueryModel {
     parentId?: string,
     categoryId?: string
   ) {
+    this.id = id;
     this.name = name;
     this.description = description;
     this.price = price;

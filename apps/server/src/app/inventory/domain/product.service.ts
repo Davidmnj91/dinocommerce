@@ -38,7 +38,7 @@ export class ProductDomainService {
     return createdProduct;
   }
 
-  async updateProduct(existingProduct: Product, updatedProduct: Product) {
+  async updateProduct(existingProduct: Product, updatedProduct: Partial<Product>) {
     const result = wrap(existingProduct).assign(updatedProduct);
     await this.productRepository.persistAndFlush(result);
 

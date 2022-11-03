@@ -14,7 +14,4 @@ export class LoginUserRequestModel implements EmailLoginRequest {
   @ApiProperty({ example: 'password' })
   @IsNotEmpty()
   readonly password: string;
-
-  @ApiProperty()
-  readonly admin?: boolean;
 }

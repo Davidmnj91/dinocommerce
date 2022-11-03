@@ -7,7 +7,6 @@ export type EmailAuthApi = {
 export type EmailLoginRequest = {
   email: string;
   password: string;
-  admin?: boolean;
 };
 
 export type EmailRegisterRequest = {

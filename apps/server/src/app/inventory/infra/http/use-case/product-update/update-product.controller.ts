@@ -38,10 +38,10 @@ export class UpdateProductController implements ProductUpdateApi {
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
   async updateProduct(@Param('id') productId: string, @Body() product: UpdateProductRequestModel) {
-    const { name, description, price, stock, parentId, categoryId } = product;
+    const { name, description, price, parentId, categoryId } = product;
 
     const { id } = await this.commandBus.execute(
-      new UpdateProductCommand({ productId, name, description, price, stock, parentId, categoryId })
+      new UpdateProductCommand({ productId, name, description, price, parentId, categoryId })
     );
     return id;
   }
