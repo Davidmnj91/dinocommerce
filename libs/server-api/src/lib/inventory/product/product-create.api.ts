@@ -1,4 +1,4 @@
-import { ProductModel } from './product-model';
+import { ProductModel } from './product.model';
 
 export type ProductCreateApi = {
   createProduct: (body: CreateProductRequest) => Promise<CreateProductResponse>;

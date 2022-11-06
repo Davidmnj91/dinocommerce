@@ -1,7 +1,9 @@
+import { Strategy } from 'passport-facebook';
+
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy } from 'passport-facebook';
+
 import { FacebookConfig, FACEBOOK_CONFIG } from '../../../config/facebook.config';
 import { FACEBOOK_STRATEGY } from '../../../shared/auth/auth.strategies';
 import { AuthToken } from '../../domain/auth-token';
@@ -29,7 +31,7 @@ export class FacebookStrategy extends PassportStrategy(Strategy, FACEBOOK_STRATE
 
   async validate(_accessToken: string, _refreshToken: string, profile: FacebookProfile): Promise<AuthUser & AuthToken> {
     const { id, displayName, email, picture } = profile;
-    const authUser = new AuthUser(id, displayName, email, '', 'FACEBOOK', 'USER', picture && picture[0].value);
+    const authUser = new AuthUser(null, id, displayName, email, '', 'FACEBOOK', 'USER', picture && picture[0].value);
     return await this.domainService.validateOAuthRequest(authUser);
   }
 }

@@ -19,17 +19,20 @@ export class ProductCategoryDomainService {
   }
 
   async findProductCategoryById(id: string): Promise<ProductCategory> {
-    return await this.productCategoryRepository.findOneOrFail(
-      { id },
-      { failHandler: () => new ProductCategoryNotFoundException(id) }
-    );
+    const productCategory = await this.productCategoryRepository.findOne({ id });
+
+    if (!productCategory) {
+      throw new ProductCategoryNotFoundException(id);
+    }
+    return productCategory;
   }
 
   async assertProductCategoryByParentId(parentId: string): Promise<void> {
-    await this.productCategoryRepository.findOneOrFail(
-      { parentId: parentId },
-      { failHandler: () => new ProductCategoryNotFoundException(parentId) }
-    );
+    const productCategory = await this.productCategoryRepository.findOneOrFail({ parentId: parentId });
+
+    if (!productCategory) {
+      throw new ProductCategoryNotFoundException(parentId);
+    }
   }
 
   async saveProductCategory(productCategory: ProductCategory): Promise<ProductCategory> {

@@ -1,6 +1,7 @@
 import { AuthType, Roles } from '@dinocommerce/events';
 
 export class AuthUser {
+  readonly id: string;
   readonly userId: string;
   readonly username: string;
   readonly email: string;
@@ -10,6 +11,7 @@ export class AuthUser {
   readonly profilePictureUrl?: string;
 
   constructor(
+    id: string,
     userId: string,
     username: string,
     email: string,
@@ -18,6 +20,7 @@ export class AuthUser {
     role: Roles,
     profilePictureUrl?: string
   ) {
+    this.id = id;
     this.userId = userId;
     this.username = username;
     this.email = email;

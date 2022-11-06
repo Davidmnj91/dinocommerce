@@ -1,27 +1,13 @@
 import { plainToInstance } from 'class-transformer';
 
 import { UserProfileApi } from '@dinocommerce/server-api';
-import {
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
-import {
-  ApiBearerAuth,
-  ApiCookieAuth,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import {
-  AuthenticatedUser,
-  CurrentUser,
-  PassportAuthGuard,
-} from '../../../../../shared/auth';
-import { UserDetailsQuery } from '../../../../app/queries/details/user-details.query';
+import { AuthUser } from '../../../../../auth/domain/auth-user';
+import { CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
+import { UserDetailsQuery } from '../../../../app/queries/user-details/user-details.query';
 import { UserProfileViewModel } from './profile.dto';
 
 @ApiBearerAuth()
@@ -39,8 +25,8 @@ export class UserProfileController implements UserProfileApi {
   })
   @Get()
   @HttpCode(HttpStatus.OK)
-  async getProfile(@CurrentUser() user: AuthenticatedUser) {
-    const queryModel = await this.queryBus.execute(new UserDetailsQuery({ userIdOrEmail: user.id }));
+  async getProfile(@CurrentUser() user: AuthUser) {
+    const queryModel = await this.queryBus.execute(new UserDetailsQuery({ userIdOrEmail: user.userId }));
 
     return plainToInstance(UserProfileViewModel, queryModel, { excludeExtraneousValues: true });
   }

@@ -1,27 +1,11 @@
 import { UserUnsubscribeApi } from '@dinocommerce/server-api';
-import {
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import {
-  ApiBearerAuth,
-  ApiCookieAuth,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import {
-  AuthenticatedUser,
-  CurrentUser,
-  PassportAuthGuard,
-} from '../../../../../shared/auth';
-import {
-  ChangeEmailSubscriptionCommand,
-} from '../../../../app/commands/change-email-subscription/change-email.subscription.command';
+import { AuthUser } from '../../../../../auth/domain/auth-user';
+import { CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
+import { ChangeEmailSubscriptionCommand } from '../../../../app/commands/change-email-subscription/change-email.subscription.command';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
@@ -37,7 +21,7 @@ export class UnsubscribeUserController implements UserUnsubscribeApi {
   })
   @Get()
   @HttpCode(HttpStatus.OK)
-  async unsubscribe(@CurrentUser() user: AuthenticatedUser) {
+  async unsubscribe(@CurrentUser() user: AuthUser) {
     await this.commandBus.execute(new ChangeEmailSubscriptionCommand({ userId: user.id, subscribe: false }));
   }
 }

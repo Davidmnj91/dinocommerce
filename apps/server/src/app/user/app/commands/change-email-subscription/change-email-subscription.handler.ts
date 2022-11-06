@@ -1,11 +1,12 @@
 import { UserAccountUnsubscribedEvent } from '@dinocommerce/events';
 import { CommandHandler, EventBus, IInferredCommandHandler } from '@nestjs/cqrs';
-import { UserService } from '../../../domain/user.service';
+
+import { UserDomainService } from '../../../domain/user.service';
 import { ChangeEmailSubscriptionCommand } from './change-email.subscription.command';
 
 @CommandHandler(ChangeEmailSubscriptionCommand)
 export class ChangeEmailSubscriptionCommandHandler implements IInferredCommandHandler<ChangeEmailSubscriptionCommand> {
-  constructor(private domainService: UserService, private eventBus: EventBus) {}
+  constructor(private domainService: UserDomainService, private eventBus: EventBus) {}
 
   async execute(command: ChangeEmailSubscriptionCommand): Promise<UserAccountUnsubscribedEvent> {
     const { userId, subscribe } = command;

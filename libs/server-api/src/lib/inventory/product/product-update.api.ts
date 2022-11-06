@@ -1,7 +1,4 @@
-import {
-  MediaType,
-  ProductModel,
-} from './product-model';
+import { MediaType, ProductModel } from './product.model';
 
 export type ProductUpdateApi = {
   updateProduct: (id: ProductModel['id'], body: UpdateProductRequest) => Promise<UpdateProductResponse>;

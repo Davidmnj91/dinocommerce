@@ -17,7 +17,12 @@ export class ProductDomainService {
   }
 
   async findProductById(id: string): Promise<Product> {
-    return await this.productRepository.findOneOrFail({ id }, { failHandler: () => new ProductNotFoundException(id) });
+    const product = await this.productRepository.findOneOrFail({ id });
+
+    if (!product) {
+      throw new ProductNotFoundException(id);
+    }
+    return product;
   }
 
   async findProductsByProductCategoryId(productCategoryId: string): Promise<Product[]> {
@@ -25,10 +30,11 @@ export class ProductDomainService {
   }
 
   async assertProductByParentId(parentId: string): Promise<void> {
-    await this.productRepository.findOneOrFail(
-      { parentId: parentId },
-      { failHandler: () => new ProductNotFoundException(parentId) }
-    );
+    const product = await this.productRepository.findOneOrFail({ parentId: parentId });
+
+    if (!product) {
+      throw new ProductNotFoundException(parentId);
+    }
   }
 
   async saveProduct(product: Product): Promise<Product> {

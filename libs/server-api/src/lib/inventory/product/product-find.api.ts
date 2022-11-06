@@ -1,4 +1,4 @@
-import { ProductModel } from './product-model';
+import { ProductModel } from './product.model';
 
 export type ProductFindApi = {
   findProduct: (query: FindProductRequest) => Promise<FindProductResponse>;

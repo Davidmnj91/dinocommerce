@@ -1,7 +1,9 @@
+import { Strategy } from 'passport-twitter-oauth2';
+
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy } from 'passport-twitter-oauth2';
+
 import { TwitterConfig, TWITTER_CONFIG } from '../../../config/twitter.config';
 import { TWITTER_STRATEGY } from '../../../shared/auth/auth.strategies';
 import { AuthToken } from '../../domain/auth-token';
@@ -29,7 +31,7 @@ export class TwitterStrategy extends PassportStrategy(Strategy, TWITTER_STRATEGY
     const { id, email, displayName } = profile;
     const picture = this.domainService.createRandomAvatarUrl(email);
 
-    const authUser = new AuthUser(id, email, displayName, '', 'TWITTER', 'USER', picture);
+    const authUser = new AuthUser(null, id, email, displayName, '', 'TWITTER', 'USER', picture);
     return await this.domainService.validateOAuthRequest(authUser);
   }
 }

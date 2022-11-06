@@ -1,11 +1,12 @@
 import { UserAccountClosedEvent } from '@dinocommerce/events';
 import { CommandHandler, EventBus, IInferredCommandHandler } from '@nestjs/cqrs';
-import { UserService } from '../../../domain/user.service';
+
+import { UserDomainService } from '../../../domain/user.service';
 import { CloseUserAccountCommand } from './close-account.command';
 
 @CommandHandler(CloseUserAccountCommand)
 export class CloseUserAccountCommandHandler implements IInferredCommandHandler<CloseUserAccountCommand> {
-  constructor(private domainService: UserService, private eventBus: EventBus) {}
+  constructor(private domainService: UserDomainService, private eventBus: EventBus) {}
 
   async execute(command: CloseUserAccountCommand): Promise<UserAccountClosedEvent> {
     const user = await this.domainService.findUserById(command.userId);

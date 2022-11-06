@@ -1,10 +1,12 @@
+import { compare } from 'bcrypt';
+
 import { Injectable } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { JwtService } from '@nestjs/jwt';
-import { compare } from 'bcrypt';
+
 import { CreateUserCommand } from '../../user/app/commands/create/create-user.command';
-import { UserDetailsDto } from '../../user/app/queries/details/user-details.dto';
-import { UserDetailsQuery } from '../../user/app/queries/details/user-details.query';
+import { UserDetailsDto } from '../../user/app/queries/user-details/user-details.dto';
+import { UserDetailsQuery } from '../../user/app/queries/user-details/user-details.query';
 import { AuthToken } from './auth-token';
 import { AuthUser } from './auth-user';
 import { InvalidAuthProviderException } from './exception/invalid-auth-provider.exception';
@@ -51,9 +53,27 @@ export class AuthService {
       throw new InvalidPasswordException();
     }
 
-    const authUser = new AuthUser(user.userId, user.username, user.email, user.password, user.authType, user.role);
+    const authUser = new AuthUser(
+      user.id,
+      user.userId,
+      user.username,
+      user.email,
+      user.password,
+      user.authType,
+      user.role
+    );
     const jwt = await this.buildJwt(authUser);
     return { ...authUser, ...jwt };
+  }
+
+  async findUserFromToken(userId: string): Promise<AuthUser> {
+    let user: UserDetailsDto;
+    try {
+      user = await this.queryBus.execute(new UserDetailsQuery({ userIdOrEmail: userId }));
+    } catch (_) {
+      throw new UserNotFoundException(userId);
+    }
+    return user;
   }
 
   async createUser(authUser: AuthUser) {

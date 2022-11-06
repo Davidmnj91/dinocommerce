@@ -1,4 +1,4 @@
-import { ProductModel } from './product-model';
+import { ProductModel } from './product.model';
 
 export type ProductRestockApi = {
   restockProduct: (id: ProductModel['id'], body: RestockProductRequest) => Promise<RestockProductResponse>;

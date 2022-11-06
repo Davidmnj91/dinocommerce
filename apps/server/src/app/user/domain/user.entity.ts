@@ -1,6 +1,8 @@
+import { v4 } from 'uuid';
+
 import { AuthType, Roles } from '@dinocommerce/events';
 import { Entity, Index, Property } from '@mikro-orm/core';
-import { v4 } from 'uuid';
+
 import { StringType } from '../../database/types/auth-type.type';
 import { AbstractEntity, OwnEntityProps } from '../../shared/database/base.entity';
 import { UserAlreadyDeletedException } from './exception/user-already-deleted.exception';
@@ -8,13 +10,13 @@ import { UserAlreadyDeletedException } from './exception/user-already-deleted.ex
 @Entity()
 export class User extends AbstractEntity {
   @Index()
-  @Property()
+  @Property({ unique: true })
   userId: string;
 
-  @Property()
+  @Property({ unique: true })
   email: string;
 
-  @Property()
+  @Property({ unique: true })
   phone: string;
 
   @Property()

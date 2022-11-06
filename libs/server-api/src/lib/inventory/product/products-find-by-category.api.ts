@@ -1,5 +1,5 @@
 import { ProductCategoryModel } from '../product-category';
-import { ProductModel } from './product-model';
+import { ProductModel } from './product.model';
 
 export type ProductsFindByCategoryApi = {
   findProductsByCategory: (query: FindProductsByCategoryRequest) => Promise<FindProductsByCategoryResponse>;
