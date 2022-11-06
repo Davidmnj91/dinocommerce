@@ -2,8 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "server-api": "libs/server-api",
     "events": "libs/events",
-    "server": "apps/server"
+    "server": "apps/server",
+    "server-api": "libs/server-api"
   }
 }
