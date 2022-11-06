@@ -3,8 +3,7 @@ import { Body, Controller, HttpCode, HttpStatus, Param, Patch, UseGuards } from 
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { AuthUser } from '../../../../../auth/domain/auth-user';
-import { CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
+import { AuthenticatedUser, CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
 import { UpdateUserAddressCommand } from '../../../../app/commands/user-address-update/update-user-address.command';
 import { UpdateUserAddressRequestModel } from './update-user-address.request-model';
 
@@ -26,7 +25,7 @@ export class UserAddressUpdateController implements UserAddressUpdateApi {
   async updateUserAddress(
     @Param('id') userAddressId: string,
     @Body() userAddress: UpdateUserAddressRequestModel,
-    @CurrentUser() user: AuthUser
+    @CurrentUser() user: AuthenticatedUser
   ) {
     const { addressLine, city, province, zipCode, country } = userAddress;
     const { userAddressId: id } = await this.commandBus.execute(

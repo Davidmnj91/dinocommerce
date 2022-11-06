@@ -1,7 +1,9 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
-export class ContactUsDto {
+import { ContactUsRequest } from '@dinocommerce/server-api';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class ContactUsRequestModel implements ContactUsRequest {
   @ApiProperty({ example: 'client@email.com' })
   @IsEmail()
   readonly clientEmail: string;

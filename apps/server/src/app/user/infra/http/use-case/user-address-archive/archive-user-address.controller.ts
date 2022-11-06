@@ -3,8 +3,7 @@ import { Controller, Delete, HttpCode, HttpStatus, Param, UseGuards } from '@nes
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { AuthUser } from '../../../../../auth/domain/auth-user';
-import { CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
+import { AuthenticatedUser, CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
 import { ArchiveUserAddressCommand } from '../../../../app/commands/user-address-archive/archive-user-address.command';
 
 @ApiBearerAuth()
@@ -21,7 +20,7 @@ export class UserAddressArchiveController implements UserAddressArchiveApi {
   })
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
-  async archiveUserAddress(@Param('id') userAddressId: string, @CurrentUser() user: AuthUser) {
+  async archiveUserAddress(@Param('id') userAddressId: string, @CurrentUser() user: AuthenticatedUser) {
     const { userAddressId: id } = await this.commandBus.execute(
       new ArchiveUserAddressCommand({ userId: user.id, userAddressId })
     );

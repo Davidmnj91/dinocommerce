@@ -5,8 +5,7 @@ import { Controller, Get, HttpCode, HttpStatus, UseGuards } from '@nestjs/common
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { AuthUser } from '../../../../../auth/domain/auth-user';
-import { CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
+import { AuthenticatedUser, CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
 import { ListUserAddressQuery } from '../../../../app/queries/user-address-list/list-user-address.query';
 import { UserAddressViewModel } from '../../common/models/user-address.view-model';
 
@@ -25,7 +24,7 @@ export class UserAddressListController implements UserAddressListApi {
   })
   @Get()
   @HttpCode(HttpStatus.OK)
-  async listUserAddress(@CurrentUser() user: AuthUser) {
+  async listUserAddress(@CurrentUser() user: AuthenticatedUser) {
     const queryModel = await this.queryBus.execute(new ListUserAddressQuery({ userId: user.id }));
 
     return plainToInstance(UserAddressViewModel, queryModel, { excludeExtraneousValues: true });

@@ -5,10 +5,9 @@ import { Controller, Get, HttpCode, HttpStatus, UseGuards } from '@nestjs/common
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { AuthUser } from '../../../../../auth/domain/auth-user';
-import { CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
-import { UserDetailsQuery } from '../../../../app/queries/user-details/user-details.query';
-import { UserProfileViewModel } from './profile.dto';
+import { AuthenticatedUser, CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
+import { UserProfileQuery } from '../../../../app/queries/user-profile/user-profile.query';
+import { UserProfileViewModel } from './user-profile.view-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
@@ -25,8 +24,8 @@ export class UserProfileController implements UserProfileApi {
   })
   @Get()
   @HttpCode(HttpStatus.OK)
-  async getProfile(@CurrentUser() user: AuthUser) {
-    const queryModel = await this.queryBus.execute(new UserDetailsQuery({ userIdOrEmail: user.userId }));
+  async getProfile(@CurrentUser() user: AuthenticatedUser) {
+    const queryModel = await this.queryBus.execute(new UserProfileQuery({ userId: user.id }));
 
     return plainToInstance(UserProfileViewModel, queryModel, { excludeExtraneousValues: true });
   }

@@ -3,8 +3,7 @@ import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { AuthUser } from '../../../../../auth/domain/auth-user';
-import { CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
+import { AuthenticatedUser, CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
 import { CreateUserAddressCommand } from '../../../../app/commands/user-address-create/create-user-address.command';
 import { CreateUserAddressRequestModel } from './create-user-address.request-model';
 
@@ -23,7 +22,7 @@ export class UserAddressCreateController implements UserAddressCreateApi {
   })
   @Post()
   @HttpCode(HttpStatus.OK)
-  async createUserAddress(@Body() userAddress: CreateUserAddressRequestModel, @CurrentUser() user: AuthUser) {
+  async createUserAddress(@Body() userAddress: CreateUserAddressRequestModel, @CurrentUser() user: AuthenticatedUser) {
     const { addressLine, city, province, zipCode, country } = userAddress;
     const { userAddressId } = await this.commandBus.execute(
       new CreateUserAddressCommand({ userId: user.id, addressLine, city, province, zipCode, country })

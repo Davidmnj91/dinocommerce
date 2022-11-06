@@ -5,8 +5,8 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { JwtService } from '@nestjs/jwt';
 
 import { CreateUserCommand } from '../../user/app/commands/create/create-user.command';
-import { UserDetailsDto } from '../../user/app/queries/user-details/user-details.dto';
 import { UserDetailsQuery } from '../../user/app/queries/user-details/user-details.query';
+import { UserDetailsQueryModel } from '../../user/app/queries/user-details/user-details.query-model';
 import { AuthToken } from './auth-token';
 import { AuthUser } from './auth-user';
 import { InvalidAuthProviderException } from './exception/invalid-auth-provider.exception';
@@ -18,18 +18,18 @@ export class AuthService {
   constructor(private jwtService: JwtService, private queryBus: QueryBus, private commandBus: CommandBus) {}
 
   async validateOAuthRequest(authUser: AuthUser): Promise<AuthUser & AuthToken> {
-    let user: UserDetailsDto;
+    let queryModel: UserDetailsQueryModel;
 
     try {
-      user = await this.queryBus.execute(new UserDetailsQuery({ userIdOrEmail: authUser.email }));
+      queryModel = await this.queryBus.execute(new UserDetailsQuery({ userIdOrEmail: authUser.email }));
       // eslint-disable-next-line no-empty
     } catch (ignore) {}
 
-    if (!user) {
-      user = await this.createUser(authUser);
+    if (!queryModel) {
+      queryModel = await this.createUser(authUser);
     }
 
-    if (user.authType !== authUser.authType) {
+    if (queryModel.authType !== authUser.authType) {
       throw new InvalidAuthProviderException(authUser.authType);
     }
 
@@ -38,7 +38,7 @@ export class AuthService {
   }
 
   async validateEmailAuthLogin(email: string, password: string): Promise<AuthUser & AuthToken> {
-    let user: UserDetailsDto;
+    let user: UserDetailsQueryModel;
     try {
       user = await this.queryBus.execute(new UserDetailsQuery({ userIdOrEmail: email }));
     } catch (_) {
@@ -67,7 +67,7 @@ export class AuthService {
   }
 
   async findUserFromToken(userId: string): Promise<AuthUser> {
-    let user: UserDetailsDto;
+    let user: UserDetailsQueryModel;
     try {
       user = await this.queryBus.execute(new UserDetailsQuery({ userIdOrEmail: userId }));
     } catch (_) {
@@ -99,7 +99,7 @@ export class AuthService {
     return new AuthToken(token);
   }
 
-  private async passwordMatch(password: string, user: UserDetailsDto) {
+  private async passwordMatch(password: string, user: UserDetailsQueryModel) {
     return await compare(password, user.password);
   }
 }

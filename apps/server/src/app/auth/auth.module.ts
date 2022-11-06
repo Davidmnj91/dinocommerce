@@ -1,9 +1,16 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import {
+  ConfigModule,
+  ConfigService,
+} from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { AuthConfig, AUTH_CONFIG } from '../config/auth.config';
+
+import {
+  AUTH_CONFIG,
+  AuthConfig,
+} from '../config/auth.config';
 import { JWT_STRATEGY } from '../shared/auth/auth.strategies';
 import { RegisterEmailCommandHandler } from './app/commands/register-email/register-email.handler';
 import { EmailPasswordStrategy } from './app/strategies/email-password.strategy';
@@ -13,11 +20,11 @@ import { JwtStrategy } from './app/strategies/jwt.strategy';
 import { MicrosoftStrategy } from './app/strategies/microsoft.strategy';
 import { TwitterStrategy } from './app/strategies/twitter.strategy';
 import { AuthService } from './domain/auth.service';
-import { EmailAuthUserController } from './infra/http/usecase/email-auth/email-auth.controller';
-import { FacebookAuthUserController } from './infra/http/usecase/facebook-auth/facebook-auth.controller';
-import { GoogleAuthUserController } from './infra/http/usecase/google-auth/google-auth.controller';
-import { MicrosoftAuthUserController } from './infra/http/usecase/microsoft-auth/microsoft-auth.controller';
-import { TwitterAuthUserController } from './infra/http/usecase/twitter-auth/twitter-auth.controller';
+import { EmailAuthUserController } from './infra/http/use-case/email-auth/email-auth.controller';
+import { FacebookAuthUserController } from './infra/http/use-case/facebook-auth/facebook-auth.controller';
+import { GoogleAuthUserController } from './infra/http/use-case/google-auth/google-auth.controller';
+import { MicrosoftAuthUserController } from './infra/http/use-case/microsoft-auth/microsoft-auth.controller';
+import { TwitterAuthUserController } from './infra/http/use-case/twitter-auth/twitter-auth.controller';
 
 const commandHandlers = [RegisterEmailCommandHandler];
 const queryHandlers = [];

@@ -3,8 +3,7 @@ import { Controller, Delete, HttpCode, HttpStatus, UseGuards } from '@nestjs/com
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { AuthUser } from '../../../../../auth/domain/auth-user';
-import { CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
+import { AuthenticatedUser, CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
 import { CloseUserAccountCommand } from '../../../../app/commands/close-account/close-account.command';
 
 @ApiBearerAuth()
@@ -21,7 +20,7 @@ export class CloseUserAccountController implements CloseAccountApi {
   })
   @Delete()
   @HttpCode(HttpStatus.OK)
-  async closeUserAccount(@CurrentUser() user: AuthUser) {
+  async closeUserAccount(@CurrentUser() user: AuthenticatedUser) {
     return await this.commandBus.execute(new CloseUserAccountCommand({ userId: user.id }));
   }
 }

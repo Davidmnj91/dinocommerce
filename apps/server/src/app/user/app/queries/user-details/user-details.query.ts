@@ -1,8 +1,9 @@
 import { IsEmail } from 'class-validator';
-import { OwnQueryProps, Query } from '../../../../shared/cqrs';
-import { UserDetailsDto } from './user-details.dto';
 
-export class UserDetailsQuery extends Query<UserDetailsDto> {
+import { OwnQueryProps, Query } from '../../../../shared/cqrs';
+import { UserDetailsQueryModel } from './user-details.query-model';
+
+export class UserDetailsQuery extends Query<UserDetailsQueryModel> {
   @IsEmail()
   readonly userIdOrEmail: string;
 

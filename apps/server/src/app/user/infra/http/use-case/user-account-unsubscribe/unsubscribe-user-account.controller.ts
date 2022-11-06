@@ -3,8 +3,7 @@ import { Controller, Get, HttpCode, HttpStatus, UseGuards } from '@nestjs/common
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { AuthUser } from '../../../../../auth/domain/auth-user';
-import { CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
+import { AuthenticatedUser, CurrentUser, PassportAuthGuard } from '../../../../../shared/auth';
 import { ChangeEmailSubscriptionCommand } from '../../../../app/commands/change-email-subscription/change-email.subscription.command';
 
 @ApiBearerAuth()
@@ -21,7 +20,7 @@ export class UnsubscribeUserController implements UserUnsubscribeApi {
   })
   @Get()
   @HttpCode(HttpStatus.OK)
-  async unsubscribe(@CurrentUser() user: AuthUser) {
+  async unsubscribe(@CurrentUser() user: AuthenticatedUser) {
     await this.commandBus.execute(new ChangeEmailSubscriptionCommand({ userId: user.id, subscribe: false }));
   }
 }

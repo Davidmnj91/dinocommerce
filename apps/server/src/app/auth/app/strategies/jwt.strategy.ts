@@ -7,8 +7,8 @@ import { PassportStrategy } from '@nestjs/passport';
 
 import { Roles } from '../../../../../../../libs/events/src';
 import { AuthConfig, AUTH_CONFIG } from '../../../config/auth.config';
+import { AuthenticatedUser } from '../../../shared/auth';
 import { JWT_STRATEGY } from '../../../shared/auth/auth.strategies';
-import { AuthUser } from '../../domain/auth-user';
 import { AuthService } from '../../domain/auth.service';
 
 type JwtPayload = { sub: string; role: Roles; iat: number; exp: number };
@@ -31,10 +31,10 @@ export class JwtStrategy extends PassportStrategy(Strategy, JWT_STRATEGY) {
     });
   }
 
-  async validate(payload: JwtPayload): Promise<AuthUser> {
+  async validate(payload: JwtPayload): Promise<AuthenticatedUser> {
     const { sub } = payload;
-    const user = await this.authService.findUserFromToken(sub);
+    const { id, role } = await this.authService.findUserFromToken(sub);
 
-    return user;
+    return { id, role };
   }
 }
