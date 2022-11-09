@@ -1,4 +1,8 @@
-import { CommandHandler, EventBus, IInferredCommandHandler } from '@nestjs/cqrs';
+import {
+  CommandHandler,
+  EventBus,
+  IInferredCommandHandler,
+} from '@nestjs/cqrs';
 
 import { UserAddressCreatedEvent } from '../../../../../../../../libs/events/src';
 import { UserAddressDomainService } from '../../../domain/user-address.service';
@@ -19,7 +23,7 @@ export class CreateUserAddressCommandHandler implements IInferredCommandHandler<
 
     const user = await this.userDomainService.findUserById(userId);
 
-    const userAddress = new UserAddress({ user, addressLine, city, province, zipCode, country });
+    const userAddress = new UserAddress({ userId: user.id, addressLine, city, province, zipCode, country });
     const createdUserAddress = await this.domainService.createUserAddress(userAddress);
 
     const event = new UserAddressCreatedEvent(userId, createdUserAddress.id);

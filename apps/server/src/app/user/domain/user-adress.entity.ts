@@ -1,14 +1,22 @@
-import { Entity, Index, ManyToOne, Property } from '@mikro-orm/core';
+import {
+  Entity,
+  Index,
+  ManyToOne,
+  Property,
+} from '@mikro-orm/core';
 
-import { AbstractEntity, OwnEntityProps } from '../../shared/database/base.entity';
+import {
+  AbstractEntity,
+  OwnEntityProps,
+} from '../../shared/database/base.entity';
 import { UserAddressAlreadyArchivedException } from './exception/user-address-already-archived.exception';
 import { User } from './user.entity';
 
 @Entity()
 export class UserAddress extends AbstractEntity {
   @Index()
-  @ManyToOne(() => User)
-  user: User;
+  @ManyToOne(() => User, { mapToPk: true })
+  userId: string;
 
   @Property()
   addressLine: string;
@@ -25,9 +33,9 @@ export class UserAddress extends AbstractEntity {
   @Property()
   country: string;
 
-  constructor({ user, addressLine, city, province, zipCode, country }: OwnEntityProps<UserAddress>) {
+  constructor({ userId, addressLine, city, province, zipCode, country }: OwnEntityProps<UserAddress>) {
     super();
-    this.user = user;
+    this.userId = userId;
     this.addressLine = addressLine;
     this.city = city;
     this.province = province;

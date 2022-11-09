@@ -11,7 +11,7 @@ export class UserAddressDomainService {
   constructor(@InjectRepository(UserAddress) private userAddressRepository: EntityRepository<UserAddress>) {}
 
   async findAllByUserId(userId: string): Promise<UserAddress[]> {
-    return this.userAddressRepository.find({ user: { id: userId } });
+    return this.userAddressRepository.find({ userId });
   }
 
   async findByUserAddressId(userAddressId: string): Promise<UserAddress> {
@@ -24,7 +24,7 @@ export class UserAddressDomainService {
   }
 
   async findByUserIdAndUserAddressId(userId: string, userAddressId: string): Promise<UserAddress> {
-    const userAddress = await this.userAddressRepository.findOne({ id: userAddressId, user: { id: userId } });
+    const userAddress = await this.userAddressRepository.findOne({ id: userAddressId, userId: userId });
 
     if (!userAddress) {
       throw new UserAddressNotFoundException(userAddressId);
