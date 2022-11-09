@@ -16,7 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@dinocommerce/events": ["libs/events/src/index.ts"],
-      "@dinocommerce/server-api": ["libs/server-api/src/index.ts"]
+      "@dinocommerce/marketplace": ["libs/marketplace/src/index.ts"],
+      "@dinocommerce/server-api": ["libs/server-api/src/index.ts"],
+      "@dinocommerce/shared": ["libs/shared/src/index.ts"],
+      "@dinocommerce/warehouse": ["libs/warehouse/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

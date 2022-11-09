@@ -3,7 +3,10 @@
   "version": 2,
   "projects": {
     "events": "libs/events",
+    "marketplace": "libs/marketplace",
     "server": "apps/server",
-    "server-api": "libs/server-api"
+    "server-api": "libs/server-api",
+    "shared": "libs/shared",
+    "warehouse": "libs/warehouse"
   }
 }

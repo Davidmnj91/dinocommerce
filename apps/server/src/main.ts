@@ -6,6 +6,14 @@ import {
 } from 'nestjs-pino';
 
 import {
+  APP_CONFIG,
+  AppConfig,
+  AUTH_CONFIG,
+  AuthConfig,
+  DomainExceptionFilter,
+  validationOptions,
+} from '@dinocommerce/shared';
+import {
   Logger,
   ValidationPipe,
 } from '@nestjs/common';
@@ -17,16 +25,6 @@ import {
 } from '@nestjs/swagger';
 
 import { AppModule } from './app/app.module';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from './app/config/app.config';
-import {
-  AUTH_CONFIG,
-  AuthConfig,
-} from './app/config/auth.config';
-import { DomainExceptionFilter } from './app/shared/exception/domain.exception';
-import validationOptions from './app/shared/validation/validation-options';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true, bufferLogs: true });
