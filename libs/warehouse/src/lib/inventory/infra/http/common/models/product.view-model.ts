@@ -3,7 +3,7 @@ import {
   Type,
 } from 'class-transformer';
 
-import { ProductModel } from '@dinocommerce/server-api';
+import { ProductModel } from '@dinocommerce/warehouse-api';
 import { ApiProperty } from '@nestjs/swagger';
 
 import { MediaViewModel } from './media.view-model';

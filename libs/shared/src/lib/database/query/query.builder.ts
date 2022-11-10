@@ -1,4 +1,4 @@
-import { QueryExpression } from '@dinocommerce/server-api';
+import { QueryExpression } from '@dinocommerce/warehouse-api';
 import { EntityRepository } from '@mikro-orm/postgresql';
 
 import { withWhereClause } from './filter-builder/filter';

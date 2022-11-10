@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 
-import { UserProfileResponse } from '@dinocommerce/server-api';
+import { UserProfileResponse } from '@dinocommerce/warehouse-api';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UserProfileViewModel implements UserProfileResponse {

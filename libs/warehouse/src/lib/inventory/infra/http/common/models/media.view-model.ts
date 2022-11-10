@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 
-import { MediaModel } from '@dinocommerce/server-api';
+import { MediaModel } from '@dinocommerce/warehouse-api';
 import { ApiProperty } from '@nestjs/swagger';
 
 import { MediaType } from '../../../../domain/media-type';

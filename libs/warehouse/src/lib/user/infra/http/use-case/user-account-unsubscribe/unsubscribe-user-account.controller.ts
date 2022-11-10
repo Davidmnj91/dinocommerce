@@ -1,9 +1,9 @@
-import { UserUnsubscribeApi } from '@dinocommerce/server-api';
 import {
   AuthenticatedUser,
   CurrentUser,
   PassportAuthGuard,
 } from '@dinocommerce/shared';
+import { UserUnsubscribeApi } from '@dinocommerce/warehouse-api';
 import {
   Controller,
   Get,

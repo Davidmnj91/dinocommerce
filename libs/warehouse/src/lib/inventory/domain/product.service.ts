@@ -1,5 +1,5 @@
-import { QueryExpression } from '@dinocommerce/server-api';
 import { buildQuery } from '@dinocommerce/shared';
+import { QueryExpression } from '@dinocommerce/warehouse-api';
 import { wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';

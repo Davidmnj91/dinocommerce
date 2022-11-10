@@ -1,11 +1,11 @@
 import { plainToInstance } from 'class-transformer';
 
-import { UserAddressListApi } from '@dinocommerce/server-api';
 import {
   AuthenticatedUser,
   CurrentUser,
   PassportAuthGuard,
 } from '@dinocommerce/shared';
+import { UserAddressListApi } from '@dinocommerce/warehouse-api';
 import {
   Controller,
   Get,

@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-import { RestockProductRequest } from '@dinocommerce/server-api';
+import { RestockProductRequest } from '@dinocommerce/warehouse-api';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RestockProductRequestModel implements RestockProductRequest {

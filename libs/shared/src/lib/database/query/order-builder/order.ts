@@ -1,4 +1,4 @@
-import { OrderExpression } from '@dinocommerce/server-api';
+import { OrderExpression } from '@dinocommerce/warehouse-api';
 import { QueryBuilder } from '@mikro-orm/postgresql';
 
 export const withOrderBy = <Entity extends object>(

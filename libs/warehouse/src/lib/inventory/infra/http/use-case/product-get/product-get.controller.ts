@@ -1,7 +1,7 @@
 import { plainToClass } from 'class-transformer';
 
-import { ProductFindApi } from '@dinocommerce/server-api';
 import { PassportAuthGuard } from '@dinocommerce/shared';
+import { ProductFindApi } from '@dinocommerce/warehouse-api';
 import {
   Controller,
   Get,

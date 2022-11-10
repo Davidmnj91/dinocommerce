@@ -1,7 +1,7 @@
 import {
   FilterExpression,
   Operation,
-} from '@dinocommerce/server-api';
+} from '@dinocommerce/warehouse-api';
 import { QueryBuilder } from '@mikro-orm/postgresql';
 
 export const withWhereClause = <Entity extends object>(

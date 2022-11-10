@@ -5,7 +5,7 @@
     "events": "libs/events",
     "marketplace": "libs/marketplace",
     "server": "apps/server",
-    "server-api": "libs/server-api",
+    "warehouse-api": "libs/warehouse-api",
     "shared": "libs/shared",
     "warehouse": "libs/warehouse"
   }

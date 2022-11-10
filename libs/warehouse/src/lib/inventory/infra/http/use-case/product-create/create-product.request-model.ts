@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-import { CreateProductRequest } from '@dinocommerce/server-api';
+import { CreateProductRequest } from '@dinocommerce/warehouse-api';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateProductRequestModel implements CreateProductRequest {

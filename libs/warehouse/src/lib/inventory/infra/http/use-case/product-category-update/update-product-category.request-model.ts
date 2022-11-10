@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-import { UpdateProductCategoryRequest } from '@dinocommerce/server-api';
+import { UpdateProductCategoryRequest } from '@dinocommerce/warehouse-api';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateProductCategoryRequestModel implements UpdateProductCategoryRequest {

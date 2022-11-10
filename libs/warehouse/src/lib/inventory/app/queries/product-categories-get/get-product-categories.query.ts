@@ -1,8 +1,8 @@
-import { QueryExpression } from '@dinocommerce/server-api';
 import {
   OwnEntityProps,
   Query,
 } from '@dinocommerce/shared';
+import { QueryExpression } from '@dinocommerce/warehouse-api';
 
 import { ProductCategory } from '../../../domain/product-category';
 import { ProductCategoryQueryModel } from '../common/prodcut-category.query-model';

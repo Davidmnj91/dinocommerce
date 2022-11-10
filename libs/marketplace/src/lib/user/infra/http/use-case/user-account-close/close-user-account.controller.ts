@@ -1,9 +1,9 @@
-import { CloseAccountApi } from '@dinocommerce/server-api';
 import {
   AuthenticatedUser,
   CurrentUser,
   PassportAuthGuard,
 } from '@dinocommerce/shared';
+import { CloseAccountApi } from '@dinocommerce/warehouse-api';
 import {
   Controller,
   Delete,

@@ -1,6 +1,9 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+} from 'class-validator';
 
-import { ContactUsRequest } from '@dinocommerce/server-api';
+import { ContactUsRequest } from '@dinocommerce/warehouse-api';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ContactUsRequestModel implements ContactUsRequest {

@@ -1,4 +1,4 @@
-import { PaginationExpression } from '@dinocommerce/server-api';
+import { PaginationExpression } from '@dinocommerce/warehouse-api';
 import { QueryBuilder } from '@mikro-orm/postgresql';
 
 export const withPagination = <Entity extends object>(

@@ -1,5 +1,5 @@
-import { ProductUpdateApi } from '@dinocommerce/server-api';
 import { PassportAuthGuard } from '@dinocommerce/shared';
+import { ProductUpdateApi } from '@dinocommerce/warehouse-api';
 import {
   Body,
   Controller,

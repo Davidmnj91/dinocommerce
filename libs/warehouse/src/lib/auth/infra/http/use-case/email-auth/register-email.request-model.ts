@@ -3,7 +3,7 @@ import {
   IsNotEmpty,
 } from 'class-validator';
 
-import { EmailRegisterRequest } from '@dinocommerce/server-api';
+import { EmailRegisterRequest } from '@dinocommerce/warehouse-api';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RegisterEmailRequestModel implements EmailRegisterRequest {

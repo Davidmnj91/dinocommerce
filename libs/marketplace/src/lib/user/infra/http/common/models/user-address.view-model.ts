@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 
-import { UserAddressModel } from '@dinocommerce/server-api';
+import { UserAddressModel } from '@dinocommerce/warehouse-api';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UserAddressViewModel implements UserAddressModel {

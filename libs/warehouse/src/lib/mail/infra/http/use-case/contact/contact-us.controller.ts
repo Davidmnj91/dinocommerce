@@ -1,7 +1,16 @@
-import { ContactUsApi } from '@dinocommerce/server-api';
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { ContactUsApi } from '@dinocommerce/warehouse-api';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 
 import { ContactUsCommand } from '../../../../app/commands/contact-us/contact-us.command';
 import { ContactUsRequestModel } from './contact-us.request-model';

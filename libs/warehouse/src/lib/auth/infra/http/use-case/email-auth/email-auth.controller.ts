@@ -3,13 +3,13 @@ import {
   Response,
 } from 'express';
 
-import { EmailAuthApi } from '@dinocommerce/server-api';
 import {
   AUTH_CONFIG,
   AuthConfig,
   EMAIL_PASSWORD_STRATEGY,
   JWT_STRATEGY,
 } from '@dinocommerce/shared';
+import { EmailAuthApi } from '@dinocommerce/warehouse-api';
 import {
   Body,
   Controller,

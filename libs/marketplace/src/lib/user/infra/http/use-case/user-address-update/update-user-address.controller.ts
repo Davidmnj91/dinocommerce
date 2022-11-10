@@ -1,9 +1,9 @@
-import { UserAddressUpdateApi } from '@dinocommerce/server-api';
 import {
   AuthenticatedUser,
   CurrentUser,
   PassportAuthGuard,
 } from '@dinocommerce/shared';
+import { UserAddressUpdateApi } from '@dinocommerce/warehouse-api';
 import {
   Body,
   Controller,

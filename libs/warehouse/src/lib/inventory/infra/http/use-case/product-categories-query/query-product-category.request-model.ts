@@ -1,3 +1,3 @@
-import { QueryProductCategoriesRequest } from '@dinocommerce/server-api';
+import { QueryProductCategoriesRequest } from '@dinocommerce/warehouse-api';
 
 export type QueryProductCategoriesRequestModel = QueryProductCategoriesRequest;

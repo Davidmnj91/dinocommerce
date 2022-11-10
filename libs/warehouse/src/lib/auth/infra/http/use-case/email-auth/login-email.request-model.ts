@@ -3,7 +3,7 @@ import {
   IsNotEmpty,
 } from 'class-validator';
 
-import { EmailLoginRequest } from '@dinocommerce/server-api';
+import { EmailLoginRequest } from '@dinocommerce/warehouse-api';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class LoginUserRequestModel implements EmailLoginRequest {
