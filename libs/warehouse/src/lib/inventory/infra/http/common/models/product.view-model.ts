@@ -25,7 +25,7 @@ export class ProductViewModel implements ProductModel {
   @ApiProperty({ example: 100 })
   readonly stock?: number;
   @Expose()
-  @Type(() => MediaViewModel)
+  @Type(() => Array<MediaViewModel>)
   @ApiProperty({ type: Array<MediaViewModel> })
   readonly media?: MediaViewModel[];
   @Expose()

@@ -1,14 +1,15 @@
-import { Roles } from '@dinocommerce/events';
 import {
   createParamDecorator,
   ExecutionContext,
 } from '@nestjs/common';
 
+import { ApplicationPermissions } from '../../../../auth/src/lib/domain/operator/application_permission';
 import { resolveRequest } from './request.resolver';
 
 export type AuthenticatedUser = {
   id: string;
-  role: Roles;
+  isSuperUser: boolean;
+  permissions: Partial<ApplicationPermissions>;
 };
 
 export const CurrentUser = createParamDecorator((data: unknown, context: ExecutionContext): AuthenticatedUser => {

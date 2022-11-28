@@ -2,11 +2,12 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "auth": "libs/auth",
     "events": "libs/events",
     "marketplace": "libs/marketplace",
     "server": "apps/server",
-    "warehouse-api": "libs/warehouse-api",
     "shared": "libs/shared",
-    "warehouse": "libs/warehouse"
+    "warehouse": "libs/warehouse",
+    "warehouse-api": "libs/warehouse-api"
   }
 }
