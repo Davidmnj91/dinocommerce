@@ -1,4 +1,7 @@
-import { PassportAuthGuard } from '@dinocommerce/shared';
+import {
+  OperatorAuthGuard,
+  Permissions,
+} from '@dinocommerce/auth';
 import { ProductCategoriesUpdateApi } from '@dinocommerce/warehouse-api';
 import {
   Body,
@@ -25,7 +28,8 @@ import { UpdateProductCategoryRequestModel } from './update-product-category.req
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
+@Permissions({ PRODUCT: ['UPDATE'] })
+@UseGuards(OperatorAuthGuard)
 @ApiTags('Inventory')
 @Controller('inventory/categories')
 export class UpdateProductCategoryController implements ProductCategoriesUpdateApi {

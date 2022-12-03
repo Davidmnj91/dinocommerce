@@ -1,6 +1,9 @@
 import { plainToInstance } from 'class-transformer';
 
-import { PassportAuthGuard } from '@dinocommerce/shared';
+import {
+  OperatorAuthGuard,
+  Permissions,
+} from '@dinocommerce/auth';
 import { ProductCategoriesQueryApi } from '@dinocommerce/warehouse-api';
 import {
   Body,
@@ -25,7 +28,8 @@ import { QueryProductCategoriesRequestModel } from './query-product-category.req
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
+@Permissions({ PRODUCT_CATEGORY: ['VIEW'] })
+@UseGuards(OperatorAuthGuard)
 @ApiTags('Inventory')
 @Controller('inventory/categories')
 export class QueryProductCategoriesController implements ProductCategoriesQueryApi {

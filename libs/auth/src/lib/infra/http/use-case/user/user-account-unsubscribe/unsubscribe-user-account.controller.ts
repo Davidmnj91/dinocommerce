@@ -1,15 +1,9 @@
-import {
-  AuthenticatedUser,
-  CurrentUser,
-  PassportAuthGuard,
-} from '@dinocommerce/shared';
-import { UserUnsubscribeApi } from '@dinocommerce/warehouse-api';
+import { UserUnsubscribeApi } from '@dinocommerce/auth-api';
 import {
   Controller,
   Get,
   HttpCode,
   HttpStatus,
-  UseGuards,
 } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import {
@@ -22,10 +16,13 @@ import {
 import {
   ChangeEmailSubscriptionCommand,
 } from '../../../../../app/commands/user/change-email-subscription/change-email.subscription.command';
+import {
+  AuthenticatedUser,
+  CurrentUser,
+} from '../../../../../shared';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
 @ApiTags('Users')
 @Controller({ path: 'users/unsubscribe' })
 export class UnsubscribeUserController implements UserUnsubscribeApi {

@@ -1,5 +1,6 @@
 import { plainToInstance } from 'class-transformer';
 
+import { ListOperatorGroupApi } from '@dinocommerce/auth-api';
 import {
   Controller,
   Get,
@@ -25,11 +26,11 @@ import { GroupViewModel } from '../common/model/group.view-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@Permissions({ OPERATOR: ['VIEW'] })
+@Permissions({ OPERATOR_GROUP: ['VIEW'] })
 @UseGuards(OperatorAuthGuard)
-@ApiTags('Operator')
-@Controller('auth/operator/groups')
-export class ListGroupsController {
+@ApiTags('Operators')
+@Controller('operators/groups')
+export class ListGroupsController implements ListOperatorGroupApi {
   constructor(private queryBus: QueryBus) {}
 
   @ApiOperation({ summary: 'List existing Groups' })

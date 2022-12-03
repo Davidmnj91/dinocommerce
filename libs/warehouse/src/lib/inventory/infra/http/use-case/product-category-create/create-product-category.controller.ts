@@ -1,4 +1,7 @@
-import { PassportAuthGuard } from '@dinocommerce/shared';
+import {
+  OperatorAuthGuard,
+  Permissions,
+} from '@dinocommerce/auth';
 import { ProductCategoryCreateApi } from '@dinocommerce/warehouse-api';
 import {
   Body,
@@ -24,7 +27,8 @@ import { CreateProductCategoryRequestModel } from './create-product-category.req
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
+@Permissions({ PRODUCT: ['CREATE'] })
+@UseGuards(OperatorAuthGuard)
 @ApiTags('Inventory')
 @Controller('inventory/categories')
 export class CreateProductCategoryController implements ProductCategoryCreateApi {

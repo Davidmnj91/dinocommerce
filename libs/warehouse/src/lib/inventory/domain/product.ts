@@ -43,14 +43,11 @@ export class Product extends AbstractEntity {
   @ManyToOne(() => ProductCategory, { nullable: true, mapToPk: true })
   categoryId?: string;
 
-  constructor({ name, description, price, media, parentId, categoryId }: OwnEntityProps<Product>) {
+  constructor({ name, description, price, parentId, categoryId }: OwnEntityProps<Product>) {
     super();
     this.name = name;
     this.description = description;
     this.price = price;
-    if (media) {
-      this.media.add(...media);
-    }
     this.parentId = parentId;
     this.categoryId = categoryId;
   }

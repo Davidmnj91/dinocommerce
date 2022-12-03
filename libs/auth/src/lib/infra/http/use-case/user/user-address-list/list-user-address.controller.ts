@@ -1,17 +1,11 @@
 import { plainToInstance } from 'class-transformer';
 
-import {
-  AuthenticatedUser,
-  CurrentUser,
-  PassportAuthGuard,
-} from '@dinocommerce/shared';
-import { UserAddressListApi } from '@dinocommerce/warehouse-api';
+import { UserAddressListApi } from '@dinocommerce/auth-api';
 import {
   Controller,
   Get,
   HttpCode,
   HttpStatus,
-  UseGuards,
 } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import {
@@ -22,11 +16,14 @@ import {
 } from '@nestjs/swagger';
 
 import { ListUserAddressQuery } from '../../../../../app/queries/user-address-list/list-user-address.query';
+import {
+  AuthenticatedUser,
+  CurrentUser,
+} from '../../../../../shared';
 import { UserAddressViewModel } from '../common/models/user-address.view-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
 @ApiTags('Users')
 @Controller({ path: 'users/address' })
 export class UserAddressListController implements UserAddressListApi {

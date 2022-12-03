@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-import { CreateUserAddressRequest } from '@dinocommerce/warehouse-api';
+import { CreateUserAddressRequest } from '@dinocommerce/auth-api';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserAddressRequestModel implements CreateUserAddressRequest {

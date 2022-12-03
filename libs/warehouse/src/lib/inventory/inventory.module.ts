@@ -1,4 +1,3 @@
-import { PassportAuthGuard } from '@dinocommerce/shared';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
@@ -40,7 +39,7 @@ import {
 import { CreateProductController } from './infra/http/use-case/product-create/create-product.controller';
 import {
   GetProductsByCategoryIdController,
-} from './infra/http/use-case/product-get-by-category/product-get.controller';
+} from './infra/http/use-case/product-get-by-category/product-get-by-category.controller';
 import { FindProductController } from './infra/http/use-case/product-get/product-get.controller';
 import { RestockProductController } from './infra/http/use-case/product-restock/restock-product.controller';
 import { UpdateProductController } from './infra/http/use-case/product-update/update-product.controller';
@@ -81,7 +80,6 @@ const controllers = [
     ProductCategoryDomainService,
     ProductDomainService,
     ProductStockDomainService,
-    PassportAuthGuard,
     ...commandHandlers,
     ...queryHandlers,
     ...eventHandlers,

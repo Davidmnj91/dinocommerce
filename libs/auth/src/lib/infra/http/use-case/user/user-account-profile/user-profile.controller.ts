@@ -1,17 +1,11 @@
 import { plainToInstance } from 'class-transformer';
 
-import {
-  AuthenticatedUser,
-  CurrentUser,
-  PassportAuthGuard,
-} from '@dinocommerce/shared';
-import { UserProfileApi } from '@dinocommerce/warehouse-api';
+import { UserProfileApi } from '@dinocommerce/auth-api';
 import {
   Controller,
   Get,
   HttpCode,
   HttpStatus,
-  UseGuards,
 } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import {
@@ -22,11 +16,14 @@ import {
 } from '@nestjs/swagger';
 
 import { UserProfileQuery } from '../../../../../app/queries/user-profile/user-profile.query';
+import {
+  AuthenticatedUser,
+  CurrentUser,
+} from '../../../../../shared';
 import { UserProfileViewModel } from './user-profile.view-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
 @ApiTags('Users')
 @Controller({ path: 'users/profile' })
 export class UserProfileController implements UserProfileApi {

@@ -3,13 +3,11 @@ import {
   Response,
 } from 'express';
 
+import { UserEmailAuthApi } from '@dinocommerce/auth-api';
 import {
   AUTH_CONFIG,
   AuthConfig,
-  EMAIL_PASSWORD_STRATEGY,
-  JWT_STRATEGY,
 } from '@dinocommerce/shared';
-import { EmailAuthApi } from '@dinocommerce/warehouse-api';
 import {
   Body,
   Controller,
@@ -28,13 +26,17 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { RegisterEmailCommand } from '../../../../app/commands/register-email/register-email.command';
+import { RegisterEmailCommand } from '../../../../../app/commands/user/register-email/register-email.command';
+import {
+  EMAIL_PASSWORD_STRATEGY,
+  JWT_STRATEGY,
+} from '../../../../../shared';
 import { LoginUserRequestModel } from './login-email.request-model';
 import { RegisterEmailRequestModel } from './register-email.request-model';
 
-@ApiTags('Auth')
-@Controller('auth/email')
-export class EmailAuthUserController implements EmailAuthApi {
+@ApiTags('Users Auth')
+@Controller('users/auth/users/email')
+export class EmailAuthUserController implements UserEmailAuthApi {
   constructor(private commandBus: CommandBus, private configService: ConfigService) {}
 
   @ApiOperation({ summary: 'Login Current User' })

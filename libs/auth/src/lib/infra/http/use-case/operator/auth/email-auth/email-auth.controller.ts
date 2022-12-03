@@ -3,11 +3,10 @@ import {
   Response,
 } from 'express';
 
+import { OperatorEmailAuthApi } from '@dinocommerce/auth-api';
 import {
   AUTH_CONFIG,
   AuthConfig,
-  EMAIL_PASSWORD_STRATEGY,
-  JWT_STRATEGY,
 } from '@dinocommerce/shared';
 import {
   Body,
@@ -30,15 +29,19 @@ import {
 import {
   RegisterOperatorByEmailCommand,
 } from '../../../../../../app/commands/operator/register-email/register-email.command';
-import { LoginUserRequestModel } from './login-email.request-model';
+import {
+  EMAIL_PASSWORD_STRATEGY,
+  JWT_STRATEGY,
+} from '../../../../../../shared';
+import { LoginOperatorRequestModel } from './login-email.request-model';
 import { RegisterEmailRequestModel } from './register-email.request-model';
 
-@ApiTags('Auth')
-@Controller('auth/operator/email')
-export class EmailAuthUserController {
+@ApiTags('Operators Auth')
+@Controller('operators/auth/email')
+export class EmailAuthOperatorController implements OperatorEmailAuthApi {
   constructor(private commandBus: CommandBus, private configService: ConfigService) {}
 
-  @ApiOperation({ summary: 'Login Current User' })
+  @ApiOperation({ summary: 'Login Current Operator' })
   @UseGuards(AuthGuard(EMAIL_PASSWORD_STRATEGY))
   @Post('login')
   @HttpCode(HttpStatus.OK)
@@ -46,7 +49,7 @@ export class EmailAuthUserController {
   async login(
     @Req() req,
     @Res({ passthrough: true }) res: Response,
-    @Body() _loginUser: LoginUserRequestModel
+    @Body() _loginOperator: LoginOperatorRequestModel
   ): Promise<string> {
     const { token } = req.user;
     const { cookieName } = this.configService.get<AuthConfig>(AUTH_CONFIG);
@@ -55,7 +58,7 @@ export class EmailAuthUserController {
     return req.user.token;
   }
 
-  @ApiOperation({ summary: 'Register a new User' })
+  @ApiOperation({ summary: 'Register a new Operator' })
   @Post('register')
   @HttpCode(HttpStatus.OK)
   async register(@Body() registerEmail: RegisterEmailRequestModel) {
@@ -74,7 +77,7 @@ export class EmailAuthUserController {
     );
   }
 
-  @ApiOperation({ summary: 'Logout Current User' })
+  @ApiOperation({ summary: 'Logout Current Operator' })
   @UseGuards(AuthGuard(JWT_STRATEGY))
   @Post('logout')
   async logout(@Req() req: Request, @Res() res: Response) {

@@ -1,4 +1,7 @@
-import { PassportAuthGuard } from '@dinocommerce/shared';
+import {
+  OperatorAuthGuard,
+  Permissions,
+} from '@dinocommerce/auth';
 import { ProductRestockApi } from '@dinocommerce/warehouse-api';
 import {
   Body,
@@ -23,7 +26,8 @@ import { RestockProductRequestModel } from './restock-product.request-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
+@Permissions({ PRODUCT: ['UPDATE'] })
+@UseGuards(OperatorAuthGuard)
 @ApiTags('Inventory')
 @Controller('inventory/products')
 export class RestockProductController implements ProductRestockApi {

@@ -4,7 +4,6 @@ import {
   AUTH_CONFIG,
   AuthConfig,
   GOOGLE_CONFIG,
-  GOOGLE_STRATEGY,
   GoogleConfig,
 } from '@dinocommerce/shared';
 import {
@@ -21,10 +20,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { AuthToken } from '../../../../domain/auth-token';
+import { AuthToken } from '../../../../../domain/auth/auth-token';
+import { GOOGLE_STRATEGY } from '../../../../../shared';
 
-@ApiTags('Auth')
-@Controller('auth/google')
+@ApiTags('Users Auth')
+@Controller('users/auth/google')
 export class GoogleAuthUserController {
   constructor(private configService: ConfigService) {}
 

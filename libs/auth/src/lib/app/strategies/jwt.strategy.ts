@@ -9,14 +9,16 @@ import { Roles } from '@dinocommerce/events';
 import {
   AUTH_CONFIG,
   AuthConfig,
-  AuthenticatedUser,
-  JWT_STRATEGY,
 } from '@dinocommerce/shared';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 
 import { AuthService } from '../../domain/auth/auth.service';
+import {
+  AuthenticatedUser,
+  JWT_STRATEGY,
+} from '../../shared';
 
 type JwtPayload = { sub: string; role: Roles; iat: number; exp: number };
 

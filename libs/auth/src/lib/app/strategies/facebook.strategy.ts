@@ -2,7 +2,6 @@ import { Strategy } from 'passport-facebook';
 
 import {
   FACEBOOK_CONFIG,
-  FACEBOOK_STRATEGY,
   FacebookConfig,
 } from '@dinocommerce/shared';
 import { Injectable } from '@nestjs/common';
@@ -12,6 +11,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { AuthToken } from '../../domain/auth/auth-token';
 import { AuthUser } from '../../domain/auth/auth-user';
 import { AuthService } from '../../domain/auth/auth.service';
+import { FACEBOOK_STRATEGY } from '../../shared';
 
 type FacebookProfile = {
   id: string;

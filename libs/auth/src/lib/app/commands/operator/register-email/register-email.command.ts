@@ -32,9 +32,9 @@ export class RegisterOperatorByEmailCommand extends Command<void> {
   @IsNotEmpty()
   password: string;
 
-  groupIds: string[];
+  groupIds?: string[];
 
-  isSuperUser: boolean;
+  isSuperUser?: boolean;
 
   constructor({
     name,

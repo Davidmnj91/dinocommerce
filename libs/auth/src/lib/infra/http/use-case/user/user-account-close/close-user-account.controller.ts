@@ -1,15 +1,9 @@
-import {
-  AuthenticatedUser,
-  CurrentUser,
-  PassportAuthGuard,
-} from '@dinocommerce/shared';
-import { CloseAccountApi } from '@dinocommerce/warehouse-api';
+import { CloseAccountApi } from '@dinocommerce/auth-api';
 import {
   Controller,
   Delete,
   HttpCode,
   HttpStatus,
-  UseGuards,
 } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import {
@@ -20,10 +14,13 @@ import {
 } from '@nestjs/swagger';
 
 import { CloseUserAccountCommand } from '../../../../../app/commands/user/close-account/close-account.command';
+import {
+  AuthenticatedUser,
+  CurrentUser,
+} from '../../../../../shared';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
 @ApiTags('Users')
 @Controller({ path: 'users/close' })
 export class CloseUserAccountController implements CloseAccountApi {

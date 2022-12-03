@@ -4,7 +4,6 @@ import {
   AUTH_CONFIG,
   AuthConfig,
   TWITTER_CONFIG,
-  TWITTER_STRATEGY,
   TwitterConfig,
 } from '@dinocommerce/shared';
 import {
@@ -21,10 +20,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { AuthToken } from '../../../../domain/auth-token';
+import { AuthToken } from '../../../../../domain/auth/auth-token';
+import { TWITTER_STRATEGY } from '../../../../../shared';
 
-@ApiTags('Auth')
-@Controller('auth/twitter')
+@ApiTags('Users Auth')
+@Controller('users/auth/twitter')
 export class TwitterAuthUserController {
   constructor(private configService: ConfigService) {}
 

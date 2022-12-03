@@ -1,6 +1,9 @@
 import { plainToClass } from 'class-transformer';
 
-import { PassportAuthGuard } from '@dinocommerce/shared';
+import {
+  OperatorAuthGuard,
+  Permissions,
+} from '@dinocommerce/auth';
 import { ProductFindApi } from '@dinocommerce/warehouse-api';
 import {
   Controller,
@@ -24,7 +27,8 @@ import { ProductViewModel } from '../../common/models/product.view-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(new PassportAuthGuard('ADMINISTRATOR'))
+@Permissions({ PRODUCT: ['VIEW'] })
+@UseGuards(OperatorAuthGuard)
 @ApiTags('Inventory')
 @Controller('inventory/products')
 export class FindProductController implements ProductFindApi {

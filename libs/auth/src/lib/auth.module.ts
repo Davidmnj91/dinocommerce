@@ -1,7 +1,6 @@
 import {
   AUTH_CONFIG,
   AuthConfig,
-  JWT_STRATEGY,
 } from '@dinocommerce/shared';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
@@ -49,12 +48,17 @@ import { UserAddressDomainService } from './domain/user/user-address.service';
 import { UserAddress } from './domain/user/user-adress.entity';
 import { User } from './domain/user/user.entity';
 import { UserDomainService } from './domain/user/user.service';
-import { EmailAuthUserController } from './infra/http/use-case/operator/auth/email-auth/email-auth.controller';
+import { EmailAuthOperatorController } from './infra/http/use-case/operator/auth/email-auth/email-auth.controller';
 import { CreateGroupController } from './infra/http/use-case/operator/group/group-create/create-group.controller';
 import { GetGroupController } from './infra/http/use-case/operator/group/group-get/get-group.controller';
-import { ListGroupsController } from './infra/http/use-case/operator/group/group-list/get-groups.controller';
+import { ListGroupsController } from './infra/http/use-case/operator/group/group-list/list-groups.controller';
 import { UpdateGroupController } from './infra/http/use-case/operator/group/group-update/update-group.controller';
 import { OperatorProfileController } from './infra/http/use-case/operator/operator-profile/operator-profile.controller';
+import { EmailAuthUserController } from './infra/http/use-case/user/email-auth/email-auth.controller';
+import { FacebookAuthUserController } from './infra/http/use-case/user/facebook-auth/facebook-auth.controller';
+import { GoogleAuthUserController } from './infra/http/use-case/user/google-auth/google-auth.controller';
+import { MicrosoftAuthUserController } from './infra/http/use-case/user/microsoft-auth/microsoft-auth.controller';
+import { TwitterAuthUserController } from './infra/http/use-case/user/twitter-auth/twitter-auth.controller';
 import {
   CloseUserAccountController,
 } from './infra/http/use-case/user/user-account-close/close-user-account.controller';
@@ -72,6 +76,7 @@ import { UserAddressListController } from './infra/http/use-case/user/user-addre
 import {
   UserAddressUpdateController,
 } from './infra/http/use-case/user/user-address-update/update-user-address.controller';
+import { JWT_STRATEGY } from './shared';
 
 const commandHandlers = [
   RegisterEmailCommandHandler,
@@ -90,12 +95,25 @@ const queryHandlers = [
 ];
 const eventHandlers = [];
 const controllers = [
-  EmailAuthUserController,
+  EmailAuthOperatorController,
   CreateGroupController,
   UpdateGroupController,
   ListGroupsController,
   GetGroupController,
   OperatorProfileController,
+
+  EmailAuthUserController,
+  FacebookAuthUserController,
+  GoogleAuthUserController,
+  MicrosoftAuthUserController,
+  TwitterAuthUserController,
+  CloseUserAccountController,
+  UserProfileController,
+  UnsubscribeUserController,
+  UserAddressArchiveController,
+  UserAddressCreateController,
+  UserAddressUpdateController,
+  UserAddressListController,
 ];
 const authStrategies = [
   JwtStrategy,

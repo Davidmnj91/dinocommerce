@@ -4,7 +4,6 @@ import {
   AUTH_CONFIG,
   AuthConfig,
   MICROSOFT_CONFIG,
-  MICROSOFT_STRATEGY,
   MicrosoftConfig,
 } from '@dinocommerce/shared';
 import {
@@ -21,10 +20,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { AuthToken } from '../../../../domain/auth-token';
+import { AuthToken } from '../../../../../domain/auth/auth-token';
+import { MICROSOFT_STRATEGY } from '../../../../../shared';
 
-@ApiTags('Auth')
-@Controller('auth/microsoft')
+@ApiTags('Users Auth')
+@Controller('users/auth/microsoft')
 export class MicrosoftAuthUserController {
   constructor(private configService: ConfigService) {}
 

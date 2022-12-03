@@ -5,9 +5,10 @@ import {
   IsPhoneNumber,
 } from 'class-validator';
 
+import { OperatorEmailRegisterRequest } from '@dinocommerce/auth-api';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class RegisterEmailRequestModel {
+export class RegisterEmailRequestModel implements OperatorEmailRegisterRequest {
   @ApiProperty({ example: 'John' })
   @IsNotEmpty()
   name: string;
@@ -36,8 +37,8 @@ export class RegisterEmailRequestModel {
   password: string;
 
   @ApiProperty()
-  groupIds: string[];
+  groupIds?: string[];
 
   @ApiProperty()
-  isSuperUser: boolean;
+  isSuperUser?: boolean;
 }

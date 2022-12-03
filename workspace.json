@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "auth": "libs/auth",
+    "auth-api": "libs/auth-api",
     "events": "libs/events",
     "marketplace": "libs/marketplace",
     "server": "apps/server",

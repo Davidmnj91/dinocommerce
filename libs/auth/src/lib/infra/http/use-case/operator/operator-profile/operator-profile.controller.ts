@@ -1,10 +1,6 @@
 import { plainToInstance } from 'class-transformer';
 
-import {
-  AuthenticatedUser,
-  CurrentUser,
-  PassportAuthGuard,
-} from '@dinocommerce/shared';
+import { OperatorProfileApi } from '@dinocommerce/auth-api';
 import {
   Controller,
   Get,
@@ -21,14 +17,21 @@ import {
 } from '@nestjs/swagger';
 
 import { OperatorProfileQuery } from '../../../../../app/queries/operator-profile/operator-profile.query';
+import {
+  AuthenticatedUser,
+  CurrentUser,
+  OperatorAuthGuard,
+  Permissions,
+} from '../../../../../shared';
 import { OperatorProfileViewModel } from './operator-profile.view-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
+@Permissions({ OPERATOR: ['VIEW'] })
+@UseGuards(OperatorAuthGuard)
 @ApiTags('Operators')
 @Controller({ path: 'operators/profile' })
-export class OperatorProfileController {
+export class OperatorProfileController implements OperatorProfileApi {
   constructor(private queryBus: QueryBus) {}
 
   @ApiResponse({

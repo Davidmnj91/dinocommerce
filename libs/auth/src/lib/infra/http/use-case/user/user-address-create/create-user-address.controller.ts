@@ -1,16 +1,10 @@
-import {
-  AuthenticatedUser,
-  CurrentUser,
-  PassportAuthGuard,
-} from '@dinocommerce/shared';
-import { UserAddressCreateApi } from '@dinocommerce/warehouse-api';
+import { UserAddressCreateApi } from '@dinocommerce/auth-api';
 import {
   Body,
   Controller,
   HttpCode,
   HttpStatus,
   Post,
-  UseGuards,
 } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import {
@@ -23,11 +17,14 @@ import {
 import {
   CreateUserAddressCommand,
 } from '../../../../../app/commands/user/user-address-create/create-user-address.command';
+import {
+  AuthenticatedUser,
+  CurrentUser,
+} from '../../../../../shared';
 import { CreateUserAddressRequestModel } from './create-user-address.request-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
 @ApiTags('Users')
 @Controller({ path: 'users/address' })
 export class UserAddressCreateController implements UserAddressCreateApi {

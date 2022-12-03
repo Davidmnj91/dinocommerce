@@ -1,16 +1,10 @@
-import {
-  AuthenticatedUser,
-  CurrentUser,
-  PassportAuthGuard,
-} from '@dinocommerce/shared';
-import { UserAddressArchiveApi } from '@dinocommerce/warehouse-api';
+import { UserAddressArchiveApi } from '@dinocommerce/auth-api';
 import {
   Controller,
   Delete,
   HttpCode,
   HttpStatus,
   Param,
-  UseGuards,
 } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import {
@@ -23,10 +17,13 @@ import {
 import {
   ArchiveUserAddressCommand,
 } from '../../../../../app/commands/user/user-address-archive/archive-user-address.command';
+import {
+  AuthenticatedUser,
+  CurrentUser,
+} from '../../../../../shared';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
 @ApiTags('Users')
 @Controller({ path: 'users/address' })
 export class UserAddressArchiveController implements UserAddressArchiveApi {

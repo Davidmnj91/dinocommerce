@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@dinocommerce/auth": ["libs/auth/src/index.ts"],
+      "@dinocommerce/auth-api": ["libs/auth-api/src/index.ts"],
       "@dinocommerce/events": ["libs/events/src/index.ts"],
       "@dinocommerce/marketplace": ["libs/marketplace/src/index.ts"],
       "@dinocommerce/shared": ["libs/shared/src/index.ts"],

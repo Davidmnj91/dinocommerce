@@ -2,7 +2,6 @@ import { Strategy } from 'passport-google-oauth20';
 
 import {
   GOOGLE_CONFIG,
-  GOOGLE_STRATEGY,
   GoogleConfig,
 } from '@dinocommerce/shared';
 import { Injectable } from '@nestjs/common';
@@ -12,6 +11,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { AuthToken } from '../../domain/auth/auth-token';
 import { AuthUser } from '../../domain/auth/auth-user';
 import { AuthService } from '../../domain/auth/auth.service';
+import { GOOGLE_STRATEGY } from '../../shared';
 
 type GoogleProfile = {
   id: string;

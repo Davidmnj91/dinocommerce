@@ -4,7 +4,6 @@ import {
   AUTH_CONFIG,
   AuthConfig,
   FACEBOOK_CONFIG,
-  FACEBOOK_STRATEGY,
   FacebookConfig,
 } from '@dinocommerce/shared';
 import {
@@ -21,10 +20,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { AuthToken } from '../../../../domain/auth-token';
+import { AuthToken } from '../../../../../domain/auth/auth-token';
+import { FACEBOOK_STRATEGY } from '../../../../../shared';
 
-@ApiTags('Auth')
-@Controller('auth/facebook')
+@ApiTags('Users Auth')
+@Controller('users/auth/facebook')
 export class FacebookAuthUserController {
   constructor(private configService: ConfigService) {}
 

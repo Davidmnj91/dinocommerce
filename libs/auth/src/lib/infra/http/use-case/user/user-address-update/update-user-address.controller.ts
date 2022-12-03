@@ -1,9 +1,4 @@
-import {
-  AuthenticatedUser,
-  CurrentUser,
-  PassportAuthGuard,
-} from '@dinocommerce/shared';
-import { UserAddressUpdateApi } from '@dinocommerce/warehouse-api';
+import { UserAddressUpdateApi } from '@dinocommerce/auth-api';
 import {
   Body,
   Controller,
@@ -11,7 +6,6 @@ import {
   HttpStatus,
   Param,
   Patch,
-  UseGuards,
 } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import {
@@ -24,11 +18,14 @@ import {
 import {
   UpdateUserAddressCommand,
 } from '../../../../../app/commands/user/user-address-update/update-user-address.command';
+import {
+  AuthenticatedUser,
+  CurrentUser,
+} from '../../../../../shared';
 import { UpdateUserAddressRequestModel } from './update-user-address.request-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@UseGuards(PassportAuthGuard)
 @ApiTags('Users')
 @Controller({ path: 'users/address' })
 export class UserAddressUpdateController implements UserAddressUpdateApi {

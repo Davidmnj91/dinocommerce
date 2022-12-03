@@ -1,8 +1,9 @@
 import { Expose } from 'class-transformer';
 
+import { OperatorProfileResponse } from '@dinocommerce/auth-api';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class OperatorProfileViewModel {
+export class OperatorProfileViewModel implements OperatorProfileResponse {
   @Expose()
   @ApiProperty({ example: 'John' })
   readonly name: string;

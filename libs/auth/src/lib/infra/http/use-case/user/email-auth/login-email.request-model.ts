@@ -3,10 +3,10 @@ import {
   IsNotEmpty,
 } from 'class-validator';
 
-import { EmailLoginRequest } from '@dinocommerce/warehouse-api';
+import { UserEmailLoginRequest } from '@dinocommerce/auth-api';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class LoginUserRequestModel implements EmailLoginRequest {
+export class LoginUserRequestModel implements UserEmailLoginRequest {
   @ApiProperty({ example: 'test1@example.com' })
   @IsEmail()
   readonly email: string;

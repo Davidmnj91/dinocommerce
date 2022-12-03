@@ -1,3 +1,4 @@
+import { CreateOperatorGroupApi } from '@dinocommerce/auth-api';
 import {
   Body,
   Controller,
@@ -24,11 +25,11 @@ import { CreateGroupRequestModel } from './create-group.request-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@Permissions({ OPERATOR: ['CREATE'] })
+@Permissions({ OPERATOR_GROUP: ['CREATE'] })
 @UseGuards(OperatorAuthGuard)
-@ApiTags('Operator')
-@Controller('auth/operator/groups')
-export class CreateGroupController {
+@ApiTags('Operators')
+@Controller('operators/groups')
+export class CreateGroupController implements CreateOperatorGroupApi {
   constructor(private commandBus: CommandBus) {}
 
   @ApiOperation({ summary: 'Create new Group' })

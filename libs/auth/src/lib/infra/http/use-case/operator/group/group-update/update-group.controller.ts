@@ -1,3 +1,4 @@
+import { UpdateOperatorGroupApi } from '@dinocommerce/auth-api';
 import {
   Body,
   Controller,
@@ -25,11 +26,11 @@ import { UpdateGroupRequestModel } from './update-group.request-model';
 
 @ApiBearerAuth()
 @ApiCookieAuth()
-@Permissions({ OPERATOR: ['UPDATE'] })
+@Permissions({ OPERATOR_GROUP: ['UPDATE'] })
 @UseGuards(OperatorAuthGuard)
-@ApiTags('Operator')
-@Controller('auth/operator/groups')
-export class UpdateGroupController {
+@ApiTags('Operators')
+@Controller('operators/groups')
+export class UpdateGroupController implements UpdateOperatorGroupApi {
   constructor(private commandBus: CommandBus) {}
 
   @ApiOperation({ summary: 'Update an existing Group' })

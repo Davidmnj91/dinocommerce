@@ -4,3 +4,4 @@ export { Operator } from './lib/domain/operator/operator';
 export { Permission } from './lib/domain/operator/permission';
 export { UserAddress } from './lib/domain/user/user-adress.entity';
 export { User } from './lib/domain/user/user.entity';
+export { OperatorAuthGuard, Permissions } from './lib/shared';

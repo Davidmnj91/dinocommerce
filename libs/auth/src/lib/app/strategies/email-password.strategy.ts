@@ -1,6 +1,5 @@
 import { Strategy } from 'passport-local';
 
-import { EMAIL_PASSWORD_STRATEGY } from '@dinocommerce/shared';
 import {
   Injectable,
   UnauthorizedException,
@@ -9,6 +8,7 @@ import { PassportStrategy } from '@nestjs/passport';
 
 import { AuthUser } from '../../domain/auth/auth-user';
 import { AuthService } from '../../domain/auth/auth.service';
+import { EMAIL_PASSWORD_STRATEGY } from '../../shared';
 
 @Injectable()
 export class EmailPasswordStrategy extends PassportStrategy(Strategy, EMAIL_PASSWORD_STRATEGY) {
