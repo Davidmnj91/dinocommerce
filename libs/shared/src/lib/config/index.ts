@@ -6,6 +6,7 @@ import googleConfig from './google.config';
 import loggerConfig from './logger.config';
 import mailConfig from './mail.config';
 import microsoftConfig from './microsoft.config';
+import twitterConfig from './twitter.config';
 
 export { APP_CONFIG, AppConfig } from './app.config';
 export { AUTH_CONFIG, AuthConfig } from './auth.config';
@@ -15,6 +16,7 @@ export { GOOGLE_CONFIG, GoogleConfig } from './google.config';
 export { LOGGER_CONFIG, LoggerConfig } from './logger.config';
 export { MAIL_CONFIG, MailConfig } from './mail.config';
 export { MICROSOFT_CONFIG, MicrosoftConfig } from './microsoft.config';
+export { TWITTER_CONFIG, TwitterConfig } from './twitter.config';
 
 export const configurations = [
   appConfig,
@@ -23,6 +25,7 @@ export const configurations = [
   googleConfig,
   facebookConfig,
   microsoftConfig,
+  twitterConfig,
   mailConfig,
   loggerConfig,
 ];

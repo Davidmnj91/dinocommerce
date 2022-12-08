@@ -36,6 +36,7 @@ import { FacebookStrategy } from './app/strategies/facebook.strategy';
 import { GoogleStrategy } from './app/strategies/google.strategy';
 import { JwtStrategy } from './app/strategies/jwt.strategy';
 import { MicrosoftStrategy } from './app/strategies/microsoft.strategy';
+import { TwitterStrategy } from './app/strategies/twitter.strategy';
 import { AuthService } from './domain/auth/auth.service';
 import { Group } from './domain/operator/group';
 import { GroupDomainService } from './domain/operator/group.service';
@@ -57,6 +58,7 @@ import { EmailAuthUserController } from './infra/http/use-case/user/email-auth/e
 import { FacebookAuthUserController } from './infra/http/use-case/user/facebook-auth/facebook-auth.controller';
 import { GoogleAuthUserController } from './infra/http/use-case/user/google-auth/google-auth.controller';
 import { MicrosoftAuthUserController } from './infra/http/use-case/user/microsoft-auth/microsoft-auth.controller';
+import { TwitterAuthUserController } from './infra/http/use-case/user/twitter-auth/twitter-auth.controller';
 import {
   CloseUserAccountController,
 } from './infra/http/use-case/user/user-account-close/close-user-account.controller';
@@ -104,6 +106,7 @@ const controllers = [
   FacebookAuthUserController,
   GoogleAuthUserController,
   MicrosoftAuthUserController,
+  TwitterAuthUserController,
   CloseUserAccountController,
   UserProfileController,
   UnsubscribeUserController,
@@ -112,7 +115,14 @@ const controllers = [
   UserAddressUpdateController,
   UserAddressListController,
 ];
-const authStrategies = [JwtStrategy, EmailPasswordStrategy, GoogleStrategy, FacebookStrategy, MicrosoftStrategy];
+const authStrategies = [
+  JwtStrategy,
+  EmailPasswordStrategy,
+  GoogleStrategy,
+  FacebookStrategy,
+  MicrosoftStrategy,
+  TwitterStrategy,
+];
 
 const userCommandHandlers = [
   CreateUserCommandHandler,

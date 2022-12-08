@@ -4,8 +4,6 @@
   "projects": {
     "auth": "libs/auth",
     "auth-api": "libs/auth-api",
-    "backoffice": "apps/backoffice",
-    "backoffice-e2e": "apps/backoffice-e2e",
     "events": "libs/events",
     "marketplace": "libs/marketplace",
     "server": "apps/server",
